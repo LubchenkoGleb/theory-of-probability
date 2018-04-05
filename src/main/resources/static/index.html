@@ -25,11 +25,11 @@
         <input name="email" type="text" id="signUpEmail" class="text" readonly/>
     </p>
     <p>
-        <label>first name: </label>
+        <label>first fullName: </label>
         <input name="firstName" type="text" id="signUpFirstName" class="text"/>
     </p>
     <p>
-        <label>last name: </label>
+        <label>last fullName: </label>
         <input name="lastName" type="text" id="signUpLastName" class="text"/>
     </p>
     <p>
@@ -129,7 +129,7 @@
         }
     }
 
-    function getRequestParam(name) {
+    function getRequestParam(fullName) {
         if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
             return decodeURIComponent(name[1]);
     }

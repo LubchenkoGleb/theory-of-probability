@@ -2,7 +2,7 @@ package com.kpi.diploma.perevertailo.service.primary;
 
 import com.kpi.diploma.perevertailo.model.document.Group;
 import com.kpi.diploma.perevertailo.model.document.Journal;
-import com.kpi.diploma.perevertailo.model.document.Task;
+import com.kpi.diploma.perevertailo.model.document.task.Task;
 import com.kpi.diploma.perevertailo.model.document.Test;
 
 import java.util.List;
