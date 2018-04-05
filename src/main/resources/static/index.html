@@ -1,0 +1,148 @@
+<html>
+
+<header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</header>
+
+<body>
+<form id="login" method="post">
+    <h2>Login form</h2>
+    <p>
+        <label>email: </label>
+        <input type="text" name="username" id="username" class="text"/>
+    </p>
+    <p>
+        <label>password: </label>
+        <input type="password" name="password" id="password" class="text"/>
+    </p>
+    <input type="submit" name="sub" value="Submit" class="page"/>
+</form>
+
+<form id="signUp" method="post" style="display: none">
+    <h2>SignUp form</h2>
+    <p>
+        <label>email: </label>
+        <input name="email" type="text" id="signUpEmail" class="text" readonly/>
+    </p>
+    <p>
+        <label>first name: </label>
+        <input name="firstName" type="text" id="signUpFirstName" class="text"/>
+    </p>
+    <p>
+        <label>last name: </label>
+        <input name="lastName" type="text" id="signUpLastName" class="text"/>
+    </p>
+    <p>
+        <label>password: </label>
+        <input name="password" type="password" id="signUpUpPassword" class="text"/>
+    </p>
+    <input name="inviteKey" id="inviteKey" class="text" style="display: none"/>
+    <input type="submit" value="Submit" class="page"/>
+</form>
+</body>
+
+<script>
+    var email = getRequestParam('email');
+    var inviteKey = getRequestParam('inviteKey');
+
+    if (email !== undefined && inviteKey !== undefined) {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('signUp').style.display = 'block';
+        $('#signUpEmail').val(email);
+        $('#inviteKey').val(inviteKey);
+    } else {
+        $.ajax({
+            type: "GET",
+            url: "/role/all",
+            async: false,
+            success: redirectAfterLogin
+        });
+    }
+
+    $('#signUp').submit(function (e) {
+        e.preventDefault();
+
+        const form = document.getElementById('signUp');
+        const data = objectifyForm(form);
+        var jsonBody = JSON.stringify(data);
+        console.log(jsonBody);
+
+        $.ajax({
+            type: "POST",
+            url: "/user/signUp",
+            data: jsonBody,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            async: false,
+            success: authorize(data.email, data.password),
+            error: handleError('wrong invite key or email')
+        });
+    });
+
+    $('#login').submit(function (e) {
+        e.preventDefault();
+
+        var username = $("input#username").val();
+        var password = $("input#password").val();
+
+        authorize(username, password)();
+    });
+
+    function authorize(email, password) {
+        return function success(data, textStatus, jqXHR) {
+            console.log('email:' + email + ', password:' + password);
+
+            $.ajax({
+                type: "GET",
+                url: "/role/all",
+                async: false,
+                headers: {
+                    "Authorization": "Basic " + btoa(email + ":" + password)
+                },
+                success: redirectAfterLogin,
+                error: handleError('wrong credentials')
+            });
+        }
+    }
+
+    function redirectAfterLogin(res) {
+        console.log('in redirect after login');
+
+        if (res[0].role === 'ROLE_ADMIN') {
+            window.location.assign('/admin.html');
+        } else if (res[0].role === 'ROLE_TEACHER') {
+            window.location.assign('/teacher.html');
+        } else if (res[0].role === 'ROLE_STUDENT') {
+            window.location.assign('/student.html');
+        }
+    }
+
+    function handleError(message) {
+        return function error(jqXHR, textStatus, errorThrown) {
+            console.log('handle error invoked with params:' + message);
+            if (window.location.pathname !== '/index.html') {
+                window.location.assign('/index.html');
+            } else {
+                alert(message);
+            }
+        }
+    }
+
+    function getRequestParam(name) {
+        if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
+    }
+
+    function objectifyForm(formArray) {
+
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++) {
+            if (formArray[i].type !== 'submit') {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+        }
+        return returnArray;
+    }
+</script>
+</html>
