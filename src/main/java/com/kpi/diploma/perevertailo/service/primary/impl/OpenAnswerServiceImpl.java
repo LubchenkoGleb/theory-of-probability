@@ -77,8 +77,8 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
 
 
     @Override
-    public OpenAnswerTask calculate(String taskName, Map<String, Object> inputParams, String teacherId) {
-        log.info("'calculate' invoked with params'{}, {}, {}'", taskName, inputParams, teacherId);
+    public OpenAnswerTask calculate(String taskName, Map<String, Object> inputParams, String teacherEmail) {
+        log.info("'calculate' invoked with params'{}, {}, {}'", taskName, inputParams, teacherEmail);
 
         if (!calculatorsByName.containsKey(taskName)) {
             throw new ResourceNotFoundException("calculator with name'" + taskName + "' not found");
@@ -99,7 +99,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                 answer,
                 calculatedValues.getCalculatedValues());
 
-        Teacher teacher = (Teacher) userRepository.findById(teacherId).get();
+        Teacher teacher = (Teacher) userRepository.findByEmail(teacherEmail);
         openAnswerTask.setTeacher(teacher);
 
         openAnswerTask = taskRepository.save(openAnswerTask);

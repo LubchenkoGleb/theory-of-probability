@@ -127,7 +127,7 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         teacher = new Teacher();
         teacher.setId("tch");
         teacher.setEmail("teacher");
-        teacher.setPassword("1234");
+        teacher.setPassword(passwordEncoder.encode("1234"));
         teacher.setFirstName("teacher_first_name");
         teacher.setLastName("teacher_last_name");
         teacher.setEnable(true);
