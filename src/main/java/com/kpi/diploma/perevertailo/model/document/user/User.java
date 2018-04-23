@@ -3,7 +3,6 @@ package com.kpi.diploma.perevertailo.model.document.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kpi.diploma.perevertailo.model.document.Role;
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -24,7 +23,6 @@ public class User {
     @Indexed(unique = true)
     private String email;
 
-    @NotNull
     private String password;
 
     private Boolean enable = false;

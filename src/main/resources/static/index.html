@@ -2,43 +2,132 @@
 
 <header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A visual introduction to probability and statistics.">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+
+    <!-- Home Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- Full Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+
+    <!--Jquery-->
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Full Page -->
+    <script src="js/jquery.fullpage.js"></script>
+
+
+    <!-- Full Page Setup -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#fullpage').fullpage({
+            anchors: ['firstPage', 'secondPage'],
+            menu: '#menu',
+            afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
+                $('.menu-sub li.active').removeClass('active');
+                $('.menu-sub li').eq(slideIndex).addClass('active');
+            }
+
+        });
+
+
+    $('.scroll-down').show("fade");
+    $('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);
+
+    });
+    </script>
+
 </header>
 
 <body>
-<form id="login" method="post">
-    <h2>Login form</h2>
-    <p>
-        <label>email: </label>
-        <input type="text" name="username" id="username" class="text"/>
-    </p>
-    <p>
-        <label>password: </label>
-        <input type="password" name="password" id="password" class="text"/>
-    </p>
-    <input type="submit" name="sub" value="Submit" class="page"/>
-</form>
+<div id="background"></div>
+<div class="header">
 
-<form id="signUp" method="post" style="display: none">
-    <h2>SignUp form</h2>
-    <p>
-        <label>email: </label>
-        <input name="email" type="text" id="signUpEmail" class="text" readonly/>
-    </p>
-    <p>
-        <label>first fullName: </label>
-        <input name="firstName" type="text" id="signUpFirstName" class="text"/>
-    </p>
-    <p>
-        <label>last fullName: </label>
-        <input name="lastName" type="text" id="signUpLastName" class="text"/>
-    </p>
-    <p>
-        <label>password: </label>
-        <input name="password" type="password" id="signUpUpPassword" class="text"/>
-    </p>
-    <input name="inviteKey" id="inviteKey" class="text" style="display: none"/>
-    <input type="submit" value="Submit" class="page"/>
-</form>
+
+</div>
+<div class="menu-bottom">
+
+    <ul id="menu">
+        <li data-menuanchor="firstPage" class="active" id='home'><a href="#firstPage">Вхід</a></li>
+        <li data-menuanchor="secondPage" id="chapter-menu"><a href="#secondPage">Реєстрація</a></li>
+    </ul>
+
+</div>
+<div class="content" id="fullpage">
+    <div class="section " id="section0 ">
+        <div class="section-wrapper">
+            <div class="intro">
+                <h1>Теорія ймовірностей та математична статистика</h1>
+                <form id="login" method="post">
+                    <p>
+                        <label>Пошта: </label>
+                        <input type="text" name="username" id="username" class="text"/>
+                    </p>
+                    <p>
+                        <label>Пароль: </label>
+                        <input type="password" name="password" id="password" class="text"/>
+                    </p>
+                    <input type="submit" name="sub" value="Увійти" class="page"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section1">
+        <div class="chapter-nav">
+            <form id="signUp" method="post">
+                <h4>Реєстрація</h4>
+                <p>
+                    <label>email: </label>
+                    <input name="email" type="text" id="signUpEmail" class="text" readonly/>
+                </p>
+                <p>
+                    <label>first fullName: </label>
+                    <input name="firstName" type="text" id="signUpFirstName" class="text"/>
+                </p>
+                <p>
+                    <label>last fullName: </label>
+                    <input name="lastName" type="text" id="signUpLastName" class="text"/>
+                </p>
+                <p>
+                    <label>password: </label>
+                    <input name="password" type="password" id="signUpUpPassword" class="text"/>
+                </p>
+                <input name="inviteKey" id="inviteKey" class="text" style="display: none"/>
+                <input type="submit" value="Підтвердити" class="page"/>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- D3 -->
+<script src="./js/d3.min.js"></script>
+
+<!-- Ball JavaScript -->
+<script src="./js/balls.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-85617614-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
 </body>
 
 <script>
