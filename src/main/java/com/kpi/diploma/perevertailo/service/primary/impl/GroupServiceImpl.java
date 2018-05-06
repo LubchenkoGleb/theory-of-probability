@@ -22,13 +22,13 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group createGroup(Group group) {
+    public List<Group> createGroup(Group group) {
         log.info("'createGroup' invoked with params'{}'", group);
 
         Group savedGroup = groupRepository.save(group);
         log.info("'savedGroup={}'", savedGroup);
 
-        return savedGroup;
+        return groupRepository.findAll();
     }
 
     @Override

@@ -1,7 +1,85 @@
 <html>
 <header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </header>
 <body>
-    <h1>Hello Admin</h1>
+<h1>Hello Admin</h1>
+
+<div style=" display: flex;flex-direction: row">
+    <div >
+        <ul id="groups"></ul>
+        <button id="addStudentButton">Add student</button>
+    </div>
+
+    <div>
+        <ul id="students"></ul>
+    </div>
+</div>
 </body>
+
+<script>
+
+    $.ajax({
+        type: "GET",
+        url: "/group/all",
+        async: false,
+        success: function (groupsResponse) {
+            displayGroupMenu(groupsResponse);
+            loadStudentById(groupsResponse[0].id)();
+        }
+    });
+
+    $("#addStudentButton").click(function () {
+        console.log('lala');
+        $.ajax({
+            type: "POST",
+            url: "/group/create",
+            data: JSON.stringify({'name':'test'}),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            async: false,
+            success: function (groupsResponse) {
+                displayGroupMenu(groupsResponse);
+            },
+            error: function(data) {
+                console.log('error=' + JSON.stringify(data));
+            }
+        });
+    });
+
+    function loadStudentById(studentId) {
+        return function handle() {
+            $.ajax({
+                type: "GET",
+                url: "/student/get-by-group/" + studentId,
+                async: false,
+                success: function (studentsRsponse) {
+                    console.log('students=' + JSON.stringify(studentsRsponse));
+                    var studentsMenu = document.getElementById('students');
+                    studentsMenu.innerHTML = '';
+
+                    for (i = 0; i < studentsRsponse.length; i++) {
+                        var DOMitem = document.createElement('li');
+                        DOMitem.innerHTML = JSON.stringify(studentsRsponse[i]);
+                        studentsMenu.appendChild(DOMitem);
+                    }
+                }
+            });
+        }
+    }
+
+    function displayGroupMenu(groups) {
+        var groupsMenu = document.getElementById('groups');
+        groupsMenu.innerHTML = '';
+
+        for (var i = 0; i < groups.length; i++) {
+            var DOMitem = document.createElement('li');
+            DOMitem.onclick = loadStudentById(groups[i].id);
+            DOMitem.innerHTML = groups[i].name;
+            groupsMenu.appendChild(DOMitem);
+        }
+    }
+
+</script>
 </html>

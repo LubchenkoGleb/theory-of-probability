@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GroupService {
 
-    Group createGroup(Group groups);
+    List<Group> createGroup(Group groups);
 
     List<Group> getAllGroups();
 

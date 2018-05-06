@@ -21,12 +21,10 @@ public class GroupController {
     }
 
     @PostMapping(value = "/create")
-    private ResponseEntity<Group> create(@RequestBody  Group group) {
+    private ResponseEntity<List<Group>> create(@RequestBody  Group group) {
         log.info("'createGroup' invoked with params'{}'", group);
 
-        Group response = groupService.createGroup(group);
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(groupService.createGroup(group));
     }
 
     @GetMapping(value = "/{id}")
