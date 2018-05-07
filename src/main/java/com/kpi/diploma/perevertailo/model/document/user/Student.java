@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "user")
 public class Student extends User {
 
-    @DBRef
+    @DBRef(lazy = false)
     @JsonIgnore
     private Group group;
 

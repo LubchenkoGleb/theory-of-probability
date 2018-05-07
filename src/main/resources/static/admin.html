@@ -1,20 +1,82 @@
 <html>
 <header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A visual introduction to probability and statistics.">
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+
+    <!-- Home Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- Full Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css"/>
+
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Full Page -->
+    <script src="js/jquery.fullpage.js"></script>
+
+    <!-- Full Page Setup -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fullpage').fullpage({
+                anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage'],
+                menu: '#menu',
+                afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {
+                    $('.menu-sub li.active').removeClass('active');
+                    $('.menu-sub li').eq(slideIndex).addClass('active');
+                }
+            });
+
+            $('.scroll-down').show("fade");
+            $('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);
+
+        });
+    </script>
+
 </header>
 <body>
-<h1>Hello Admin</h1>
+<div class="menu-bottom">
+    <ul id="menu">
+        <li data-menuanchor="firstPage" class="active" id='home'><a href="#firstPage">Групи</a></li>
+        <li data-menuanchor="secondPage" id="chapter-menu"><a href="#secondPage">Викладачі</a></li>
+        <li data-menuanchor="3rdPage"><a href="#3rdPage">Студенти</a></li>
+        <li id="settings" style="margin-right: 100px;"><a href="4thPage"><img scr="img/sett.png"></a></li>
+        <li id="exit" style="margin-right: 0px;">Вихід</li>
+    </ul>
+</div>
 
-<div style=" display: flex;flex-direction: row">
-    <div >
-        <ul id="groups"></ul>
-        <button id="addStudentButton">Add student</button>
-    </div>
+<div class="section" id="section0">
+    <div class="section-wrapper">
+        <div class="group">
+            <ul id="groups"></ul>
+            <button id="addGroupButton">Add group</button>
+        </div>
 
-    <div>
-        <ul id="students"></ul>
+           <select id="teachers"></select>
+           <button id="seTeacherToGroup" class="rec_button">Обрати викладача для групи:</button>
+
+        <table id="studentsTable">
+            <thead>
+            <tr>
+                <th>Id:</th>
+                <th>Прізвище:</th>
+                <th>Ім'я:</th>
+                <th>Пошта:</th>
+                <th>Статус:</th>
+            </tr>
+            </thead>
+        </table>
     </div>
 </div>
+
 </body>
 
 <script>
@@ -29,12 +91,12 @@
         }
     });
 
-    $("#addStudentButton").click(function () {
+    $("#addGroupButton").click(function () {
         console.log('lala');
         $.ajax({
             type: "POST",
             url: "/group/create",
-            data: JSON.stringify({'name':'test'}),
+            data: JSON.stringify({'name': 'test'}),
             headers: {
                 "Content-Type": "application/json"
             },
@@ -42,7 +104,7 @@
             success: function (groupsResponse) {
                 displayGroupMenu(groupsResponse);
             },
-            error: function(data) {
+            error: function (data) {
                 console.log('error=' + JSON.stringify(data));
             }
         });
@@ -56,13 +118,21 @@
                 async: false,
                 success: function (studentsRsponse) {
                     console.log('students=' + JSON.stringify(studentsRsponse));
-                    var studentsMenu = document.getElementById('students');
-                    studentsMenu.innerHTML = '';
+                    var studentsMenu = document.getElementById('studentsTable');
 
                     for (i = 0; i < studentsRsponse.length; i++) {
-                        var DOMitem = document.createElement('li');
-                        DOMitem.innerHTML = JSON.stringify(studentsRsponse[i]);
-                        studentsMenu.appendChild(DOMitem);
+                        var row = studentsMenu.insertRow(i + 1);
+
+                        var idCell = row.insertCell(0);
+                        idCell.innerHTML = studentsRsponse[i].id;
+                        var lastNameCell = row.insertCell(1);
+                        lastNameCell.innerHTML = studentsRsponse[i].lastName;
+                        var firstNameCell = row.insertCell(2);
+                        firstNameCell.innerHTML = studentsRsponse[i].firstName;
+                        var emailCell = row.insertCell(3);
+                        emailCell.innerHTML = studentsRsponse[i].email;
+                        var enableCell = row.insertCell(4);
+                        enableCell.innerHTML = studentsRsponse[i].enable;
                     }
                 }
             });
@@ -81,5 +151,36 @@
         }
     }
 
+    $.ajax({
+        type: "GET",
+        url: "/teacher/all",
+        async: false,
+        success: function (teachersResponse) {
+            displayTeachersMenu(teachersResponse);
+        }
+    });
+
+    function displayTeachersMenu(teachers) {
+        var teachersMenu = document.getElementById('teachers');
+        teachersMenu.innerHTML = '';
+
+        for (var i = 0; i < teachers.length; i++) {
+            var DOMitem = document.createElement('option');
+     //       DOMitem.onclick = loadStudentById(groups[i].id);
+            DOMitem.innerHTML = teachers[i].lastName + ' ' + teachers[i].firstName ;
+            teachersMenu.appendChild(DOMitem);
+        }
+    }
+
+    function setTeacherToGroup(teacherId, groupId) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/set-teacher-to-group?teacherId=" + teacherId + "&groupId=" + groupId,
+            async: false
+        })
+    }
 </script>
 </html>
+
+
+

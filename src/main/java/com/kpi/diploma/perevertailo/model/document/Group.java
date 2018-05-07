@@ -21,7 +21,7 @@ public class Group {
 
     private String name;
 
-    @DBRef
+    @DBRef(lazy = false)
     @JsonIgnore
     private List<Student> students;
 

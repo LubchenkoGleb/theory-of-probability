@@ -8,6 +8,7 @@ import com.kpi.diploma.perevertailo.model.document.user.User;
 import com.kpi.diploma.perevertailo.model.util.value.RoleValues;
 import com.kpi.diploma.perevertailo.repository.GroupRepository;
 import com.kpi.diploma.perevertailo.repository.RoleRepository;
+import com.kpi.diploma.perevertailo.repository.TeacherRepository;
 import com.kpi.diploma.perevertailo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +22,8 @@ import java.util.*;
 public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     private final UserRepository userRepository;
+
+    private final TeacherRepository teacherRepository;
 
     private final RoleRepository roleRepository;
 
@@ -37,9 +40,10 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
     private List<Student> students;
 
     @Autowired
-    public TheoryOfProbabilityApplication(UserRepository userRepository, RoleRepository roleRepository,
+    public TheoryOfProbabilityApplication(UserRepository userRepository, TeacherRepository teacherRepository, RoleRepository roleRepository,
                                           GroupRepository groupRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.teacherRepository = teacherRepository;
         this.roleRepository = roleRepository;
         this.groupRepository = groupRepository;
         this.passwordEncoder = passwordEncoder;
@@ -133,7 +137,7 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         teacher.setEnable(true);
         teacher.getRoles().add(teacherRole);
 
-        userRepository.save(teacher);
+        teacherRepository.save(teacher);
 
     }
 

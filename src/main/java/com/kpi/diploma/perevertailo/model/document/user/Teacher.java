@@ -18,7 +18,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"groups"}, callSuper = true)
 public class Teacher extends User {
 
-    @DBRef
+    @DBRef(lazy = false)
     @JsonIgnore
     private Set<Group> groups;
 

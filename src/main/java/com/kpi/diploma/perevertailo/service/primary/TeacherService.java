@@ -4,6 +4,7 @@ import com.kpi.diploma.perevertailo.model.document.Group;
 import com.kpi.diploma.perevertailo.model.document.Journal;
 import com.kpi.diploma.perevertailo.model.document.task.Task;
 import com.kpi.diploma.perevertailo.model.document.Test;
+import com.kpi.diploma.perevertailo.model.document.user.Teacher;
 
 import java.util.List;
 
@@ -26,5 +27,7 @@ public interface TeacherService {
     void assignTestToGroup(String testId, String groupId, String teacherId);
 
     Journal getJournal(String groupId, String teacherId);
+
+    List<Teacher> getAll();
 
 }

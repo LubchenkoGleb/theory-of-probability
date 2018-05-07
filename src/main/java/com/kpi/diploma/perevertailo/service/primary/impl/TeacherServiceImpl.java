@@ -4,6 +4,8 @@ import com.kpi.diploma.perevertailo.model.document.Group;
 import com.kpi.diploma.perevertailo.model.document.Journal;
 import com.kpi.diploma.perevertailo.model.document.task.Task;
 import com.kpi.diploma.perevertailo.model.document.Test;
+import com.kpi.diploma.perevertailo.model.document.user.Teacher;
+import com.kpi.diploma.perevertailo.repository.TeacherRepository;
 import com.kpi.diploma.perevertailo.service.primary.TeacherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,12 @@ import java.util.List;
 @Slf4j
 @Service
 public class TeacherServiceImpl implements TeacherService {
+
+    private final TeacherRepository teacherRepository;
+
+    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
+    }
 
     @Override
     public List<Group> getListOfGroup(String teacherId) {
@@ -59,27 +67,12 @@ public class TeacherServiceImpl implements TeacherService {
         return null;
     }
 
-//    @Override
-//    public ManagerDto registerManager(RegistrationManagerDto registrationManagerDto) {
-//        log.info("'registerManager' invoked with params'{}'", registrationManagerDto);
-//
-//        Manager managerEntity = managerRepository.findByInviteKey(registrationManagerDto.getInviteKey());
-//
-//        if (managerEntity == null || !managerEntity.getEmail().equals(registrationManagerDto.getEmail())) {
-//            String errMsg = "inviteKey not found or doesn't belong to email";
-//            log.error(errMsg);
-//            throw new IncorrectInviteKey(errMsg);
-//        }
-//
-//        managerEntity.setEnable(true);
-//        managerEntity.setPassword(passwordEncoder.encode(registrationManagerDto.getPassword()));
-//        managerEntity.setFirstName(registrationManagerDto.getFirstName());
-//        managerEntity.setLastName(registrationManagerDto.getLastName());
-//        managerEntity = managerRepository.save(managerEntity);
-//        log.info("'managerEntity={}'", managerEntity);
-//
-//        ManagerDto managerDto = ManagerDto.convert(managerEntity);
-//        managerDto.setAccessToken(tokenService.getToken(managerDto.getEmail()));
-//        return managerDto;
-//    }
+    @Override
+    public List<Teacher> getAll() {
+
+        List<Teacher> all = teacherRepository.findAll();
+        log.info("all={}", all);
+
+        return all;
+    }
 }

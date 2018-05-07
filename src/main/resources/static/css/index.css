@@ -219,10 +219,13 @@ p{
 
 
 .intro{
+    margin-top: 200px;
 	text-align: center;
 }
 
-
+.group{
+    margin-top: 80px;
+}
 
 .content{
 	width: 100%;
@@ -231,7 +234,7 @@ p{
 
 .section-wrapper{
 	margin:  0 auto;
-	width: 80%;
+	width: 90%;
 
 }
 .slide-section-wrapper{
@@ -606,9 +609,11 @@ ul.menu-sub{
 	.right{
 		padding-top: 8em;
 	}
+    .login{
+     padding: 15px;
+     margin-top : 40px;
 
-
-}
+     }
 
 
 /*Social*/
@@ -625,7 +630,6 @@ ul.menu-sub{
 
         width: 100%;
     }
-
 #social ul li{
 		display: inline-block;
 		padding: 2%;
