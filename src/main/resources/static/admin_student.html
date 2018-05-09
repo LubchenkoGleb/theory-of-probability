@@ -47,12 +47,39 @@
                 </thead>
             </table>
         </div>
+        <form id="inviteStudents" method="post" style="display: none">
+            <h2>Надіслати лист підтвердження</h2>
+            <p>
+                <label>email: </label>
+                <input name="email" type="text" id="inviteEmail" class="text"/>
+            </p>
+            <input type="submit" value="Надіслати" class="page"/>
+        </form>
     </div>
 </body>
 <script>
+    // $('#inviteStudents').submit(function (e) {
+    //     e.preventDefault();
+    //     var email = $("input#email").val();
+    //     inviteStudents(email)();
+    // });
+    //         function inviteStudents(email) {
+    //                     $.ajax({
+    //                     type: "GET",
+    //                     url: "/role/all",
+    //                     async: false,
+    //                     headers: {
+    //                         "Authorization": "Basic " + btoa(email + ":" + password)
+    //                     },
+    //                     success: redirectAfterLogin,
+    //                     error: handleError('wrong credentials')
+    //                 });
+    //             }
+    //         }
+
     $.ajax({
         type: "GET",
-        url: "/teacher/all",
+        url: "/student/all",
         async: false,
         success: function (studentsRsponse) {
             console.log('students=' + JSON.stringify(studentsRsponse));

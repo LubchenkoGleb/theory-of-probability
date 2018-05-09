@@ -54,26 +54,29 @@
 <div class="section">
     <div class="left">
         <ul id="groups"></ul>
-        <button id="addGroupButton" class="rec_button">Додати групу</button>
+        <input id="name" class="inpGr"/>
+     <br><button id="addGroupButton" class="rec_button">Додати групу</button>
     </div>
     <div class="right">
-        <div clas="rb">
+        <div class="rb">
             <h2>Обрати викладача для групи</h2>
         </div>
         <div class="rs"><select id="teachers"></select></div>
+        <h2>Додати студента в групу</h2>
+        <select id="students"></select>
         <table id="studentsTable">
-            <thead>
-            <tr>
-                <th>Id:</th>
-                <th>Прізвище:</th>
-                <th>Ім'я:</th>
-                <th>Пошта:</th>
-                <th>Статус:</th>
-                <th>Видалити</th>
-            </tr>
-            </thead>
-            <tbody id="studentTableBody"></tbody>
-        </table>
+        <thead>
+        <tr>
+            <th>Id:</th>
+            <th>Прізвище:</th>
+            <th>Ім'я:</th>
+            <th>Пошта:</th>
+            <th>Статус:</th>
+            <th>Видалити</th>
+        </tr>
+        </thead>
+        <tbody id="studentTableBody"></tbody>
+    </table>
     </div>
 </div>
 
@@ -82,6 +85,7 @@
 <script>
     let activeGroup;
     let activeTeacher;
+    let activeStudent;
 
     $.ajax({
         type: "GET",
@@ -102,6 +106,15 @@
             displayTeachersMenu(teachersResponse);
         }
     });
+    $.ajax({
+        type: "GET",
+        url: "/student/all",
+        async: false,
+        success: function (studentsResponse) {
+         //   displayStudentsMenu(studentsResponse);
+        }
+    });
+
 
     $("#addGroupButton").click(function () {
         $.ajax({
@@ -214,6 +227,25 @@
         })
     }
 
+    function displayStudentsMenu(students) {
+        let studentsMenu = document.getElementById('students');
+
+        studentsMenu.innerHTML = '';
+
+        for (let i = 0; i < students.length; i++) {
+            let DOMitem = document.createElement('option');
+            DOMitem.value = students[i].id;
+            DOMitem.innerHTML = students[i].lastName + ' ' + students[i].firstName;
+            studentsMenu.appendChild(DOMitem);
+        }
+
+        studentsMenu.onchange = function (event) {
+            activeStudent = event.target.value;
+            addStudentsToGroup()(activeStudent, activeGroup);
+            // console.log('activeGr=' + activeGroup + ', activeTeacher=' + activeTeacher);
+        }
+    }
+
     function deleteStudentfromgroup(studentId, groupId) {
         $.ajax({
             type: "DEL",
@@ -221,6 +253,14 @@
             async: false
         })
 
+    }
+
+    function addStudentsToGroup() {
+        $.ajax({
+            type: "POST",
+            url: "/admin//add-student-to-group?studentId=" + studentId + "&groupId=" + groupId,
+            async: false
+        })
     }
 </script>
 </html>

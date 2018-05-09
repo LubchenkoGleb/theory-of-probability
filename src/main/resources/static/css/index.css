@@ -136,6 +136,7 @@ select {
 	-webkit-transition: background-color 0.5s ease-out;
 	border-radius: 20px;
 	text-align: center;
+	margin-bottom: 25px;
 }
 
 #bp:hover{
@@ -415,8 +416,10 @@ ul.menu-sub{
 .chapter-nav{
 	text-align: center;
 }
-
-
+.inpGr{
+	width: 110px;
+	margin-bottom: 10px;
+}
 
 .nav-unit-wrapper-s{
     padding: 5%; 
