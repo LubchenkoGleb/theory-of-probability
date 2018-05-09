@@ -42,4 +42,9 @@ public class StudentController {
 
         return ResponseEntity.ok(all);
     }
+
+    @GetMapping(value = "/all-without-group")
+    private ResponseEntity<List<Student>> getAllWithoutGroup() {
+        return ResponseEntity.ok(studentService.getStudentsWithoutGroup());
+    }
 }

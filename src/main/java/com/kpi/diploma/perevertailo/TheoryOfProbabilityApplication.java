@@ -60,6 +60,7 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         initRoles();
         createAdmin();
         createGroup(3);
+        createStudents(2, "noGroup");
         usersForConfirmation();
 
     }
@@ -101,8 +102,8 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
             student.setId("st" + groupName + i);
             student.setEmail("st" + groupName + i + "email.com");
             student.setPassword("1234");
-            student.setFirstName("stFtNm" + groupName + i);
-            student.setLastName("stLstName" + groupName + i);
+            student.setFirstName("stFtNm-" + groupName + i);
+            student.setLastName("stLstName-" + groupName + i);
             student.setEnable(true);
             student.getRoles().add(studentRole);
             students.add(student);
@@ -120,8 +121,8 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         teacher.setId("tch" + groupName);
         teacher.setEmail("tch" + groupName);
         teacher.setPassword(passwordEncoder.encode("1234"));
-        teacher.setFirstName("tchFitNm" + groupName);
-        teacher.setLastName("tchLstName" + groupName);
+        teacher.setFirstName("tchFitNm-" + groupName);
+        teacher.setLastName("tchLstName-" + groupName);
         teacher.setEnable(true);
         teacher.getRoles().add(teacherRole);
 
@@ -132,7 +133,7 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
         for (int i = 0; i < amount; i++) {
 
-            String groupName = "IS4" + i;
+            String groupName = "IS4" + (i + 1);
             List<Student> students = createStudents(amount, groupName);
             Teacher teacher = createTeacher(groupName);
 

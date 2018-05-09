@@ -10,4 +10,6 @@ public interface StudentService {
     List<Student> getByGroup(String groupId);
 
     List<StudentDto> getAllStudents();
+
+    List<Student> getStudentsWithoutGroup();
 }

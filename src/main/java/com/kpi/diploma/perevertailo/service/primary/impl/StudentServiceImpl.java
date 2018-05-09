@@ -45,4 +45,12 @@ public class StudentServiceImpl implements StudentService {
 
         return allDtos;
     }
+
+    @Override
+    public List<Student> getStudentsWithoutGroup() {
+
+        return studentRepository.findAllByGroupAndEnable(null, true);
+    }
+
+
 }

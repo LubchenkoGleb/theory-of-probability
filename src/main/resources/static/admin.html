@@ -54,29 +54,33 @@
 <div class="section">
     <div class="left">
         <ul id="groups"></ul>
-        <input id="name" class="inpGr"/>
-     <br><button id="addGroupButton" class="rec_button">Додати групу</button>
+        <input id="newGroupName" class="inpGr"/>
+        <br>
+        <button id="addGroupButton" class="rec_button">Додати групу</button>
     </div>
     <div class="right">
         <div class="rb">
             <h2>Обрати викладача для групи</h2>
         </div>
-        <div class="rs"><select id="teachers"></select></div>
+        <div class="rs">
+            <select id="teachers"></select>
+        </div>
+
         <h2>Додати студента в групу</h2>
-        <select id="students"></select>
+        <select id="studentsWithoutGroups"></select>
+
         <table id="studentsTable">
-        <thead>
-        <tr>
-            <th>Id:</th>
-            <th>Прізвище:</th>
-            <th>Ім'я:</th>
-            <th>Пошта:</th>
-            <th>Статус:</th>
-            <th>Видалити</th>
-        </tr>
-        </thead>
-        <tbody id="studentTableBody"></tbody>
-    </table>
+            <thead>
+            <tr>
+                <th>Прізвище:</th>
+                <th>Ім'я:</th>
+                <th>Пошта:</th>
+                <th>Статус:</th>
+                <th>Видалити</th>
+            </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+        </table>
     </div>
 </div>
 
@@ -85,7 +89,6 @@
 <script>
     let activeGroup;
     let activeTeacher;
-    let activeStudent;
 
     $.ajax({
         type: "GET",
@@ -106,32 +109,37 @@
             displayTeachersMenu(teachersResponse);
         }
     });
+
     $.ajax({
         type: "GET",
-        url: "/student/all",
+        url: "/student/all-without-group",
         async: false,
-        success: function (studentsResponse) {
-            displayStudentsMenu(studentsResponse);
+        success: function (response) {
+              displayStudentsMenu(response);
         }
     });
 
-
     $("#addGroupButton").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/group/create",
-            data: JSON.stringify({'name': 'test'}),
-            headers: {
-                "Content-Type": "application/json"
-            },
-            async: false,
-            success: function (groupsResponse) {
-                displayGroupMenu(groupsResponse);
-            },
-            error: function (data) {
-                console.log('error=' + JSON.stringify(data));
-            }
-        });
+
+        let newGroupName = document.getElementById('newGroupName').value;
+        if (newGroupName) {
+            $.ajax({
+                type: "POST",
+                url: "/group/create",
+                data: JSON.stringify({'name': newGroupName}),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                async: false,
+                success: function (groupsResponse) {
+                    displayGroupMenu(groupsResponse);
+                },
+                error: function (data) {
+                    console.log('error=' + JSON.stringify(data));
+                }
+            });
+        }
+
     });
 
     function loadStudentByGroupId(groupId) {
@@ -157,26 +165,27 @@
                 $("#studentTableBody").empty();
                 let students = response.students;
 
-                if(students !== null) {
-                    for (i = 0; i < students.length; i++) {
+                if (students !== null) {
+                    for (let i = 0; i < students.length; i++) {
                         var row = studentsMenu.insertRow(i);
 
-                        var idCell = row.insertCell(0);
-                        idCell.innerHTML = students[i].id;
-                        var lastNameCell = row.insertCell(1);
+                        var lastNameCell = row.insertCell(0);
                         lastNameCell.innerHTML = students[i].lastName;
-                        var firstNameCell = row.insertCell(2);
+                        var firstNameCell = row.insertCell(1);
                         firstNameCell.innerHTML = students[i].firstName;
-                        var emailCell = row.insertCell(3);
+                        var emailCell = row.insertCell(2);
                         emailCell.innerHTML = students[i].email;
-                        var enableCell = row.insertCell(4);
+                        var enableCell = row.insertCell(3);
                         enableCell.innerHTML = students[i].enable;
-                        //    var delMenu = row.insertCell(5);
-                        //    delMenu.innerHTML = '';
-                        //    var DOMitem = document.createElement('button class="del"');
-                        //    DOMitem.onclick = deleteStudentfromgroup()(response[i].id);
-                        // //   DOMitem.innerHTML =
-                        //    delMenu.appendChild(DOMitem);
+
+                        var deleteCell = row.insertCell(4);
+                        var deleteButton = document.createElement('button');
+                        deleteButton.innerHTML = 'delete';
+                        deleteButton.onclick = function () {
+                            console.log('test=' + students[i].id);
+                            deleteStudentFromGroup(students[i].id, activeGroup);
+                        };
+                        deleteCell.appendChild(deleteButton);
 
                     }
                 }
@@ -227,10 +236,23 @@
         })
     }
 
-    function displayStudentsMenu(students) {
-        let studentsMenu = document.getElementById('students');
+    function deleteStudentFromGroup(studentId, groupId) {
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/delete-student-from-group?studentId=" + studentId + "&groupId=" + groupId,
+            async: false,
+            success: function () {
+                loadStudentByGroupId(groupId);
+            }
+        })
 
+    }
+
+
+    function displayStudentsMenu(students) {
+        let studentsMenu = document.getElementById('studentsWithoutGroups');
         studentsMenu.innerHTML = '';
+        studentsMenu.appendChild(document.createElement('option'));
 
         for (let i = 0; i < students.length; i++) {
             let DOMitem = document.createElement('option');
@@ -240,25 +262,18 @@
         }
 
         studentsMenu.onchange = function (event) {
-            activeStudent = event.target.value;
-            addStudentsToGroup()(activeStudent, activeGroup);
-            // console.log('activeGr=' + activeGroup + ', activeTeacher=' + activeTeacher);
+            let selectedIndex = event.target.selectedIndex;
+            addStudentsToGroup(event.target.value, activeGroup);
+            loadStudentByGroupId(activeGroup);
+            studentsMenu.remove(selectedIndex);
+            studentsMenu.selectedIndex = 0;
         }
     }
 
-    function deleteStudentfromgroup(studentId, groupId) {
-        $.ajax({
-            type: "DEL",
-            url: "/admin/delete-student-from-group?studentId=" + studentId + "&groupId=" + groupId,
-            async: false
-        })
-
-    }
-
-    function addStudentsToGroup() {
+    function addStudentsToGroup(studentId, groupId) {
         $.ajax({
             type: "POST",
-            url: "/admin//add-student-to-group?studentId=" + studentId + "&groupId=" + groupId,
+            url: "/admin/add-student-to-group?studentId=" + studentId + "&groupId=" + groupId,
             async: false
         })
     }
