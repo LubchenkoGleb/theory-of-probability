@@ -24,58 +24,54 @@
     <script src="js/jquery.fullpage.js"></script>
 </header>
 <body>
-    <div class="menu-bottom">
-        <ul id="menu">
-            <li data-menuanchor="firstPage"  id='home'><a href="admin.html">Групи</a></li>
-            <li data-menuanchor="secondPage" id="chapter-menu"><a href="admin_teacher.html">Викладачі</a></li>
-            <li data-menuanchor="3rdPage" class="active"><a href="admin_student.html">Студенти</a></li>
-            <li id="exit" style="margin-left: 500px;">Вихід</li>
-        </ul>
+<div class="menu-bottom">
+    <ul id="menu">
+        <li data-menuanchor="firstPage"  id='home'><a href="admin.html">Групи</a></li>
+        <li data-menuanchor="secondPage" id="chapter-menu"><a href="admin_teacher.html">Викладачі</a></li>
+        <li data-menuanchor="3rdPage" class="active"><a href="admin_student.html">Студенти</a></li>
+        <li id="exit" style="margin-left: 500px;">Вихід</li>
+    </ul>
+</div>
+<div class="section">
+    <div class="teachers">
+        <table id="studentsTable">
+            <thead>
+            <tr>
+                <th>Id:</th>
+                <th>Прізвище:</th>
+                <th>Ім'я:</th>
+                <th>Пошта:</th>
+                <th>Статус:</th>
+                <!--    <th>Видалення</th> -->
+            </tr>
+            </thead>
+        </table>
     </div>
-    <div class="section">
-        <div class="teachers">
-            <table id="studentsTable">
-                <thead>
-                <tr>
-                    <th>Id:</th>
-                    <th>Прізвище:</th>
-                    <th>Ім'я:</th>
-                    <th>Пошта:</th>
-                    <th>Статус:</th>
-                    <!--    <th>Видалення</th> -->
-                </tr>
-                </thead>
-            </table>
-        </div>
-        <form id="inviteStudents" method="post" style="display: none">
-            <h2>Надіслати лист підтвердження</h2>
-            <p>
-                <label>email: </label>
-                <input name="email" type="text" id="inviteEmail" class="text"/>
-            </p>
-            <input type="submit" value="Надіслати" class="page"/>
-        </form>
-    </div>
+    <form id="inviteStudents" method="post">
+        <h2>Надіслати лист підтвердження</h2>
+        <p>
+            <label>email: </label>
+            <input name="email" type="text" id="inviteEmail" class="text"/>
+        </p>
+        <input type="submit" value="Надіслати" class="page"/>
+    </form>
+</div>
 </body>
 <script>
-    // $('#inviteStudents').submit(function (e) {
-    //     e.preventDefault();
-    //     var email = $("input#email").val();
-    //     inviteStudents(email)();
-    // });
-    //         function inviteStudents(email) {
-    //                     $.ajax({
-    //                     type: "GET",
-    //                     url: "/role/all",
-    //                     async: false,
-    //                     headers: {
-    //                         "Authorization": "Basic " + btoa(email + ":" + password)
-    //                     },
-    //                     success: redirectAfterLogin,
-    //                     error: handleError('wrong credentials')
-    //                 });
-    //             }
-    //         }
+    var email = getRequestParam('email');
+    $('#inviteStudents').submit(function (e) {
+        e.preventDefault();
+        var email = $("input#email").val();
+        inviteStudents(email);
+    });
+
+    function inviteStudents(){
+        $.ajax({
+            type: "POST",
+            url: "/admin/invite-students",
+            async: false
+        });
+    };
 
     $.ajax({
         type: "GET",
