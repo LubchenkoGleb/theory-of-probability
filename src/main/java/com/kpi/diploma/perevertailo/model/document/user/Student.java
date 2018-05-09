@@ -5,15 +5,17 @@ import com.kpi.diploma.perevertailo.model.document.Group;
 import com.kpi.diploma.perevertailo.model.document.Role;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "user")
+@TypeAlias("student")
 @Data
 @ToString(exclude = {"group"}, callSuper = true)
-@Document(collection = "user")
 public class Student extends User {
 
-    @DBRef(lazy = false)
+    @DBRef(lazy = true)
     @JsonIgnore
     private Group group;
 

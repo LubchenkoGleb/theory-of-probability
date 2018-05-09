@@ -70,9 +70,6 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> getAll() {
 
-        List<Teacher> all = teacherRepository.findAll();
-        log.info("all={}", all);
-
-        return all;
+        return teacherRepository.findAllByEnable(true);
     }
 }

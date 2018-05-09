@@ -6,10 +6,7 @@ import com.kpi.diploma.perevertailo.model.document.user.Student;
 import com.kpi.diploma.perevertailo.model.document.user.Teacher;
 import com.kpi.diploma.perevertailo.model.document.user.User;
 import com.kpi.diploma.perevertailo.model.util.value.RoleValues;
-import com.kpi.diploma.perevertailo.repository.GroupRepository;
-import com.kpi.diploma.perevertailo.repository.RoleRepository;
-import com.kpi.diploma.perevertailo.repository.TeacherRepository;
-import com.kpi.diploma.perevertailo.repository.UserRepository;
+import com.kpi.diploma.perevertailo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +22,8 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     private final TeacherRepository teacherRepository;
 
+    private final StudentRepository studentRepository;
+
     private final RoleRepository roleRepository;
 
     private final GroupRepository groupRepository;
@@ -33,17 +32,15 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     private User admin;
 
-    private Group group;
+    private List<Group> groups = new ArrayList<>();
 
-    private Teacher teacher;
-
-    private List<Student> students;
 
     @Autowired
-    public TheoryOfProbabilityApplication(UserRepository userRepository, TeacherRepository teacherRepository, RoleRepository roleRepository,
+    public TheoryOfProbabilityApplication(UserRepository userRepository, TeacherRepository teacherRepository, StudentRepository studentRepository, RoleRepository roleRepository,
                                           GroupRepository groupRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.teacherRepository = teacherRepository;
+        this.studentRepository = studentRepository;
         this.roleRepository = roleRepository;
         this.groupRepository = groupRepository;
         this.passwordEncoder = passwordEncoder;
@@ -57,21 +54,12 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
     public void run(String... strings) {
 
         roleRepository.deleteAll();
-
         userRepository.deleteAll();
-
         groupRepository.deleteAll();
 
         initRoles();
-
         createAdmin();
-
-        createStudents();
-
-        createTeacher();
-
-        createGroup();
-
+        createGroup(3);
         usersForConfirmation();
 
     }
@@ -101,58 +89,66 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     }
 
-    private void createStudents() {
+    private List<Student> createStudents(Integer amount, String groupName) {
+
+        List<Student> students = new ArrayList<>();
 
         Role studentRole = roleRepository.findByRole(RoleValues.ROLE_STUDENT.toString());
 
-        students = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < amount; i++) {
 
             Student student = new Student();
-            student.setId("st" + i);
-            student.setEmail("student" + i);
+            student.setId("st" + groupName + i);
+            student.setEmail("st" + groupName + i + "email.com");
             student.setPassword("1234");
-            student.setFirstName("student_first_name" + i);
-            student.setLastName("student_last_name" + i);
+            student.setFirstName("stFtNm" + groupName + i);
+            student.setLastName("stLstName" + groupName + i);
             student.setEnable(true);
             student.getRoles().add(studentRole);
             students.add(student);
 
         }
 
-        userRepository.saveAll(students);
+        return studentRepository.saveAll(students);
     }
 
-    private void createTeacher() {
+    private Teacher createTeacher(String groupName) {
 
         Role teacherRole = roleRepository.findByRole(RoleValues.ROLE_TEACHER.toString());
 
-        teacher = new Teacher();
-        teacher.setId("tch");
-        teacher.setEmail("teacher");
+        Teacher teacher = new Teacher();
+        teacher.setId("tch" + groupName);
+        teacher.setEmail("tch" + groupName);
         teacher.setPassword(passwordEncoder.encode("1234"));
-        teacher.setFirstName("teacher_first_name");
-        teacher.setLastName("teacher_last_name");
+        teacher.setFirstName("tchFitNm" + groupName);
+        teacher.setLastName("tchLstName" + groupName);
         teacher.setEnable(true);
         teacher.getRoles().add(teacherRole);
 
-        teacherRepository.save(teacher);
-
+        return teacherRepository.save(teacher);
     }
 
-    private void createGroup() {
+    private void createGroup(Integer amount) {
 
-        group = new Group();
-        group.setId("gr");
-        group.setName("IS-43");
-        group.setStudents(students);
-        group.setTeacher(teacher);
+        for (int i = 0; i < amount; i++) {
 
-        Group group = groupRepository.save(this.group);
+            String groupName = "IS4" + i;
+            List<Student> students = createStudents(amount, groupName);
+            Teacher teacher = createTeacher(groupName);
 
-        students.forEach(student -> student.setGroup(group));
-        userRepository.saveAll(students);
+            Group group = new Group();
+            group.setId("gr" + i);
+            group.setName(groupName);
+            group.setStudents(students);
+            group.setTeacher(teacher);
+            Group savedGroup = groupRepository.save(group);
+
+            students.forEach(st -> st.setGroup(savedGroup));
+            teacher.getGroups().add(savedGroup);
+
+            studentRepository.saveAll(students);
+            teacherRepository.save(teacher);
+        }
 
     }
 
@@ -162,11 +158,11 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
         Student student = new Student("studentForConfirm", "test", studentRole);
         student.setId("stForConfirm");
-        userRepository.save(student);
+        studentRepository.save(student);
 
         Teacher teacher = new Teacher("teacherForConfirm", "test", teacherRole);
         teacher.setId("tchForConfirm");
-        userRepository.save(teacher);
+        teacherRepository.save(teacher);
     }
 
 }

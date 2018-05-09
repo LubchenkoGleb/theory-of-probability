@@ -25,19 +25,19 @@
 
     <!-- Full Page Setup -->
     <!--<script type="text/javascript">-->
-        <!--$(document).ready(function () {-->
-            <!--$('#fullpage').fullpage({-->
-                <!--anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage'],-->
-                <!--menu: '#menu',-->
-                <!--afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {-->
-                    <!--$('.menu-sub li.active').removeClass('active');-->
-                    <!--$('.menu-sub li').eq(slideIndex).addClass('active');-->
-                <!--}-->
-            <!--});-->
+    <!--$(document).ready(function () {-->
+    <!--$('#fullpage').fullpage({-->
+    <!--anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage'],-->
+    <!--menu: '#menu',-->
+    <!--afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {-->
+    <!--$('.menu-sub li.active').removeClass('active');-->
+    <!--$('.menu-sub li').eq(slideIndex).addClass('active');-->
+    <!--}-->
+    <!--});-->
 
-            <!--$('.scroll-down').show("fade");-->
-            <!--$('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);-->
-        <!--});-->
+    <!--$('.scroll-down').show("fade");-->
+    <!--$('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);-->
+    <!--});-->
     <!--</script>-->
 
 </header>
@@ -57,8 +57,10 @@
         <button id="addGroupButton" class="rec_button">Додати групу</button>
     </div>
     <div class="right">
-      <div clas="rb">   <button id="setTeacherToGroup" class="rec_button" onclick="setTeacherToGroup()">Обрати викладача для групи</button> </div>
-        <div class="rs"> <select id="teachers"></select> </div>
+        <div clas="rb">
+            <h2>Обрати викладача для групи</h2>
+        </div>
+        <div class="rs"><select id="teachers"></select></div>
         <table id="studentsTable">
             <thead>
             <tr>
@@ -70,6 +72,7 @@
                 <th>Видалити</th>
             </tr>
             </thead>
+            <tbody id="studentTableBody"></tbody>
         </table>
     </div>
 </div>
@@ -77,21 +80,30 @@
 </body>
 
 <script>
-    var activeGroup;
-    var activeTeacher;
+    let activeGroup;
+    let activeTeacher;
+
     $.ajax({
         type: "GET",
         url: "/group/all",
         async: false,
         success: function (groupsResponse) {
-            activeGroup = groupsResponse[0].id;
             displayGroupMenu(groupsResponse);
-            loadStudentByGroupId(groupsResponse[0].id)();
+            loadStudentByGroupId(groupsResponse[0].id);
+            activeGroup = groupsResponse[0].id;
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/teacher/all",
+        async: false,
+        success: function (teachersResponse) {
+            displayTeachersMenu(teachersResponse);
         }
     });
 
     $("#addGroupButton").click(function () {
-        console.log('lala');
         $.ajax({
             type: "POST",
             url: "/group/create",
@@ -110,75 +122,87 @@
     });
 
     function loadStudentByGroupId(groupId) {
-        activeGroup = groupId;
-        return function handle() {
-            $.ajax({
-                type: "GET",
-                url: "/student/get-by-group/" + groupId,
-                async: false,
-                success: function (studentsRsponse) {
-                    console.log('students=' + JSON.stringify(studentsRsponse));
-                    var studentsMenu = document.getElementById('studentsTable');
+        $.ajax({
+            type: "GET",
+            url: "/group/" + groupId,
+            async: false,
+            success: function (response) {
+                // console.log('response=' + JSON.stringify(response));
 
-                    for (i = 0; i < studentsRsponse.length; i++) {
-                        var row = studentsMenu.insertRow(i + 1);
+                let teachersMenu = document.getElementById('teachers');
+                let teacher = response.teacher;
+                if (teacher !== null) {
+                    for (let i = 0; i < teachersMenu.length; i++) {
+                        if (teachersMenu.options[i].value === teacher.id) {
+                            teachersMenu.options[i].selected = true;
+                            activeTeacher = teacher.id;
+                        }
+                    }
+                }
+
+                let studentsMenu = document.getElementById('studentTableBody');
+                $("#studentTableBody").empty();
+                let students = response.students;
+
+                if(students !== null) {
+                    for (i = 0; i < students.length; i++) {
+                        var row = studentsMenu.insertRow(i);
 
                         var idCell = row.insertCell(0);
-                        idCell.innerHTML = studentsRsponse[i].id;
+                        idCell.innerHTML = students[i].id;
                         var lastNameCell = row.insertCell(1);
-                        lastNameCell.innerHTML = studentsRsponse[i].lastName;
+                        lastNameCell.innerHTML = students[i].lastName;
                         var firstNameCell = row.insertCell(2);
-                        firstNameCell.innerHTML = studentsRsponse[i].firstName;
+                        firstNameCell.innerHTML = students[i].firstName;
                         var emailCell = row.insertCell(3);
-                        emailCell.innerHTML = studentsRsponse[i].email;
+                        emailCell.innerHTML = students[i].email;
                         var enableCell = row.insertCell(4);
-                        enableCell.innerHTML = studentsRsponse[i].enable;
-                     //    var delMenu = row.insertCell(5);
-                     //    delMenu.innerHTML = '';
-                     //    var DOMitem = document.createElement('button class="del"');
-                     //    DOMitem.onclick = deleteStudentfromgroup()(studentsRsponse[i].id);
-                     // //   DOMitem.innerHTML =
-                     //    delMenu.appendChild(DOMitem);
+                        enableCell.innerHTML = students[i].enable;
+                        //    var delMenu = row.insertCell(5);
+                        //    delMenu.innerHTML = '';
+                        //    var DOMitem = document.createElement('button class="del"');
+                        //    DOMitem.onclick = deleteStudentfromgroup()(response[i].id);
+                        // //   DOMitem.innerHTML =
+                        //    delMenu.appendChild(DOMitem);
 
                     }
                 }
-            });
-        }
+            }
+        });
     }
 
     function displayGroupMenu(groups) {
-        var groupsMenu = document.getElementById('groups');
+        let groupsMenu = document.getElementById('groups');
         groupsMenu.innerHTML = '';
 
-        for (var i = 0; i < groups.length; i++) {
-            var DOMitem = document.createElement('li');
-            DOMitem.onclick = loadStudentByGroupId(groups[i].id);
+        for (let i = 0; i < groups.length; i++) {
+            let DOMitem = document.createElement('li');
+            DOMitem.onclick = function () {
+                loadStudentByGroupId(groups[i].id);
+                activeGroup = groups[i].id;
+                // console.log('activeGr=' + activeGroup + ', activeTeacher=' + activeTeacher);
+            };
             DOMitem.innerHTML = groups[i].name;
             groupsMenu.appendChild(DOMitem);
         }
     }
 
-    $.ajax({
-        type: "GET",
-        url: "/teacher/all",
-        async: false,
-        success: function (teachersResponse) {
-            displayTeachersMenu(teachersResponse);
-        }
-    });
-
     function displayTeachersMenu(teachers) {
-        var teachersMenu = document.getElementById('teachers');
+        let teachersMenu = document.getElementById('teachers');
+
         teachersMenu.innerHTML = '';
 
-        for (var i = 0; i < teachers.length; i++) {
-            var DOMitem = document.createElement('option');
-            DOMitem.selected = function(){
-                activeTeacher = teachers[i].id;
-                console.log('lala'+activeTeacher);
-            };
-            DOMitem.innerHTML = teachers[i].lastName + ' ' + teachers[i].firstName ;
+        for (let i = 0; i < teachers.length; i++) {
+            let DOMitem = document.createElement('option');
+            DOMitem.value = teachers[i].id;
+            DOMitem.innerHTML = teachers[i].lastName + ' ' + teachers[i].firstName;
             teachersMenu.appendChild(DOMitem);
+        }
+
+        teachersMenu.onchange = function (event) {
+            activeTeacher = event.target.value;
+            setTeacherToGroup(activeTeacher, activeGroup);
+            // console.log('activeGr=' + activeGroup + ', activeTeacher=' + activeTeacher);
         }
     }
 
@@ -190,7 +214,7 @@
         })
     }
 
-    function deleteStudentfromgroup(studentId, groupId){
+    function deleteStudentfromgroup(studentId, groupId) {
         $.ajax({
             type: "DEL",
             url: "/admin/delete-student-from-group?studentId=" + studentId + "&groupId=" + groupId,

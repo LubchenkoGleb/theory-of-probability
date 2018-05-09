@@ -6,19 +6,21 @@ import com.kpi.diploma.perevertailo.model.document.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Document(collection = "user")
+@TypeAlias("teacher")
+@Data
 @ToString(exclude = {"groups"}, callSuper = true)
 @EqualsAndHashCode(exclude = {"groups"}, callSuper = true)
 public class Teacher extends User {
 
-    @DBRef(lazy = false)
+    @DBRef(lazy = true)
     @JsonIgnore
     private Set<Group> groups;
 
