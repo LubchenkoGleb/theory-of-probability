@@ -26,7 +26,7 @@
 <body>
 <div class="menu-bottom">
     <ul id="menu">
-        <li data-menuanchor="firstPage"  id='home'><a href="admin.html">Групи</a></li>
+        <li data-menuanchor="firstPage" id='home'><a href="admin.html">Групи</a></li>
         <li data-menuanchor="secondPage" id="chapter-menu"><a href="admin_teacher.html">Викладачі</a></li>
         <li data-menuanchor="3rdPage" class="active"><a href="admin_student.html">Студенти</a></li>
         <li id="exit" style="margin-left: 500px;">Вихід</li>
@@ -42,6 +42,7 @@
                 <th>Ім'я:</th>
                 <th>Пошта:</th>
                 <th>Статус:</th>
+                <th>Група:</th>
                 <!--    <th>Видалення</th> -->
             </tr>
             </thead>
@@ -58,43 +59,65 @@
 </div>
 </body>
 <script>
-    var email = getRequestParam('email');
     $('#inviteStudents').submit(function (e) {
         e.preventDefault();
-        var email = $("input#email").val();
-        inviteStudents(email);
-    });
 
-    function inviteStudents(){
-        $.ajax({
-            type: "POST",
-            url: "/admin/invite-students",
-            async: false
-        });
-    };
+        let form = document.getElementById('inviteStudents');
+        let formData = objectifyForm(form);
+
+        if (formData.email) {
+            let body = new Array(formData.email);
+
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(body),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                url: "/admin/invite-students",
+                async: false
+            });
+        }
+    });
 
     $.ajax({
         type: "GET",
         url: "/student/all",
         async: false,
         success: function (studentsRsponse) {
-            console.log('students=' + JSON.stringify(studentsRsponse));
-            var studentsMenu = document.getElementById('studentsTable');
-            for (i = 0; i < studentsRsponse.length; i++) {
-                var row = studentsMenu.insertRow(i + 1);
-                var idCell = row.insertCell(0);
-                idCell.innerHTML = studentsRsponse[i].id;
-                var lastNameCell = row.insertCell(1);
-                lastNameCell.innerHTML = studentsRsponse[i].lastName;
-                var firstNameCell = row.insertCell(2);
-                firstNameCell.innerHTML = studentsRsponse[i].firstName;
-                var emailCell = row.insertCell(3);
-                emailCell.innerHTML = studentsRsponse[i].email;
-                var enableCell = row.insertCell(4);
-                enableCell.innerHTML = studentsRsponse[i].enable;
+            // console.log('students=' + JSON.stringify(studentsRsponse));
+            let studentsMenu = document.getElementById('studentsTable');
+
+            for (let i = 0; i < studentsRsponse.length; i++) {
+                let student = studentsRsponse[i].student;
+                let group = studentsRsponse[i].group;
+
+                let row = studentsMenu.insertRow(i + 1);
+                let idCell = row.insertCell(0);
+                idCell.innerHTML = student.id;
+                let lastNameCell = row.insertCell(1);
+                lastNameCell.innerHTML = student.lastName;
+                let firstNameCell = row.insertCell(2);
+                firstNameCell.innerHTML = student.firstName;
+                let emailCell = row.insertCell(3);
+                emailCell.innerHTML = student.email;
+                let enableCell = row.insertCell(4);
+                enableCell.innerHTML = student.enable;
+                let groupCell = row.insertCell(5);
+                groupCell.innerHTML = group.name;
             }
         }
     });
 
+    function objectifyForm(formArray) {
+
+        let returnArray = {};
+        for (let i = 0; i < formArray.length; i++) {
+            if (formArray[i].type !== 'submit') {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+        }
+        return returnArray;
+    }
 </script>
 </html>

@@ -98,6 +98,7 @@
     var inviteKey = getRequestParam('inviteKey');
 
     if (email !== undefined && inviteKey !== undefined) {
+        console.log('sign up process');
         document.getElementById('login').style.display = 'none';
         document.getElementById('signUp').style.display = 'block';
         $('#signUpEmail').val(email);
@@ -181,7 +182,7 @@
         }
     }
 
-    function getRequestParam(fullName) {
+    function getRequestParam(name) {
         if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
             return decodeURIComponent(name[1]);
     }
