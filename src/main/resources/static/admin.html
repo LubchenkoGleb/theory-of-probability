@@ -24,45 +24,41 @@
     <script src="js/jquery.fullpage.js"></script>
 
     <!-- Full Page Setup -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#fullpage').fullpage({
-                anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage'],
-                menu: '#menu',
-                afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {
-                    $('.menu-sub li.active').removeClass('active');
-                    $('.menu-sub li').eq(slideIndex).addClass('active');
-                }
-            });
+    <!--<script type="text/javascript">-->
+        <!--$(document).ready(function () {-->
+            <!--$('#fullpage').fullpage({-->
+                <!--anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage'],-->
+                <!--menu: '#menu',-->
+                <!--afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {-->
+                    <!--$('.menu-sub li.active').removeClass('active');-->
+                    <!--$('.menu-sub li').eq(slideIndex).addClass('active');-->
+                <!--}-->
+            <!--});-->
 
-            $('.scroll-down').show("fade");
-            $('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);
-
-        });
-    </script>
+            <!--$('.scroll-down').show("fade");-->
+            <!--$('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);-->
+        <!--});-->
+    <!--</script>-->
 
 </header>
 <body>
 <div class="menu-bottom">
     <ul id="menu">
-        <li data-menuanchor="firstPage" class="active" id='home'><a href="#firstPage">Групи</a></li>
-        <li data-menuanchor="secondPage" id="chapter-menu"><a href="#secondPage">Викладачі</a></li>
-        <li data-menuanchor="3rdPage"><a href="#3rdPage">Студенти</a></li>
-        <li id="settings" style="margin-right: 100px;"><a href="4thPage"><img scr="img/sett.png"></a></li>
-        <li id="exit" style="margin-right: 0px;">Вихід</li>
+        <li data-menuanchor="firstPage" class="active" id='home'><a href="admin.html">Групи</a></li>
+        <li data-menuanchor="secondPage" id="chapter-menu"><a href="admin_teacher.html">Викладачі</a></li>
+        <li data-menuanchor="3rdPage"><a href="admin_student.html">Студенти</a></li>
+        <li id="exit" style="margin-left: 500px;">Вихід</li>
     </ul>
 </div>
 
-<div class="section" id="section0">
-    <div class="section-wrapper">
-        <div class="group">
-            <ul id="groups"></ul>
-            <button id="addGroupButton">Add group</button>
-        </div>
-
-           <select id="teachers"></select>
-           <button id="seTeacherToGroup" class="rec_button">Обрати викладача для групи:</button>
-
+<div class="section">
+    <div class="left">
+        <ul id="groups"></ul>
+        <button id="addGroupButton" class="rec_button">Додати групу</button>
+    </div>
+    <div class="right">
+      <div clas="rb">   <button id="setTeacherToGroup" class="rec_button" onclick="setTeacherToGroup()">Обрати викладача для групи</button> </div>
+        <div class="rs"> <select id="teachers"></select> </div>
         <table id="studentsTable">
             <thead>
             <tr>
@@ -71,6 +67,7 @@
                 <th>Ім'я:</th>
                 <th>Пошта:</th>
                 <th>Статус:</th>
+                <th>Видалити</th>
             </tr>
             </thead>
         </table>
@@ -80,14 +77,16 @@
 </body>
 
 <script>
-
+    var activeGroup;
+    var activeTeacher;
     $.ajax({
         type: "GET",
         url: "/group/all",
         async: false,
         success: function (groupsResponse) {
+            activeGroup = groupsResponse[0].id;
             displayGroupMenu(groupsResponse);
-            loadStudentById(groupsResponse[0].id)();
+            loadStudentByGroupId(groupsResponse[0].id)();
         }
     });
 
@@ -110,11 +109,12 @@
         });
     });
 
-    function loadStudentById(studentId) {
+    function loadStudentByGroupId(groupId) {
+        activeGroup = groupId;
         return function handle() {
             $.ajax({
                 type: "GET",
-                url: "/student/get-by-group/" + studentId,
+                url: "/student/get-by-group/" + groupId,
                 async: false,
                 success: function (studentsRsponse) {
                     console.log('students=' + JSON.stringify(studentsRsponse));
@@ -133,6 +133,13 @@
                         emailCell.innerHTML = studentsRsponse[i].email;
                         var enableCell = row.insertCell(4);
                         enableCell.innerHTML = studentsRsponse[i].enable;
+                     //    var delMenu = row.insertCell(5);
+                     //    delMenu.innerHTML = '';
+                     //    var DOMitem = document.createElement('button class="del"');
+                     //    DOMitem.onclick = deleteStudentfromgroup()(studentsRsponse[i].id);
+                     // //   DOMitem.innerHTML =
+                     //    delMenu.appendChild(DOMitem);
+
                     }
                 }
             });
@@ -145,7 +152,7 @@
 
         for (var i = 0; i < groups.length; i++) {
             var DOMitem = document.createElement('li');
-            DOMitem.onclick = loadStudentById(groups[i].id);
+            DOMitem.onclick = loadStudentByGroupId(groups[i].id);
             DOMitem.innerHTML = groups[i].name;
             groupsMenu.appendChild(DOMitem);
         }
@@ -166,7 +173,10 @@
 
         for (var i = 0; i < teachers.length; i++) {
             var DOMitem = document.createElement('option');
-     //       DOMitem.onclick = loadStudentById(groups[i].id);
+            DOMitem.selected = function(){
+                activeTeacher = teachers[i].id;
+                console.log('lala'+activeTeacher);
+            };
             DOMitem.innerHTML = teachers[i].lastName + ' ' + teachers[i].firstName ;
             teachersMenu.appendChild(DOMitem);
         }
@@ -178,6 +188,15 @@
             url: "/admin/set-teacher-to-group?teacherId=" + teacherId + "&groupId=" + groupId,
             async: false
         })
+    }
+
+    function deleteStudentfromgroup(studentId, groupId){
+        $.ajax({
+            type: "DEL",
+            url: "/admin/delete-student-from-group?studentId=" + studentId + "&groupId=" + groupId,
+            async: false
+        })
+
     }
 </script>
 </html>

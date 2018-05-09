@@ -1,0 +1,79 @@
+<html>
+<header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A visual introduction to probability and statistics.">
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+
+    <!-- Home Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- Full Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css"/>
+
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Full Page -->
+    <script src="js/jquery.fullpage.js"></script>
+
+</header>
+<body>
+    <div class="menu-bottom">
+        <ul id="menu">
+            <li data-menuanchor="firstPage" id='home'><a href="admin.html">Групи</a></li>
+            <li data-menuanchor="secondPage" id="chapter-menu"
+            class="active"><a href="admin_teacher.html">Викладачі</a></li>
+            <li data-menuanchor="3rdPage"><a href="admin_student.html">Студенти</a></li>
+            <li id="exit" style="margin-left: 500px;">Вихід</li>
+        </ul>
+    </div>
+    <div class="section">
+        <div class="teachers">
+            <table id="teachersTable">
+                <thead>
+                <tr>
+                    <th>Id:</th>
+                    <th>Прізвище:</th>
+                    <th>Ім'я:</th>
+                    <th>Пошта:</th>
+                    <th>Статус:</th>
+                    <!--    <th>Видалення</th> -->
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    $.ajax({
+        type: "GET",
+        url: "/teacher/all",
+        async: false,
+        success: function (teachersRsponse){
+            console.log('teachers=' + JSON.stringify(teachersRsponse));
+            var teachersMenu = document.getElementById('teachersTable');
+            for (i = 0; i < teachersRsponse.length; i++) {
+                var row = teachersMenu.insertRow(i + 1);
+                var idCell = row.insertCell(0);
+                idCell.innerHTML = teachersRsponse[i].id;
+                var lastNameCell = row.insertCell(1);
+                lastNameCell.innerHTML = teachersRsponse[i].lastName;
+                var firstNameCell = row.insertCell(2);
+                firstNameCell.innerHTML = teachersRsponse[i].firstName;
+                var emailCell = row.insertCell(3);
+                emailCell.innerHTML = teachersRsponse[i].email;
+                var enableCell = row.insertCell(4);
+                enableCell.innerHTML = teachersRsponse[i].enable;
+            }
+        }
+    });
+
+</script>
+</html>
