@@ -70,12 +70,60 @@
 <h1 style="margin-top: 80px">Все задачи рассортированые по темам</h1>
 <div class="left">
     <h2>Список тем</h2>
-    <ul id="themes">
-    </ul>
+    <div id="themes-block">
+        <div id="themes">Loading ...</div>
+    </div>
 </div>
 <div class="right">
-    <h2>Список задач из выбраной слева темы, (как лучше их отобразить?) и напротив каждой кнопка удалить</h2>
+    <div id="task-form">
+        <div id="questions">
+            <p>Список задач из выбраной слева темы, (как лучше их отобразить?) и напротив каждой кнопка удалить</p>
+        </div>
+    </div>
 </div>
+
+<script>
+    $.ajax({
+        async: true,
+        url: "/task/get-themes",
+        method: "GET",
+        headers: {}
+    }).done((themes) => {
+        const newList = themes.map((theme) => (`<ul><li id="${theme.value}">${theme.fullName}</li></ul>`));
+        $('#themes').replaceWith(newList);
+    });
+
+    $(document).on('click', '#themes-block > ul > li', ({target: {id}}) => {
+        $.ajax({
+            async: true,
+            url: `/task/get-by-theme/${id}`,
+            method: "GET",
+            headers: {}
+        }).done((questions) => {
+            console.log(questions);
+            const noQuestions = '<p>No questions</p>';
+            const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">Delete</button></div>`))}`;
+            const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
+            return $('#questions').replaceWith(nextTemplate);
+        });
+    } );
+
+    $(document).on('click', '#task-form > div > div > button', ({target: {parentNode}}) => {
+        const questionId = parentNode.id;
+        confirm(`Are you sure you want to delete question ${questionId}?`) && $.ajax({
+            type: "DELETE",
+            url: `/task/delete/${questionId}`,
+            headers: {},
+            async: false,
+            success: function () {
+                parentNode.remove();
+            },
+            error: function (data) {
+                console.log('error=' + JSON.stringify(data));
+            }
+        })
+    } );
+</script>
 <!-- D3 -->
 <script src="./js/d3.min.js"></script>
 <!-- Ball JavaScript -->
