@@ -2,10 +2,12 @@ package com.kpi.diploma.perevertailo;
 
 import com.kpi.diploma.perevertailo.model.document.Group;
 import com.kpi.diploma.perevertailo.model.document.Role;
+import com.kpi.diploma.perevertailo.model.document.Theme;
 import com.kpi.diploma.perevertailo.model.document.user.Student;
 import com.kpi.diploma.perevertailo.model.document.user.Teacher;
 import com.kpi.diploma.perevertailo.model.document.user.User;
 import com.kpi.diploma.perevertailo.model.util.value.RoleValues;
+import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import com.kpi.diploma.perevertailo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +32,12 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final ThemeRepository themeRepository;
+
+    private final TaskRepository taskRepository;
+
+    private final TestRepository testRepository;
+
     private User admin;
 
     private List<Group> groups = new ArrayList<>();
@@ -37,13 +45,16 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     @Autowired
     public TheoryOfProbabilityApplication(UserRepository userRepository, TeacherRepository teacherRepository, StudentRepository studentRepository, RoleRepository roleRepository,
-                                          GroupRepository groupRepository, PasswordEncoder passwordEncoder) {
+                                          GroupRepository groupRepository, PasswordEncoder passwordEncoder, ThemeRepository themeRepository, TaskRepository taskRepository, TestRepository testRepository) {
         this.userRepository = userRepository;
         this.teacherRepository = teacherRepository;
         this.studentRepository = studentRepository;
         this.roleRepository = roleRepository;
         this.groupRepository = groupRepository;
         this.passwordEncoder = passwordEncoder;
+        this.themeRepository = themeRepository;
+        this.taskRepository = taskRepository;
+        this.testRepository = testRepository;
     }
 
     public static void main(String[] args) {
@@ -53,15 +64,20 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) {
 
-        roleRepository.deleteAll();
-        userRepository.deleteAll();
-        groupRepository.deleteAll();
-
-        initRoles();
-        createAdmin();
-        createGroup(3);
-        createStudents(2, "noGroup");
-        usersForConfirmation();
+//        themeRepository.deleteAll();
+//        roleRepository.deleteAll();
+//        userRepository.deleteAll();
+//        groupRepository.deleteAll();
+//        taskRepository.deleteAll();
+//        testRepository.deleteAll();
+//
+//
+//        initRoles();
+//        intitThemes();
+//        createAdmin();
+//        createGroup(3);
+//        createStudents(2, "noGroup");
+//        usersForConfirmation();
 
     }
 
@@ -112,6 +128,13 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
         return studentRepository.saveAll(students);
     }
+
+    private void intitThemes() {
+        for (ThemeValues themeValues : ThemeValues.values()) {
+            themeRepository.save(new Theme(themeValues, themeValues.toString()));
+        }
+    }
+
 
     private Teacher createTeacher(String groupName) {
 

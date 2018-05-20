@@ -55,7 +55,6 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
 
             Task task = new Task(
                     calculator.getName(),
-                    calculator.getFullName(),
                     calculator.getQuestionTemplate(),
                     calculator.getThemeValues(),
                     TaskTypeValues.OPEN_ANSWER);
@@ -91,7 +90,6 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
 
         OpenAnswerTask openAnswerTask = new OpenAnswerTask(
                 calculator.getName(),
-                calculator.getFullName(),
                 question,
                 calculator.getThemeValues(),
                 TaskTypeValues.OPEN_ANSWER,

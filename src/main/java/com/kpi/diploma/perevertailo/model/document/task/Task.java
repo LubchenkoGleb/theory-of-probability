@@ -8,10 +8,10 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-
-import java.util.Map;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@Document(collection = "task")
 @ToString(exclude = {"teacher"})
 public class Task {
 
@@ -20,21 +20,21 @@ public class Task {
 
     private String name;
 
-    private String fullName;
-
     private String question;
 
     private ThemeValues theme;
 
     private TaskTypeValues type;
 
-    @DBRef
+    @DBRef(lazy = true)
     @JsonIgnore
     private Teacher teacher;
 
-    public Task(String name, String fullName, String question, ThemeValues theme, TaskTypeValues type) {
+    public Task() {
+    }
+
+    public Task(String name, String question, ThemeValues theme, TaskTypeValues type) {
         this.name = name;
-        this.fullName = fullName;
         this.question = question;
         this.theme = theme;
         this.type = type;
