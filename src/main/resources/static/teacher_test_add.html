@@ -37,7 +37,7 @@
 <div class="menu-bottom">
     <nav>
         <ul class="topmenu">
-            <li><a href="teacher.html">Журнал оцінок</a></li>
+            <li><a href="teacher.html" class="active">Журнал оцінок</a></li>
             <li data-menuanchor="firstPage" class="active" id='home'><a>Задачі<span class="fa fa-angle-down"></span></a>
                 <ul class="submenu">
                     <li><a href="teacher_tasks.html">Переглянути задачі</a>
@@ -54,10 +54,10 @@
                 <ul class="submenu">
                     <li><a href="">Переглянути тести</a>
                     </li>
-                    <li><a href="">Назначити тест</a>
+                    <li><a href="teacher_test_mark.html">Назначити тест</a>
                     <li><a href="">Створити тести<span class="fa fa-angle-down"></span></a>
                         <ul class="submenu">
-                            <li><a href="">Самостійно</a></li>
+                            <li><a href="teacher_test_add.html">Самостійно</a></li>
                             <li><a href="">Згенерувати</a></li>
                         </ul>
                     </li>
@@ -67,83 +67,119 @@
         </ul>
     </nav>
 </div>
-<h1 style="margin-top: 80px">Страничка с калькуляторами по темам</h1>
-<div class="left">
-    <h2>Список тем</h2>
-    <div id="themes-block">
-        <div id="themes">Loading ...</div>
-    </div>
+<div style="margin-top: 100px; margin-left: 60px;">
+    <h2>Додати задачу</h2>
+    <p>
+        <label>Тема тесту</label>
+        <select id="theme" name="theme"></select>
+    </p>
+    <p>
+        <label>Назва тесту</label>
+        <input id="name" class="text"/>
+    </p>
+
+    <p>
+        <label>Задача</label>
+        <select id="task" name="task"></select>
+        <button id="add-task">Додати</button>
+    </p>
+
+    <li id="added-tasks">
+    </li>
+    <button class="rec_button" id="submit">Зберегти Тест</button>
 </div>
-<div class="right">
-    <div id="task-form">
-        <div id="questions">
-            <p>Отображаются калькуляторы из выбраной слева темы под всеми кнопка сохранить результат.</p>
-        </div>
-    </div>
 </div>
 <script>
+    let freeTasks = [];
+    let reservedTasks = [];
+    const fillTasks = (theme) => {
+        $.ajax({
+            async: true,
+            url: `/task/get-by-theme/${theme}`,
+            method: "GET",
+            headers: {}
+        }).done((tasks) => {
+            $('select[id="task"]')
+                .find('option')
+                .remove();
+
+            freeTasks = tasks;
+            tasks.forEach(({id, name}) => $('select[name="task"]').append(`<option value="${id}">${name}</option>`))
+        });
+    };
+
+    const refreshLists = () => {
+        $('select[id="task"]')
+            .find('option')
+            .remove();
+
+        $('li[id="added-tasks"]')
+            .find('ul')
+            .remove();
+
+        freeTasks.forEach(({id, name}) => $('select[id="task"]').append(`<option value="${id}">${name}</option>`))
+        reservedTasks.forEach(({id, name}) => $('li[id="added-tasks"]').append(`<ul id="${id}">${name} <button id="remove-task">Remove</button></ul>`))
+    };
+
+    $('#add-task').on('click', () => {
+        const selectedId = $('select[id="task"]').val();
+
+        reservedTasks.push(freeTasks.find(({id}) => id === selectedId));
+        freeTasks = freeTasks.filter(({id}) => id !== selectedId);
+
+        refreshLists();
+    } );
+
+    $(document).on('click', '#remove-task', ({target: {parentNode: {id: selectedId}}}) => {
+        freeTasks.push(reservedTasks.find(({id}) => id === selectedId));
+        reservedTasks = reservedTasks.filter(({id}) => id !== selectedId);
+
+        refreshLists();
+    } );
+
     $.ajax({
         async: true,
         url: "/task/get-themes",
         method: "GET",
         headers: {}
     }).done((themes) => {
-        const newList = themes.map((theme) => (`<ul><li id="${theme.value}">${theme.fullName}</li></ul>`));
-        $('#themes').replaceWith(newList);
+        fillTasks(themes[0].value);
+        themes.forEach(({value, fullName}) => $('select[name="theme"]').append(`<option value="${value}">${fullName}</option>`))
     });
 
-    $(document).on('click', '#themes-block > ul > li', ({target: {id}}) => {
-        $.ajax({
-            async: true,
-            url: `/open-answer-task/get-by-theme/${id}`,
-            method: "GET",
-            headers: {}
-        }).done((questions) => {
-            const noQuestions = '<p>No questions</p>';
-            const questionsExists = `${questions.map(({name, question}) => (`<div id="${name}">${matchStringToQuestion(question)}<button id="submit" type="submit">Submit</button></div>`))}`;
-            const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
-            return $('#questions').replaceWith(nextTemplate);
-        });
+    $(document).on('change', 'select[name="theme"]', ({target: {value}}) => {
+        $('#added-tasks').replaceWith('<li id="added-tasks"></li>');
+        fillTasks(value);
     } );
 
-    $(document).on('click', '#task-form > div > div > button', ({target: {parentNode}}) => {
-        const questionName = parentNode.id;
-        const request = {};
-        $(`#${parentNode.id} > p > input`).each(function () {
-            Object.assign(request, {[`${this.id}`]: Number(this.value)})
+    $('#submit').on('click', () => {
+        const theme = $('select[id="theme"]').val();
+        const name = $('input[id="name"]').val();
+
+        const taskIds = [];
+        $(`#added-tasks > ul`).each(function () {
+            taskIds.push(this.id)
         });
+
+        console.log(theme, name, taskIds);
         $.ajax({
             type: "POST",
-            url: `/open-answer-task/calculate/${questionName}`,
-            data: JSON.stringify(request),
+            url: "/test/create",
+            data: JSON.stringify({theme, taskIds, name}),
             headers: {
                 "Content-Type": "application/json"
             },
             async: false,
-            success: function ({answer}) {
-                $(`#${parentNode.id} > button`).replaceWith(`<h4>Answer: ${answer}</h4>`);
-            },
+            success: location.reload(),
             error: function (data) {
                 console.log('error=' + JSON.stringify(data));
             }
-        })
-    } );
-
-    const matchStringToQuestion = (string) => {
-        const found = string.match(/[^{{\}]+(?=}})/g);
-        if (!found) {
-            return `<p>${string}</p>`;
-        }
-
-        found.forEach((variable) => {
-            string = string.replace(`{{${variable}}}`, `<input type=\"text\" id=\"${variable}\"/>`)
         });
-        return `<p>${string}</p>`;
-    };
-
-
+    });
 </script>
+<!-- D3 -->
 <script src="./js/d3.min.js"></script>
+<!-- Ball JavaScript -->
 <script src="./js/balls.js"></script>
 </body>
 </html>

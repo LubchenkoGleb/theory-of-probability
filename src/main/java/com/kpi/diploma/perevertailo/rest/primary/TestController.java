@@ -26,13 +26,13 @@ public class TestController {
     }
 
     @GetMapping(value = "/by-group")
-    private ResponseEntity<List<TestDto>> getByGroup(@RequestParam String groupId, @RequestParam ThemeValues theme) {
-        return ResponseEntity.ok(testService.getAllByGroupAndTheme(groupId, theme));
+    private ResponseEntity<List<TestDto>> getByGroup(@RequestParam String groupId) {
+        return ResponseEntity.ok(testService.getAllByGroup(groupId));
     }
 
     @GetMapping(value = "/not-assigned-to-group")
-    private ResponseEntity<List<TestDto>> notAssignedToGroup(@RequestParam String groupId, @RequestParam ThemeValues theme) {
-        return ResponseEntity.ok(testService.getNotAssignedToGroupByTheme(groupId, theme));
+    private ResponseEntity<List<TestDto>> notAssignedToGroup(@RequestParam String groupId) {
+        return ResponseEntity.ok(testService.getNotAssignedToGroup(groupId));
     }
 
     @DeleteMapping(value = "/delete-from-group")

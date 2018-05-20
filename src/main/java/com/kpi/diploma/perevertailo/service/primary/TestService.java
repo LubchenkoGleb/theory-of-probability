@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface TestService {
 
-    List<TestDto> getAllByGroupAndTheme(String groupId, ThemeValues theme);
+    List<TestDto> getAllByGroup(String groupId);
 
-    List<TestDto> getNotAssignedToGroupByTheme(String groupId, ThemeValues theme);
+    List<TestDto> getNotAssignedToGroup(String groupId);
 
     Test deleteFromGroup(String groupId, String testId);
 

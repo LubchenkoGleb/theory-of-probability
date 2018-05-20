@@ -40,11 +40,10 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<TestDto> getAllByGroupAndTheme(String groupId, ThemeValues theme) {
+    public List<TestDto> getAllByGroup(String groupId) {
         Group group = groupRepository.findById(groupId).get();
 
         List<TestDto> response = group.getTests().stream()
-                .filter(t -> t.getTheme().equals(theme))
                 .map(t -> new TestDto(t, t.getTeacher(), t.getGroups(), t.getTask()))
                 .collect(Collectors.toList());
 
@@ -52,13 +51,13 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<TestDto> getNotAssignedToGroupByTheme(String groupId, ThemeValues theme) {
+    public List<TestDto> getNotAssignedToGroup(String groupId) {
         Group group = groupRepository.findById(groupId).get();
 
         List<String> excludeIds = group.getTests().stream()
                 .map(Test::getId).collect(Collectors.toList());
 
-        List<TestDto> response = testRepository.findAllByIdNotInAndTheme(excludeIds, theme).stream()
+        List<TestDto> response = testRepository.findAllByIdNotIn(excludeIds).stream()
                 .map(t -> new TestDto(t, t.getTeacher(), t.getGroups(), t.getTask()))
                 .collect(Collectors.toList());
         log.debug("'response={}'", response);
