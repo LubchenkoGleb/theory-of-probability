@@ -100,7 +100,6 @@
             method: "GET",
             headers: {}
         }).done((questions) => {
-            console.log(questions);
             const noQuestions = '<p>No questions</p>';
             const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">Delete</button></div>`))}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;

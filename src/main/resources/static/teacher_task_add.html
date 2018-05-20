@@ -69,23 +69,118 @@
 </div>
 <div style="margin-top: 100px; margin-left: 60px;">
 <h2>Додати задачу</h2>
-<form>
+    <p>
+        <label>Ім'я </label>
+        <input id="name" class="text"/>
+    </p>
     <p>
         <label>Умова </label>
-        <input  class="text"/>
+        <input id="question" class="text"/>
     </p>
-    <p>
-        <label>Відповідь</label>
-        <input  class="text"/>
-    </p>
+    <div id="answers">
+        <div id="question-block" style="display: flex;flex-direction: column;">
+            <div style="display: inline">
+                <input id="correct-answer" name="correctAnswer" type="checkbox" checked />
+                <label style="color: white">Відповідь</label>
+                <input id="answer" class="text"/>
+                <button id="delete-answer">Видалити</button>
+            </div>
+        </div>
+        <button id="add-answer" style="margin-top: 8px">Додати варіант</button>
+    </div>
+
     <p>
         <label>Обрати тему (Выпадающий список с темами, в которую сохраняем): </label>
-        <select></select>
+        <select id="theme" name="theme"></select>
     </p>
-    <button class="rec_button">Зберегти</button>
-</form>
+
+    <p>
+        <label>З одним правильним варіантом відповіді?</label>
+        <input type="radio" id="answerTrue" name="oneCorrect" value="true">
+        <label for="answerTrue">Yes</label>
+
+        <input type="radio" id="answerFalse" name="oneCorrect" value="false" checked>
+        <label for="answerFalse">No</label>
+    </p>
+    <button class="rec_button" id="submit">Зберегти</button>
 </div>
 </div>
+<script>
+    $.ajax({
+        async: true,
+        url: "/task/get-themes",
+        method: "GET",
+        headers: {}
+    }).done((themes) => themes.map(({value, fullName}) => $('select[name="theme"]').append(`<option value="${value}">${fullName}</option>`)));
+
+    $(document).on('click', '#themes-block > ul > li', ({target: {id}}) => {
+        $.ajax({
+            async: true,
+            url: `/task/get-by-theme/${id}`,
+            method: "GET",
+            headers: {}
+        }).done((questions) => {
+            const noQuestions = '<p>No questions</p>';
+            const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">Delete</button></div>`))}`;
+            const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
+            return $('#questions').replaceWith(nextTemplate);
+        });
+    } );
+
+    $(document).on('click', '#answers > #add-answer', () => {
+        const type = $('input[name=oneCorrect]:checked').val() === 'false' ? 'checkbox' : 'radio';
+        $('#answers > #question-block').append(`
+            <div style="display: inline; margin-top: 8px;">
+                <input id="correct-answer" name="correctAnswer" type="${type}" />
+                <label style="color: white">Відповідь</label>
+                <input id="answer" class="text"/>
+                <button id="delete-answer">Видалити</button>
+            </div>
+        `)
+    })
+
+    $(document).on('click', '#answers > #question-block > div > #delete-answer', ({target: {parentNode}}) => {
+        parentNode.remove();
+    })
+
+    $('input[type=radio][name=oneCorrect]').change(function() {
+        if (this.value === 'true') {
+            $('input[name="correctAnswer"]').attr('type', 'radio');
+        }
+        else if (this.value === 'false') {
+            $('input[name="correctAnswer"]').attr('type', 'checkbox');
+        }
+    });
+
+    $('#submit').on('click', () => {
+        const type = $('input[name="oneCorrect"]:checked').val() === 'false' ? 'MULTIPLE_ANSWER' : 'SINGLE_ANSWER';
+        const theme = $('select[id="theme"]').val();
+        const question = $('input[id="question"]').val();
+        const name = $('input[id="name"]').val();
+
+        const answerOptions = [];
+        $(`#question-block > div`).each(function () {
+            const answer = $(this).find('input[id="answer"]').val();
+            const correct = $(this).find('input[id="correct-answer"]')[0].checked;
+            answerOptions.push({answer, correct})
+        });
+
+        console.log(type, theme, question, name, answerOptions);
+        $.ajax({
+            type: "POST",
+            url: "/task/create",
+            data: JSON.stringify({type, theme, answerOptions, question, name}),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            async: false,
+            success: location.reload(),
+            error: function (data) {
+                console.log('error=' + JSON.stringify(data));
+            }
+        });
+    });
+</script>
 <!-- D3 -->
 <script src="./js/d3.min.js"></script>
 <!-- Ball JavaScript -->
