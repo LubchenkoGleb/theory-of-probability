@@ -46,6 +46,7 @@
     </script>
 </header>
 <body>
+
 <div id="background"></div>
 <div class="header">
 
@@ -54,25 +55,20 @@
 <div class="menu-bottom">
     <nav>
         <ul class="topmenu">
-            <li  class="active" id='home'><a href="student.html">Тест</a></li>
+            <li id='home'><a href="student.html">Тест</a></li>
             <li><a href="student_lect.html">Лекції</a></li>
-            <li><a href="student_journel.html">Журнал оцінок</a></li>
+            <li class="active"><a href="student_journel.html">Журнал оцінок</a></li>
             <li><a href="">Вихід</a></li>
         </ul>
     </nav>
 </div>
-<div class="content" id="fullpage">
-        <div class="stTest">
-            <h1>Тест</h1>
-            <p>тема</p>
-            <a href="./testing.html">
-                <div class='rec_button'>Почати</div>
-            </a>
-        </div>
+<div class="colLeft">
+    <ul id = "groups">
+        <li>Sasha</li>
+    </ul>
 </div>
-<!-- D3 -->
-<script src="./js/d3.min.js"></script>
-<!-- Ball JavaScript -->
-<script src="./js/balls.js"></script>
+<div class="col-right">
+    <table id="student_journal"></table>
+</div>
 </body>
 </html>

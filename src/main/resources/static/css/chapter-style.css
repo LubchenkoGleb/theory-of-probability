@@ -77,21 +77,10 @@ li {
     color: black;
 }
 
-.language-setting select {
-    width: 50px;
-    border: none;
-    background: url(../img/languageSettingArrow.svg) no-repeat right;
-    font-size: 16px;
-    font-family: 'Assistant';
-    text-align: right;
-    -moz-appearance: none; 
-    -webkit-appearance: none; 
-}
 
 
 
 select{
-  background: url(../img/languageSettingArrow.svg) no-repeat right;
   -webkit-appearance: none !important;
       -moz-appearance: none;
       appearance: none;
@@ -709,6 +698,7 @@ th, td{
 .col-left {
     width: 40%;
 }
+
 
 .col-left-wrapper {
     margin: 0 auto;
