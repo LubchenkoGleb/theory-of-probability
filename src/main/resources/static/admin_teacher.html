@@ -44,11 +44,18 @@
                     <th>Ім'я:</th>
                     <th>Пошта:</th>
                     <th>Статус:</th>
-                    <!--    <th>Видалення</th> -->
                 </tr>
                 </thead>
             </table>
         </div>
+        <form id="inviteTeachers" method="post" class="inv">
+            <h2>Надіслати лист підтвердження</h2>
+            <p>
+                <label>email: </label>
+                <input name="email" type="text" id="inviteEmail" class="text"/>
+            </p>
+            <input type="submit" value="Надіслати" class="rec_button"/>
+        </form>
     </div>
 </body>
 <script>
@@ -74,6 +81,37 @@
             }
         }
     });
+
+    $('#inviteTeachers').submit(function (e) {
+        e.preventDefault();
+
+        let form = document.getElementById('inviteTeachers');
+        let formData = objectifyForm(form);
+
+        if (formData.email) {
+            let body = new Array(formData.email);
+
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(body),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                url: "/admin/invite-teachers",
+                async: false
+            });
+        }
+    });
+    function objectifyForm(formArray) {
+
+        let returnArray = {};
+        for (let i = 0; i < formArray.length; i++) {
+            if (formArray[i].type !== 'submit') {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+        }
+        return returnArray;
+    }
 
 </script>
 </html>

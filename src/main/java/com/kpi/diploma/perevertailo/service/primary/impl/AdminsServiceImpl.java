@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 public class AdminsServiceImpl implements AdminService {
 
-    private static final String message = "zhinka invites you to sign up on her diploma project";
+    private static final String message = "invites you to sign up on Theory of propability";
 
-    private static final String subject = "zhinka diploma";
+    private static final String subject = "Theory of propability";
 
     private final UserRepository userRepository;
 

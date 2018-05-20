@@ -1,7 +1,128 @@
+<!DOCTYPE html>
 <html>
 <header>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A visual introduction to probability and statistics.">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+
+    <!-- Home Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- Full Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Full Page -->
+    <script src="js/jquery.fullpage.js"></script>
+
+
+    <!-- Full Page Setup -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+                anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage'],
+                menu: '#menu',
+                afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
+                    $('.menu-sub li.active').removeClass('active');
+                    $('.menu-sub li').eq(slideIndex).addClass('active');
+                }
+
+            });
+            $('.scroll-down').show("fade");
+            $('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);
+
+        });
+    </script>
 </header>
 <body>
-    <h1>Hello Student</h1>
+<div id="background"></div>
+<div class="header">
+
+
+</div>
+<div class="menu-bottom">
+
+    <ul id="menu">
+        <li data-menuanchor="firstPage" class="active" id='home'><a href="#firstPage">Тест</a></li>
+        <li data-menuanchor="secondPage" id="chapter-menu"><a href="#secondPage">Лекції</a></li>
+        <li data-menuanchor="3rdPage"><a href="#3rdPage">Підручники</a></li>
+        <li data-menuanchor="4hPage"><a href="#4thPage">Журнал оцінок</a></li>
+        <li style="margin-left: 1000px;">Вихід</li>
+    </ul>
+
+</div>
+<div class="content" id="fullpage">
+<div class="section " id="section0 ">
+    <div class="section-wrapper">
+        <div class="intro">
+            <h1>Тест</h1>
+            <p>тема</p>
+            <a href="./testing.html">
+                <div class='rec_button'>Почати</div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="section" id="section1">
+    <div class="chapter-submenu">
+        <ul class="menu-sub">
+            <li class="active" id='submenu-bp'><a href="#secondPage/chapter1">Визначення ймовірності</a></li>
+            <li id='submenu-cp'><a href="#secondPage/chapter2">Основні теореми</a></li>
+            <li id='submenu-bi'><a href="#secondPage/chapter5">Байесс</a> </li>
+            <li id='submenu-pd'><a href="#secondPage/chapter3"></a> </li>
+            <li id='submenu-fi'><a href="#secondPage/chapter4">F</a> </li>
+            <li id='submenu-ra'><a href="#secondPage/chapter6">R</a> </li>
+        </ul>
+    </div>
+</div>
+<div class="section" id="section2">
+    <div class="section-wrapper">
+        <div class="buy-book">
+            <div class="book">
+                <!--добавить гмурмана -->
+                <a href="./doc/seeing-theory.pdf">
+                    <img src="img/book-pdf.png">
+                    <div class="round-button">Завантажити</div>
+                </a>
+            </div>
+            <div class="book">
+                <!--добавить гмурмана -->
+                <a href="./doc/seeing-theory.pdf">
+                    <img src="img/book-pdf.png">
+                    <div class="round-button">Завантажити</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section" id="section3">
+    <div class="section-wrapper">
+        <table id="journalTable">
+            <thead>
+            <tr>
+                <th>Номер тесту</th>
+                <th>Дата останнього проходження</th>
+                <th>Оцінка</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+</div>
+<!-- D3 -->
+<script src="./js/d3.min.js"></script>
+<!-- Ball JavaScript -->
+<script src="./js/balls.js"></script>
 </body>
 </html>

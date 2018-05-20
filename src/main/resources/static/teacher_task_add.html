@@ -52,40 +52,40 @@
             </li>
             <li data-menuanchor="secondPage" id="chapter-menu"><a href="teacher_tests.html">Тести<span class="fa fa-angle-down"></span></a>
                 <ul class="submenu">
-                    <li><a href="gg">Переглянути тести</a>
+                    <li><a href="">Переглянути тести</a>
                     </li>
-                    <li><a href="">Назначити тест</a>
                     <li><a href="">Створити тести<span class="fa fa-angle-down"></span></a>
                         <ul class="submenu">
                             <li><a href="">Самостійно</a></li>
                             <li><a href="">Згенерувати</a></li>
                         </ul>
                     </li>
+                    <li><a href="">Назначити тест</a>
                 </ul>
             </li>
             <li><a href="index.html">Вихід</a></li>
         </ul>
     </nav>
 </div>
-<h1 style="margin-top: 80px">Журнал оцінок</h1>
-            <div class="left">
-                    <h2>Список груп викладача</h2>
-                    <ul id="groups">
-                    </ul>
-            </div>
-            <div class="right">
-                <h2>Таблиця групи " "</h2>
-                <table id="studentsTable">
-                    <thead>
-                    <tr>
-                        <th>Прізвище:</th>
-                        <th>Ім'я:</th>
-                        <th>Тест:</th>
-                    </tr>
-                    </thead>
-                    <tbody id="studentTableBody"></tbody>
-                </table>
-            </div>
+<div style="margin-top: 100px; margin-left: 60px;">
+<h2>Додати задачу</h2>
+<form>
+    <p>
+        <label>Умова </label>
+        <input  class="text"/>
+    </p>
+    <p>
+        <label>Відповідь</label>
+        <input  class="text"/>
+    </p>
+    <p>
+        <label>Обрати тему (Выпадающий список с темами, в которую сохраняем): </label>
+        <select></select>
+    </p>
+    <button class="rec_button">Зберегти</button>
+</form>
+</div>
+</div>
 <!-- D3 -->
 <script src="./js/d3.min.js"></script>
 <!-- Ball JavaScript -->
