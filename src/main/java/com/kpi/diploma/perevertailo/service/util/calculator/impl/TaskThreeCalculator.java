@@ -16,7 +16,7 @@ public class TaskThreeCalculator extends CalculatorImpl {
     private static final String PARAM_N = "n";
     private static final String PARAM_K = "k";
     private static final String PARAM_C = "с";
-    private static final String QUESTION_TEMPLATE = "Знайти число розміщень з n ={{" +
+    private static final String QUESTION_TEMPLATE = "Знайти число комбінацій з n ={{" +
                                              PARAM_N + "}} по k = {{" + PARAM_K + "}}";
     private static final String ANSWER_TEMPLATE = "С<sub>n</sub><sup>k</sup> =  {{"+ PARAM_C + "}}";
     private static final String QUESTION_TO_STUDENT = "Чому дорівнює Pn({{" + PARAM_N + "}})";
@@ -28,7 +28,12 @@ public class TaskThreeCalculator extends CalculatorImpl {
     }
 
     @Override
-    public CalculationData calculate(Map<String, Object> task) {
+    public CalculationData calculate(Map<String, Object> inputData) {
+        log.info("'calculate' invoked with params'{}'", inputData);
+
+        Integer n = (Integer) inputData.get(PARAM_N);
+        Integer k = (Integer) inputData.get(PARAM_K);
+        int c = 0;
 
         return null;
     }
