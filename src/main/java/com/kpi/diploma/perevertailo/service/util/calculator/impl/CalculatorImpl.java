@@ -44,6 +44,7 @@ public class CalculatorImpl implements Calculator {
     }
 
     public String changePlaceHoldersToValues(String input, Map<String, Object> params) {
+        log.info("'changePlaceHoldersToValues' params '{}, {}'", input, params);
 
         List<String> matches  = getRegexMatches("(\\{\\{\\w+}})", input);
 
