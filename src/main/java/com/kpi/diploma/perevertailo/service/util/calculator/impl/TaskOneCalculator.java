@@ -66,7 +66,7 @@ public class TaskOneCalculator extends CalculatorImpl {
 
     private static final String QUESTION_TEMPLATE = "Щоб розрахувати число перестановок введіть число n = {{" + PARAM_N + "}}";
     private static final String ANSWER_TEMPLATE = "Pn =  {{" + PARAM_PN + "}}";
-    private static final String QUESTION_TO_STUDENT_TEMPLATE = "P<sub>n</sub> =  {{" + PARAM_PN + "}}";
+    private static final String QUESTION_TO_STUDENT_TEMPLATE = "P<sub>n</sub> =  {{" + PARAM_N + "}}";
 
 
     public TaskOneCalculator() {

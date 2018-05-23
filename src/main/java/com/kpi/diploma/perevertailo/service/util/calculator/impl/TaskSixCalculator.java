@@ -9,7 +9,6 @@ import java.util.Map;
 
 @Slf4j
 @Service
-
 public class TaskSixCalculator extends CalculatorImpl {
     public static final String NAME = "Формула Байєса";
     private static final String FULL_NAME = "Формула Байєса";

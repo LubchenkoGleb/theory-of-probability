@@ -2,10 +2,12 @@ package com.kpi.diploma.perevertailo.service.util.calculator.impl;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class TaskFiveCalculator extends CalculatorImpl {
     public static final String NAME = "Задача про стрілків";
     private static final String FULL_NAME = "Задача про стрілків";
