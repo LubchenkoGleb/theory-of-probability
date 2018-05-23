@@ -17,13 +17,20 @@ public class OpenAnswerTask extends Task {
 
     private String answer;
 
+    private String questionToStudent;
+
+    private String openAnswerTemplate;
+
     private Map<String, Object> calculatedValues;
 
     public OpenAnswerTask(String name, String question, ThemeValues theme, TaskTypeValues type,
-                          String calculations, String answer, Map<String, Object> calculatedValues) {
+                          String calculations, String answer, Map<String, Object> calculatedValues,
+                          String openAnswerTemplate, String questionToStudent) {
         super(name, question, theme, type);
         this.calculations = calculations;
         this.answer = answer;
         this.calculatedValues = calculatedValues;
+        this.openAnswerTemplate = openAnswerTemplate;
+        this.questionToStudent = questionToStudent;
     }
 }

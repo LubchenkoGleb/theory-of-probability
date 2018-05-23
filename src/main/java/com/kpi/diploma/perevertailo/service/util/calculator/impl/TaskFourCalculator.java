@@ -4,11 +4,11 @@ import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.util.Map;
 
 @Slf4j
 @Service
-
 public class TaskFourCalculator extends CalculatorImpl {
     public static final String NAME = "Задача про кулі";
     private static final String FULL_NAME = "Задача про кулі";
@@ -23,15 +23,15 @@ public class TaskFourCalculator extends CalculatorImpl {
     private static final String PARAM_CCK = "ck"; //первая комбинация для расчета с C по K
     private static final String PARAM_CDM = "cdm"; //вторая комбинация с d по m
     private static final String PARAM_CAN = "can"; //третья комбинация с a по n
-    private static final String QUESTION_TEMPLATE = "В урні знаходяться K = {{" + PARAM_K + "}} – білих та M = {{" + PARAM_M + "}}- чорних куль."+
-            " З неї навмання і не повертаючи виймають {{"+ PARAM_A + "}} куль. Знайти ймовірність того, що буде " +
-            "обрано рівно {{"+ PARAM_C  + "}} білих та {{"+ PARAM_D +"}} чорних куль.";
+    private static final String QUESTION_TEMPLATE = "В урні знаходяться K = {{" + PARAM_K + "}} – білих та M = {{" + PARAM_M + "}}- чорних куль." +
+            " З неї навмання і не повертаючи виймають {{" + PARAM_A + "}} куль. Знайти ймовірність того, що буде " +
+            "обрано рівно {{" + PARAM_C + "}} білих та {{" + PARAM_D + "}} чорних куль.";
     private static final String ANSWER_TEMPLATE = "P = {{" + PARAM_P + "}}";
-
+    private static final String QUESTION_TO_STUDENT = "";
 
 
     public TaskFourCalculator() {
-        super(NAME, FULL_NAME, QUESTION_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);
+        super(NAME, FULL_NAME, QUESTION_TEMPLATE, QUESTION_TO_STUDENT, ANSWER_TEMPLATE, THEME_VALUES);
     }
 
     @Override
@@ -49,9 +49,9 @@ public class TaskFourCalculator extends CalculatorImpl {
         int can = 0;
 
 
-        String calculations = "C<sup>"+ c + "</sup><sub>" + k +"</sub> = " + ck + "<br>" +
-                "C<sup>"+ d + "</sup><sub>" + m +"</sub> = "+ cdm +"<br>" +
-                "C<sup>"+ a + "</sup><sub>" + n +"</sub> = "+ can +"";
+        String calculations = "C<sup>" + c + "</sup><sub>" + k + "</sub> = " + ck + "<br>" +
+                "C<sup>" + d + "</sup><sub>" + m + "</sub> = " + cdm + "<br>" +
+                "C<sup>" + a + "</sup><sub>" + n + "</sub> = " + can + "";
         return null;
     }
 

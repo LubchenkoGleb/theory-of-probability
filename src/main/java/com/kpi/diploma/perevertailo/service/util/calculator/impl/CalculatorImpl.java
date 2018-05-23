@@ -23,14 +23,17 @@ public class CalculatorImpl implements Calculator {
 
     private final String questionTemplate;
 
+    private final String questionToStudentTemplate;
+
     private final String answerTemplate;
 
     private final ThemeValues themeValues;
 
-    public CalculatorImpl(String name, String fullName, String questionTemplate, String answerTemplate, ThemeValues themeValue) {
+    public CalculatorImpl(String name, String fullName, String questionTemplate, String questionToStudentTemplate, String answerTemplate, ThemeValues themeValue) {
         this.name = name;
         this.fullName = fullName;
         this.questionTemplate = questionTemplate;
+        this.questionToStudentTemplate = questionToStudentTemplate;
         this.answerTemplate = answerTemplate;
         this.themeValues = themeValue;
     }

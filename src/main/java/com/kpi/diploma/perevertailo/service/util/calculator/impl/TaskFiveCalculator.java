@@ -2,10 +2,12 @@ package com.kpi.diploma.perevertailo.service.util.calculator.impl;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class TaskFiveCalculator extends CalculatorImpl {
     public static final String NAME = "Задача про стрілків";
     private static final String FULL_NAME = "Задача про стрілків";
@@ -20,9 +22,11 @@ public class TaskFiveCalculator extends CalculatorImpl {
     private static final String ANSWER_TEMPLATE = "Ймовірність, що не влучить жоден: <br> P<sub>0</sub> ={{" + PARAM_PANY + "}}<br>" +
             "Ймовірність, що влучить один з них: <br> P<sub>1</sub> = {{" + PARAM_PONE + "}}<br> " +
             "Ймовірність, що влучать обидва: <br> P<sub>2</sub> ={{" + PARAM_PTWO +"}}.";
+    private static final String QUESTION_TO_STUDENT = "";
+
 
     public TaskFiveCalculator(){
-        super(NAME, FULL_NAME, QUESTION_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);
+        super(NAME, FULL_NAME, QUESTION_TEMPLATE, QUESTION_TO_STUDENT, ANSWER_TEMPLATE, THEME_VALUES);
     }
     @Override
     public CalculationData calculate(Map<String, Object> inputData) {

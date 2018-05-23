@@ -10,10 +10,7 @@ import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import com.kpi.diploma.perevertailo.repository.TaskRepository;
 import com.kpi.diploma.perevertailo.repository.UserRepository;
 import com.kpi.diploma.perevertailo.service.primary.OpenAnswerService;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.TaskOneCalculator;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.TaskThreeCalculator;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.TaskTwoCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +34,14 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
     public OpenAnswerServiceImpl(TaskOneCalculator taskOneCalculator,
                                  TaskTwoCalculator taskTwoCalculator,
                                  TaskThreeCalculator taskThreeCalculator,
+                                 TaskFourCalculator taskFourCalculator,
+                                 TaskFiveCalculator taskFiveCalculator,
+                                 TaskSixCalculator taskSixCalculator,
                                  UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
 
-        List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator);
+        List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator, taskFourCalculator, taskFiveCalculator, taskSixCalculator);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();
@@ -85,6 +85,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
 
         CalculatorImpl calculator = calculatorsByName.get(taskName);
         CalculationData calculatedValues = calculator.calculate(inputParams);
+        String questionToStudent = calculator.changePlaceHoldersToValues(calculator.getQuestionToStudentTemplate(), inputParams);
         String question = calculator.changePlaceHoldersToValues(calculator.getQuestionTemplate(), inputParams);
         String answer = calculator.changePlaceHoldersToValues(calculator.getAnswerTemplate(), calculatedValues.getCalculatedValues());
 
@@ -95,7 +96,9 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                 TaskTypeValues.OPEN_ANSWER,
                 calculatedValues.getCalculations(),
                 answer,
-                calculatedValues.getCalculatedValues());
+                calculatedValues.getCalculatedValues(),
+                calculator.getAnswerTemplate(),
+                questionToStudent);
 
         Teacher teacher = (Teacher) userRepository.findByEmail(teacherEmail);
         openAnswerTask.setTeacher(teacher);

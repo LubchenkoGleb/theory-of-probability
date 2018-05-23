@@ -5,7 +5,6 @@ import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -22,8 +21,10 @@ public class TaskTwoCalculator extends CalculatorImpl {
     private static final String QUESTION_TEMPLATE = "Знайти число розміщень з n ={{"  +
                       PARAM_N + "}} по k = {{" + PARAM_K + "}}";
     private static final String ANSWER_TEMPLATE = "A<sub>n</sub><sup>k</sup> = {{"+ PARAM_A + "}}";
+    private static final String QUESTION_TO_STUDENT = "Чому дорівнює Pn({{" + PARAM_N + "}})";
+
     public TaskTwoCalculator() {
-        super(NAME, FULL_NAME, QUESTION_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);
+        super(NAME, FULL_NAME, QUESTION_TEMPLATE, QUESTION_TO_STUDENT, ANSWER_TEMPLATE, THEME_VALUES);
     }
 
     @Override
