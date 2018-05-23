@@ -78,7 +78,7 @@ public class TaskOneCalculator extends CalculatorImpl {
          while(n >= 1) {
                pN *= n;
                n--;
-               calculation.append("Pn").append(n).append(" = ").append(pN).append("<br>");
+               calculation.append("P<sub>n</sub>").append(n).append(" = ").append(pN).append("<br>");
 
          }
 

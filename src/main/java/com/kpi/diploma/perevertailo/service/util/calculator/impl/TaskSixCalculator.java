@@ -52,9 +52,8 @@ public class TaskSixCalculator extends CalculatorImpl {
 
              String calculations = "P(H<sub>1</sub> = " + ph1 +"<br>" +
                      "P(H<sub>2</sub> = " + ph2 +"<br>" +
-                     "P(A)=P(A|H1)P(H1) + P(A|H2)P(H2)="+ paho + "*" + ph1 +" + "+ paht + "*" + ph2 +" <br>";
+                     "P(A)=P(A|H1)P(H1) + P(A|H2)P(H2)="+ paho + "*" + ph1 +" + "+ paht + "*" + ph2 +".";
 
              return null;
          }
-    }
 }
