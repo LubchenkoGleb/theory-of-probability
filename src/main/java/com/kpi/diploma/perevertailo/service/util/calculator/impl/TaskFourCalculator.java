@@ -19,10 +19,11 @@ public class TaskFourCalculator extends CalculatorImpl {
     private static final String PARAM_A = "a"; // достали без возвращения шаров C + D
     private static final String PARAM_C = "с"; // количество белых шаров которое достали
     private static final String PARAM_D = "d"; // количество черных шаров которое достали
+    private static final String PARAM_P = "p"; // искомая вероятность
     private static final String QUESTION_TEMPLATE = "В урні знаходяться K = {{" + PARAM_K + "}} – білих та M = {{" + PARAM_M + "}}- чорних куль."+
             " З неї навмання і не повертаючи виймають {{"+ PARAM_A + "}} куль. Знайти ймовірність того, що буде " +
             "обрано рівно {{"+ PARAM_C  + "}} білих та {{"+ PARAM_D +"}} чорних куль.";
-    private static final String ANSWER_TEMPLATE = "С<sub> {{" + PARAM_N + "}} </sub><sup>{{" + PARAM_K + "}}</sup> =  {{"+ PARAM_C + "}}";
+    private static final String ANSWER_TEMPLATE = "P = {{" + PARAM_P + "}}";
 
 
 
@@ -32,7 +33,7 @@ public class TaskFourCalculator extends CalculatorImpl {
 
     @Override
     public CalculationData calculate(Map<String, Object> task) {
-
+        String calculations = "C<sup>";
         return null;
     }
 

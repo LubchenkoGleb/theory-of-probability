@@ -3,7 +3,7 @@
 body{
 	margin: 0;
 	font-family: 'Assistant', sans-serif;
-	background-color: #7a76a6;
+	background-color: #2A2738;
 	/*min-height: 600px;
 */
 }
@@ -131,7 +131,7 @@ select {
 	border: 2px solid white;
 	display: inline-block;
 	color: #ffffff;
-	background-color: #7a76a6;
+	background-color: #2A2738;
 	pointer-events: auto;
 	-webkit-transition: background-color 0.5s ease-out;
 	border-radius: 20px;
@@ -146,7 +146,7 @@ input{
 	border: 2px solid white;
 	display: inline-block;
 	color: #ffffff;
-	background-color: #7a76a6;
+	background-color: #2A2738;
 	pointer-events: auto;
 	-webkit-transition: background-color 0.5s ease-out;
 	border-radius: 20px;
@@ -871,7 +871,7 @@ body {
 	margin: 0;
 	font-family: 'Open Sans', sans-serif;
 }
-nav {background: #7a76a6;}
+nav {background: #2A2738;}
 nav ul {
 	margin: 0;
 	padding: 0;
@@ -942,7 +942,7 @@ nav li:hover > .submenu {
 
 .stTest {
 	position: absolute;
-	background: #7a76a6;
+	background: #2A2738;
 	color: #FEFDFD;
 	width: 500px;
 	height: revert;
