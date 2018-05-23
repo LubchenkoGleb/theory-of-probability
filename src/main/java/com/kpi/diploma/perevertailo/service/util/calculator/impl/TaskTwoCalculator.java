@@ -2,9 +2,11 @@ package com.kpi.diploma.perevertailo.service.util.calculator.impl;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
+import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -18,9 +20,9 @@ public class TaskTwoCalculator extends CalculatorImpl {
     private static final String PARAM_K = "k";
     private static final String PARAM_A = "a";
 
-    private static final String QUESTION_TEMPLATE = "Знайти число розміщень з n ={{"  +
-                      PARAM_N + "}} по k = {{" + PARAM_K + "}}";
-    private static final String ANSWER_TEMPLATE = "A<sub>n</sub><sup>k</sup> = {{"+ PARAM_A + "}}";
+    private static final String QUESTION_TEMPLATE = "Знайти число розміщень з n ={{" +
+            PARAM_N + "}} по k = {{" + PARAM_K + "}}";
+    private static final String ANSWER_TEMPLATE = "A<sub>n</sub><sup>k</sup> = {{" + PARAM_A + "}}";
     private static final String QUESTION_TO_STUDENT = "Чому дорівнює Pn({{" + PARAM_N + "}})";
 
     public TaskTwoCalculator() {
@@ -29,12 +31,14 @@ public class TaskTwoCalculator extends CalculatorImpl {
 
     @Override
     public CalculationData calculate(Map<String, Object> inputData) {
-         log.info("'calculate' invoked with params'{}'", inputData);
+        log.info("'calculate' invoked with params'{}'", inputData);
 
-//        Integer n = (Integer) inputData.get(PARAM_N);
-//        Integer k = (Integer) inputData.get(PARAM_K);
+        Integer n = (Integer) inputData.get(PARAM_N);
+        Integer k = (Integer) inputData.get(PARAM_K);
 
         StringBuilder calculation = new StringBuilder();
+
+        Long res = MathUtil.factorial(n) / MathUtil.factorial(n - k);
 //        int t = 1;
 //        int p;
 //        int q = 1;
@@ -54,14 +58,13 @@ public class TaskTwoCalculator extends CalculatorImpl {
 
 //        log.info("calculation={}'", calculation.toString());
 //
-//        HashMap<String, Object> calculatedData = new HashMap<>();
-//        calculatedData.put(PARAM_A, a);
+        HashMap<String, Object> calculatedData = new HashMap<>();
+        calculatedData.put(PARAM_A, res);
 //
-//        CalculationData calculationData = new CalculationData(calculatedData, calculation.toString());
+        CalculationData calculationData = new CalculationData(calculatedData, calculation.toString());
 //        log.info("'calculationData={}'", calculatedData);
 //
-//        return calculationData;
-        return null;
+        return calculationData;
     }
 }
 
