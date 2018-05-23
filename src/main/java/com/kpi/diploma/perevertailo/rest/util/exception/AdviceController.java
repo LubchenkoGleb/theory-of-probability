@@ -38,11 +38,12 @@ public class AdviceController {
     public ResponseEntity<ErrorMessage> handleOtherExceptions(HttpServletRequest request, Exception ex) {
         log.error("'handleOtherExceptions' invoked for request'{}'", request.getRequestURL());
 
-        StringBuilder stringBuilder = new StringBuilder();
-        for (StackTraceElement stackTraceElement : ex.getStackTrace()) {
-            stringBuilder.append(stackTraceElement.toString());
-        }
-        log.error(stringBuilder.toString());
+        ex.printStackTrace();
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for (StackTraceElement stackTraceElement : ex.getStackTrace()) {
+//            stringBuilder.append(stackTraceElement.toString());
+//        }
+//        log.error(stringBuilder.toString());
 
         ErrorMessage errorMessage = new ErrorMessage(ex.getMessage());
         errorMessage.setExceptionName(ex.getClass().getSimpleName());

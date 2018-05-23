@@ -57,30 +57,37 @@ public class TaskOneCalculator extends CalculatorImpl {
 //        log.info("'calculationData={}'", calculatedData);
 //
 //        return calculationData;
-            private static final String NAME = "Перестановки";
-            private static final String FULL_NAME = "ФОРМУЛА ЧИСЛА ПЕРЕСТАНОВОК";
-            private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
-            private static final String PARAM_N = "n";
-            private static final String PARAM_PN = "pN";
-            private static final String QUESTION_TEMPLATE = "Щоб розрахувати число перестановок введіть число n = {{" + PARAM_N + "}}";
-            private static final String ANSWER_TEMPLATE = "P<sub>n</sub> =  {{" + PARAM_PN + "}}";
-            public TaskOneCalculator() {
-             super(NAME, FULL_NAME, QUESTION_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);
-            }
+
+    private static final String NAME = "Permutations";
+    private static final String FULL_NAME = "ФОРМУЛА ЧИСЛА ПЕРЕСТАНОВОК";
+    private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
+    private static final String PARAM_N = "n";
+    private static final String PARAM_PN = "pN";
+
+    private static final String QUESTION_TEMPLATE = "Щоб розрахувати число перестановок введіть число n = {{" + PARAM_N + "}}";
+    private static final String ANSWER_TEMPLATE = "Pn =  {{" + PARAM_PN + "}}";
+    private static final String QUESTION_TO_STUDENT_TEMPLATE = "P<sub>n</sub> =  {{" + PARAM_PN + "}}";
+
+
+    public TaskOneCalculator() {
+        super(NAME, FULL_NAME, QUESTION_TEMPLATE, QUESTION_TO_STUDENT_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);
+    }
+
+
     @Override
     public CalculationData calculate(Map<String, Object> inputData) {
         log.info("'calculate' invoked with params'{}'", inputData);
 
-         Integer n = (Integer) inputData.get(PARAM_N);
+        Integer n = (Integer) inputData.get(PARAM_N);
 
-         StringBuilder calculation = new StringBuilder();
-         int pN = 1;
-         while(n >= 1) {
-               pN *= n;
-               n--;
-               calculation.append("Pn").append(n).append(" = ").append(pN).append("<br>");
+        StringBuilder calculation = new StringBuilder();
+        int pN = 1;
+        while (n >= 1) {
+            pN *= n;
+            n--;
+            calculation.append("Pn").append(n).append(" = ").append(pN).append("<br>");
 
-         }
+        }
 
         log.info("calculation={}'", calculation.toString());
 

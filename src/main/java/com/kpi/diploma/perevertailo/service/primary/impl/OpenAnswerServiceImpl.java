@@ -85,6 +85,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
 
         CalculatorImpl calculator = calculatorsByName.get(taskName);
         CalculationData calculatedValues = calculator.calculate(inputParams);
+        String questionToStudent = calculator.changePlaceHoldersToValues(calculator.getQuestionToStudentTemplate(), inputParams);
         String question = calculator.changePlaceHoldersToValues(calculator.getQuestionTemplate(), inputParams);
         String answer = calculator.changePlaceHoldersToValues(calculator.getAnswerTemplate(), calculatedValues.getCalculatedValues());
 
@@ -95,7 +96,9 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                 TaskTypeValues.OPEN_ANSWER,
                 calculatedValues.getCalculations(),
                 answer,
-                calculatedValues.getCalculatedValues());
+                calculatedValues.getCalculatedValues(),
+                calculator.getAnswerTemplate(),
+                questionToStudent);
 
         Teacher teacher = (Teacher) userRepository.findByEmail(teacherEmail);
         openAnswerTask.setTeacher(teacher);

@@ -20,9 +20,11 @@ public class TaskFiveCalculator extends CalculatorImpl {
     private static final String ANSWER_TEMPLATE = "Ймовірність, що не влучить жоден: <br> P<sub>0</sub> ={{" + PARAM_PANY + "}}<br>" +
             "Ймовірність, що влучить один з них: <br> P<sub>1</sub> = {{" + PARAM_PONE + "}}<br> " +
             "Ймовірність, що влучать обидва: <br> P<sub>2</sub> ={{" + PARAM_PTWO +"}}.";
+    private static final String QUESTION_TO_STUDENT = "";
+
 
     public TaskFiveCalculator(){
-        super(NAME, FULL_NAME, QUESTION_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);
+        super(NAME, FULL_NAME, QUESTION_TEMPLATE, QUESTION_TO_STUDENT, ANSWER_TEMPLATE, THEME_VALUES);
     }
     @Override
     public CalculationData calculate(Map<String, Object> inputData) {

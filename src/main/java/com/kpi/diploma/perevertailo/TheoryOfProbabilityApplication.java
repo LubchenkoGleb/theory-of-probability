@@ -63,22 +63,22 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) {
-
-        themeRepository.deleteAll();
-        roleRepository.deleteAll();
-        userRepository.deleteAll();
-        groupRepository.deleteAll();
-        taskRepository.deleteAll();
-        testRepository.deleteAll();
-
-
-        initRoles();
-        intitThemes();
-        createAdmin();
-        createGroup(3);
-        createStudents(2, "noGroup");
-        usersForConfirmation();
-
+//
+//        themeRepository.deleteAll();
+//        roleRepository.deleteAll();
+//        userRepository.deleteAll();
+//        groupRepository.deleteAll();
+//        taskRepository.deleteAll();
+//        testRepository.deleteAll();
+//
+//
+//        initRoles();
+//        intitThemes();
+//        createAdmin();
+//        createGroup(3);
+//        createStudents(2, "noGroup");
+//        usersForConfirmation();
+//
     }
 
     private void initRoles() {
@@ -116,8 +116,8 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
             Student student = new Student();
             student.setId("st" + groupName + i);
-            student.setEmail("st" + groupName + i + "email.com");
-            student.setPassword("1234");
+            student.setEmail("st" + groupName + i);
+            student.setPassword(passwordEncoder.encode("1234"));
             student.setFirstName("stFtNm-" + groupName + i);
             student.setLastName("stLstName-" + groupName + i);
             student.setEnable(true);

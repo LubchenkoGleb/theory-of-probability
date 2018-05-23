@@ -12,5 +12,4 @@ public class CalculationData {
     private Map<String, Object> calculatedValues;
 
     private String calculations;
-
 }
