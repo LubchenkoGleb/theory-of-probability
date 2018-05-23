@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A visual introduction to probability and statistics.">
+    <meta name="value" content="A visual introduction to probability and statistics.">
 
     <!-- Fonts -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,7 +37,7 @@
 <div class="menu-bottom">
     <nav>
         <ul class="topmenu">
-            <li><a href="teacher.html" class="active">Журнал оцінок</a></li>
+            <li><a href="teacher.html">Журнал оцінок</a></li>
             <li data-menuanchor="firstPage" class="active" id='home'><a>Задачі<span class="fa fa-angle-down"></span></a>
                 <ul class="submenu">
                     <li><a href="teacher_tasks.html">Переглянути задачі</a>
@@ -52,14 +52,10 @@
             </li>
             <li data-menuanchor="secondPage" id="chapter-menu"><a href="teacher_tests.html">Тести<span class="fa fa-angle-down"></span></a>
                 <ul class="submenu">
-                    <li><a href="gg">Переглянути тести</a>
+                    <li><a href="">Переглянути тести</a>
                     </li>
-                    <li><a href="">Назначити тест</a>
-                    <li><a href="">Створити тести<span class="fa fa-angle-down"></span></a>
-                        <ul class="submenu">
-                            <li><a href="">Самостійно</a></li>
-                            <li><a href="">Згенерувати</a></li>
-                        </ul>
+                    <li><a href="teacher_test_mark.html">Назначити тест</a>
+                    <li><a href="teacher_test_add.html">Створити тести</a>
                     </li>
                 </ul>
             </li>
@@ -67,23 +63,22 @@
         </ul>
     </nav>
 </div>
-<h1 style="margin-top: 80px">Журнал оцінок</h1>
             <div class="left">
-                    <h2>Список груп викладача</h2>
                     <ul id="groups">
+                        <li>IS41</li>
+                        <li>IS42</li>
                     </ul>
             </div>
             <div class="right">
-                <h2>Таблиця групи " "</h2>
                 <table id="studentsTable">
                     <thead>
                     <tr>
                         <th>Прізвище:</th>
-                        <th>Ім'я:</th>
                         <th>Тест:</th>
                     </tr>
                     </thead>
                     <tbody id="studentTableBody"></tbody>
+
                 </table>
             </div>
 <!-- D3 -->

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="value" content="A visual introduction to probability and statistics.">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+
+    <!-- Home Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- Full Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Full Page -->
+    <script src="js/jquery.fullpage.js"></script>
+
+
+</header>
+<body>
+<!--<div id="background"></div>
+<div class="header">
+
+
+</div> -->
+<div class="menu-bottom">
+    <nav>
+        <ul class="topmenu">
+            <li><a href="teacher.html" class="active">Журнал оцінок</a></li>
+            <li data-menuanchor="firstPage" class="active" id='home'><a>Задачі<span class="fa fa-angle-down"></span></a>
+                <ul class="submenu">
+                    <li><a href="teacher_tasks.html">Переглянути задачі</a>
+                    </li>
+                    <li><a href="">Додати задачі<span class="fa fa-angle-down"></span></a>
+                        <ul class="submenu">
+                            <li><a href="teacher_task_calc.html">З калькулятора</a></li>
+                            <li><a href="teacher_task_add.html">Інше</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li data-menuanchor="secondPage" id="chapter-menu" class="active"><a href="teacher_tests.html">Тести<span class="fa fa-angle-down"></span></a>
+                <ul class="submenu">
+                    <li><a href="">Переглянути тести</a>
+                    </li>
+                    <li><a href="teacher_test_mark.html">Назначити тест</a>
+                    <li><a href="teacher_test_add.html">Створити тести</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="index.html">Вихід</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="left">
+    <h2>Список груп</h2>
+    <div id="group-block">
+        <div id="groups">Loading ...</div>
+    </div>
+</div>
+<div class="right">
+    <div id="task-form">
+        <li id="tasks">
+
+        </li>
+        <div>
+            <select id="unassigned-tasks">
+            </select>
+            <button id="add-test">Додати</button>
+        </div>
+    </div>
+</div>
+<script>
+    let activeGroup = null;
+
+    freeTests = [];
+    reservedTests = [];
+
+    const refreshFreeTests = (cb = () => null) => {
+        $('select[id="unassigned-tasks"]').find('option').remove();
+        if (!freeTests.length || !freeTests.every(value => value)) {
+            freeTests = [];
+        } else {
+            freeTests.forEach(({test: {id, name}}) => $('select[id="unassigned-tasks"]').append(`<option value="${id}">${name}</option>`))
+        }
+        cb();
+    };
+
+    const refreshReservedTests = () => {
+        $('li[id="tasks"]').find('ul').remove();
+
+        if (!reservedTests.length || !reservedTests.every(value => value)) {
+            reservedTests = [];
+        } else {
+            reservedTests.forEach(({test: {id, name}}) => $('li[id="tasks"]').append(`<ul id="${id}">${name} <button id="${id}">Delete</button></ul>`))
+        }
+    };
+
+    $(document).on('click', 'li[id="tasks"] > ul > button', ({target: {id: testId}}) => {
+        if (!activeGroup) {
+            return;
+        }
+
+        $.ajax({
+            type: "DELETE",
+            url: `/test/delete-from-group?groupId=${activeGroup}&testId=${testId}`,
+            headers: {},
+            async: false,
+            success: function () {
+                freeTests.push(reservedTests.find(({test: {id}}) => id === testId));
+                reservedTests = reservedTests.filter(({test: {id}}) => id !== testId);
+                console.log(freeTests, reservedTests);
+                refreshReservedTests();
+                refreshFreeTests()
+            },
+            error: function (data) {
+                console.log('error=' + JSON.stringify(data));
+            }
+        })
+    });
+
+    $.ajax({
+        async: true,
+        url: "/teacher/gropus",
+        method: "GET",
+        headers: {}
+    }).done((groups) => {
+        const newList = groups.map(({id, name}) => (`<ul><li id="${id}">${name}</li></ul>`));
+        $('#groups').replaceWith(newList);
+    });
+
+    $(document).on('click', '#add-test', () => {
+        if (!activeGroup) {
+            return;
+        }
+
+        const testId = $('select[id="unassigned-tasks"]').val();
+
+        $.ajax({
+            type: "POST",
+            url: `/test/add-test-to-group?groupId=${activeGroup}&testId=${testId}`,
+            headers: {},
+            async: false,
+            success: function () {
+                reservedTests.push(freeTests.find(({test: {id}}) => id === testId));
+                freeTests = freeTests.filter(({test: {id}}) => id !== testId);
+                refreshReservedTests();
+                refreshFreeTests()
+            },
+            error: function (data) {
+                console.log('error=' + JSON.stringify(data));
+            }
+        })
+    });
+
+    $(document).on('click', '#group-block > ul > li', ({target: {id}}) => {
+        activeGroup = id;
+
+        $.ajax({
+            async: true,
+            url: `/test/by-group?groupId=${id}`,
+            method: "GET",
+            headers: {}
+        }).done((tasks) => {
+            reservedTests = tasks;
+            refreshReservedTests();
+            refreshFreeTests()
+        });
+
+        $.ajax({
+            async: true,
+            url: `/test/not-assigned-to-group?groupId=${id}`,
+            method: "GET",
+            headers: {}
+        }).done((tasks) => {
+            freeTests = tasks;
+            refreshReservedTests();
+            refreshFreeTests()
+        });
+    } );
+
+</script>
+<script src="./js/d3.min.js"></script>
+<script src="./js/balls.js"></script>
+</body>
+</html>

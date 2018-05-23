@@ -5,6 +5,7 @@ import com.kpi.diploma.perevertailo.model.document.Journal;
 import com.kpi.diploma.perevertailo.model.document.task.Task;
 import com.kpi.diploma.perevertailo.model.document.Test;
 import com.kpi.diploma.perevertailo.model.document.user.Teacher;
+import com.kpi.diploma.perevertailo.repository.GroupRepository;
 import com.kpi.diploma.perevertailo.repository.TeacherRepository;
 import com.kpi.diploma.perevertailo.service.primary.TeacherService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +19,16 @@ public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    private final GroupRepository groupRepository;
+
+    public TeacherServiceImpl(TeacherRepository teacherRepository, GroupRepository groupRepository) {
         this.teacherRepository = teacherRepository;
+        this.groupRepository = groupRepository;
     }
 
     @Override
     public List<Group> getListOfGroup(String teacherId) {
-        return null;
+        return groupRepository.findAllByTeacherId(teacherId);
     }
 
     @Override

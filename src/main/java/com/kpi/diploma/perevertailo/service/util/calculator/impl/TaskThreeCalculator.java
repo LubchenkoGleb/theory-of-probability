@@ -10,12 +10,17 @@ import java.util.Map;
 @Slf4j
 @Service
 public class TaskThreeCalculator extends CalculatorImpl {
-
     public static final String NAME = "task_3";
-    private static final String FULL_NAME = "task 3 calculator";
-    private static final String QUESTION_TEMPLATE = "task 3 question template";
-    private static final String ANSWER_TEMPLATE = "task 3 open answer template";
-    private static final ThemeValues THEME_VALUES = ThemeValues.THREE;
+    private static final String FULL_NAME = "Комбінації з n елементів по k";
+    private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
+    private static final String PARAM_N = "n";
+    private static final String PARAM_K = "k";
+    private static final String PARAM_C = "с";
+    private static final String QUESTION_TEMPLATE = "Знайти число розміщень з n ={{" +
+                                             PARAM_N + "}} по k = {{" + PARAM_K + "}}";
+    private static final String ANSWER_TEMPLATE = "С<sub>n</sub><sup>k</sup> =  {{"+ PARAM_C + "}}";
+
+
 
     public TaskThreeCalculator() {
         super(NAME, FULL_NAME, QUESTION_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);

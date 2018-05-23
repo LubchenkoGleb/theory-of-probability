@@ -3,7 +3,7 @@
 body{
 	margin: 0;
 	font-family: 'Assistant', sans-serif;
-	background-color: #2a2738;
+	background-color: #7a76a6;
 	/*min-height: 600px;
 */
 }
@@ -130,8 +130,8 @@ p{
 select {
 	border: 2px solid white;
 	display: inline-block;
-	color: #d4d3ff;
-	background-color: #2a2738;
+	color: #ffffff;
+	background-color: #7a76a6;
 	pointer-events: auto;
 	-webkit-transition: background-color 0.5s ease-out;
 	border-radius: 20px;
@@ -145,8 +145,8 @@ h2 {
 input{
 	border: 2px solid white;
 	display: inline-block;
-	color: #d4d3ff;
-	background-color: #2a2738;
+	color: #ffffff;
+	background-color: #7a76a6;
 	pointer-events: auto;
 	-webkit-transition: background-color 0.5s ease-out;
 	border-radius: 20px;
@@ -155,7 +155,7 @@ input{
 }
 
 #bp:hover{
-	background-color: #D6EFFA;
+	background-color: #3f3a4e;
 }
 
 #cp:hover{
@@ -279,19 +279,23 @@ input{
 table {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	border-collapse: collapse;
-	color: #d4d3ff;
+	color: #000000;
+	background: #d4d3ff;
+	border: 1px solid white;
 }
 
 th {
-	border-bottom: 3px solid #2a2738;
+	border-bottom: 3px solid white;
 	padding: 10px;
 	text-align: left;
+	font: bold;
+	color: white;
 }
 td {
 	padding: 10px;
 }
 tr {
-	background: #2a2738;
+	background: #d4d3ff;
 }
 
 .menu-bottom{
@@ -366,7 +370,9 @@ ul.menu-sub{
 
 
 .teachers{
-	margin: 80px;
+	margin-top: 120px;
+	margin-bottom: 50px;
+	margin-left: 100px;
 	text-align: center;
 }
 
@@ -425,12 +431,61 @@ ul.menu-sub{
 .left ul{
 	width: 60px;
 }
+.leftGr{
+	/*margin-top: 150px;*/
+	padding: 20px 30px;
+	text-transform: uppercase;
+	color: #FEFDFD;
+	letter-spacing: 2px;
+	display: inline-block;
+	width: 20%;
+	margin-left: 1%;
+	margin-right: 20px;
+	text-align: left;
+	vertical-align: middle;
+}
+.leftGr li{
+	padding:10px;
+	font-size: 20px;
+	cursor: pointer;
+	width: 60px;
+	border-bottom: 1px solid white;
+}
+
+.leftGr ul{
+	width: 60px;
+}
+.leftTasks{
+	margin-top: 80px;
+	padding: 20px 30px;
+	text-transform: uppercase;
+	color: #FEFDFD;
+	letter-spacing: 2px;
+	display: inline-block;
+	width: 40%;
+	margin-left: 1%;
+	margin-right: 20px;
+	text-align: left;
+	vertical-align: middle;
+}
+.leftTasks li{
+	padding:10px;
+	font-size: 12px;
+	cursor: pointer;
+	width: 200px;
+	border-bottom: 1px solid white;
+}
+
+.leftTasks ul{
+	width: 200px;
+}
+
 
 .right{
 	display: inline-block;
 	width: 80%;
 	margin-right: 1%;
-	margin-top: 50px;
+	margin-top: 20px;
 	text-align: left;
 	vertical-align: center;
 }
@@ -816,7 +871,7 @@ body {
 	margin: 0;
 	font-family: 'Open Sans', sans-serif;
 }
-nav {background: #2a2738;}
+nav {background: #7a76a6;}
 nav ul {
 	margin: 0;
 	padding: 0;
@@ -840,13 +895,13 @@ nav a {
 .topmenu > li:first-child {border-left: 0;}
 .topmenu > li > a {
 	padding: 20px 30px;
-	font-size: 12px;
+	font-size: 14px;
 	text-transform: uppercase;
 	color: #FEFDFD;
 	letter-spacing: 2px;
 }
 .topmenu > li > a.active,
-.submenu a:hover {color: #d4d3ff;}
+.submenu a:hover {color: #5a4a87;}
 .topmenu .fa,
 .submenu .fa {
 	margin-left: 5px;
@@ -887,7 +942,7 @@ nav li:hover > .submenu {
 
 .stTest {
 	position: absolute;
-	background: #2a2738;
+	background: #7a76a6;
 	color: #FEFDFD;
 	width: 500px;
 	height: revert;

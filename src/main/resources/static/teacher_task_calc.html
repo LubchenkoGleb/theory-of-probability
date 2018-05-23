@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A visual introduction to probability and statistics.">
+    <meta name="value" content="A visual introduction to probability and statistics.">
 
     <!-- Fonts -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,33 +54,89 @@
                 <ul class="submenu">
                     <li><a href="">Переглянути тести</a>
                     </li>
-                    <li><a href="">Створити тести<span class="fa fa-angle-down"></span></a>
-                        <ul class="submenu">
-                            <li><a href="">Самостійно</a></li>
-                            <li><a href="">Згенерувати</a></li>
-                        </ul>
+                    <li><a href="teacher_test_mark.html">Назначити тест</a>
+                    <li><a href="teacher_test_add.html">Створити тести</a>
                     </li>
-                    <li><a href="">Назначити тест</a>
                 </ul>
             </li>
             <li><a href="index.html">Вихід</a></li>
         </ul>
     </nav>
 </div>
-<h1 style="margin-top: 80px">Страничка с калькуляторами по темам</h1>
-<div class="left">
-    <h2>Список тем</h2>
-    <ul>
-    </ul>
+<div class="leftTasks">
+    <div id="themes-block">
+        <div id="themes">Loading ...</div>
+    </div>
 </div>
 <div class="right">
-    <h2>Отображаются калькуляторы из выбраной слева темы
-    под всеми кнопка сохранить результат.
-    </h2>
+    <div id="task-form">
+        <div id="questions">
+        </div>
+    </div>
 </div>
-<!-- D3 -->
+<script>
+    $.ajax({
+        async: true,
+        url: "/task/get-themes",
+        method: "GET",
+        headers: {}
+    }).done((themes) => {
+        const newList = themes.map((theme) => (`<ul><li id="${theme.value}">${theme.fullName}</li></ul>`));
+        $('#themes').replaceWith(newList);
+    });
+
+    $(document).on('click', '#themes-block > ul > li', ({target: {id}}) => {
+        $.ajax({
+            async: true,
+            url: `/open-answer-task/get-by-theme/${id}`,
+            method: "GET",
+            headers: {}
+        }).done((questions) => {
+            const noQuestions = '<p>No questions</p>';
+            const questionsExists = `${questions.map(({name, question}) => (`<div id="${name}">${matchStringToQuestion(question)}<button id="submit" type="submit">Submit</button></div>`))}`;
+            const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
+            return $('#questions').replaceWith(nextTemplate);
+        });
+    } );
+
+    $(document).on('click', '#task-form > div > div > button', ({target: {parentNode}}) => {
+        const questionName = parentNode.id;
+        const request = {};
+        $(`#${parentNode.id} > p > input`).each(function () {
+            Object.assign(request, {[`${this.id}`]: Number(this.value)})
+        });
+        $.ajax({
+            type: "POST",
+            url: `/open-answer-task/calculate/${questionName}`,
+            data: JSON.stringify(request),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            async: false,
+            success: function ({answer}) {
+                $(`#${parentNode.id} > button`).replaceWith(`<h4>Answer: ${answer}</h4>`);
+            },
+            error: function (data) {
+                console.log('error=' + JSON.stringify(data));
+            }
+        })
+    } );
+
+    const matchStringToQuestion = (string) => {
+        const found = string.match(/[^{{\}]+(?=}})/g);
+        if (!found) {
+            return `<p>${string}</p>`;
+        }
+
+        found.forEach((variable) => {
+            string = string.replace(`{{${variable}}}`, `<input type=\"text\" id=\"${variable}\"/>`)
+        });
+        return `<p>${string}</p>`;
+    };
+
+
+</script>
 <script src="./js/d3.min.js"></script>
-<!-- Ball JavaScript -->
 <script src="./js/balls.js"></script>
 </body>
 </html>

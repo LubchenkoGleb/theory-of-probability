@@ -9,11 +9,12 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@ToString(exclude = {"students", "teacher"})
-@EqualsAndHashCode(exclude = {"students", "teacher"})
+@ToString(exclude = {"students", "teacher", "tests"})
+@EqualsAndHashCode(exclude = {"students", "teacher", "tests"})
 public class Group {
 
     @Id
@@ -21,11 +22,20 @@ public class Group {
 
     private String name;
 
-    @DBRef(lazy = false)
+    @DBRef(lazy = true)
     @JsonIgnore
     private List<Student> students;
 
     @DBRef
     @JsonIgnore
     private Teacher teacher;
+
+    @DBRef
+    @JsonIgnore
+    private List<Test> tests;
+
+    public Group() {
+        this.students = new ArrayList<>();
+        this.tests = new ArrayList<>();
+    }
 }

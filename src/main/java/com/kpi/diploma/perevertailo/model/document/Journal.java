@@ -11,10 +11,10 @@ public class Journal {
     @Id
     private String id;
 
-    @DBRef(lazy = false)
+    @DBRef(lazy = true)
     private Group group;
 
-    @DBRef(lazy = false)
+    @DBRef(lazy = true)
     private List<Student> students;
 
 }

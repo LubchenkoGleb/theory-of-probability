@@ -7,9 +7,12 @@ spring:
       database: theory-of-probability
 
 sendgrid:
-  key: ${SENDGRID_KEY}
+  key: test
 
 logging:
   level:
-    spring: trace
+    spring: INFO
+    com:
+      kpi:
+        diploma: DEBUG
 

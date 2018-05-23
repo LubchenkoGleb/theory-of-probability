@@ -5,6 +5,7 @@ import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -12,18 +13,56 @@ import java.util.Map;
 public class TaskTwoCalculator extends CalculatorImpl {
 
     public static final String NAME = "task_2";
-    private static final String FULL_NAME = "task 2 calculator";
-    private static final String QUESTION_TEMPLATE = "task 2 question template";
-    private static final String ANSWER_TEMPLATE = "task 2 open answer template";
-    private static final ThemeValues THEME_VALUES = ThemeValues.ONE;
+    private static final String FULL_NAME = "Формула числа розміщень";
+    private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
+    private static final String PARAM_N = "n";
+    private static final String PARAM_K = "k";
+    private static final String PARAM_A = "a";
 
+    private static final String QUESTION_TEMPLATE = "Знайти число розміщень з n ={{"  +
+                      PARAM_N + "}} по k = {{" + PARAM_K + "}}";
+    private static final String ANSWER_TEMPLATE = "A<sub>n</sub><sup>k</sup> = {{"+ PARAM_A + "}}";
     public TaskTwoCalculator() {
         super(NAME, FULL_NAME, QUESTION_TEMPLATE, ANSWER_TEMPLATE, THEME_VALUES);
     }
 
     @Override
-    public CalculationData calculate(Map<String, Object> task) {
+    public CalculationData calculate(Map<String, Object> inputData) {
+         log.info("'calculate' invoked with params'{}'", inputData);
 
+//        Integer n = (Integer) inputData.get(PARAM_N);
+//        Integer k = (Integer) inputData.get(PARAM_K);
+
+        StringBuilder calculation = new StringBuilder();
+//        int t = 1;
+//        int p;
+//        int q = 1;
+//        int a = 0;
+//        p = n - k;
+//
+//        while(n >= 1) {
+//            t *= n;
+//            n--;
+//            while (p >= 1) {
+//                q *= p;
+//                p--;
+//                a = t/q;
+//                calculation.append("<i>A<sub>n</sub><sup>k</sup></i>").append(n).append(" = ").append(a).append("<br>");
+//            }
+//        }
+
+//        log.info("calculation={}'", calculation.toString());
+//
+//        HashMap<String, Object> calculatedData = new HashMap<>();
+//        calculatedData.put(PARAM_A, a);
+//
+//        CalculationData calculationData = new CalculationData(calculatedData, calculation.toString());
+//        log.info("'calculationData={}'", calculatedData);
+//
+//        return calculationData;
         return null;
     }
 }
+
+
+

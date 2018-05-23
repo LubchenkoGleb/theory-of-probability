@@ -29,5 +29,4 @@ public interface TeacherService {
     Journal getJournal(String groupId, String teacherId);
 
     List<Teacher> getAll();
-
 }
