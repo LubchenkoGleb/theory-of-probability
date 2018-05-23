@@ -10,7 +10,7 @@ import java.util.Map;
 @Slf4j
 @Service
 public class TaskThreeCalculator extends CalculatorImpl {
-    public static final String NAME = "task_3";
+    public static final String NAME = "Комбінації";
     private static final String FULL_NAME = "Комбінації з n елементів по k";
     private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
     private static final String PARAM_N = "n";

@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class TaskTwoCalculator extends CalculatorImpl {
 
-    public static final String NAME = "task_2";
+    public static final String NAME = "Розміщення";
     private static final String FULL_NAME = "Формула числа розміщень";
     private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
     private static final String PARAM_N = "n";
