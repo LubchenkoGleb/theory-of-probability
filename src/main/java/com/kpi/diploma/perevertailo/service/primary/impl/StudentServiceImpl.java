@@ -94,8 +94,13 @@ public class StudentServiceImpl implements StudentService {
 
                 OpenAnswerTask task = openAnswerTestRepository.findById(t.getId()).get();
                 Map<String, Object> correctAnswers = task.getCalculatedValues();
+                log.debug("'correctAnswers={}'", correctAnswers);
                 Map<String, Object> studentAnswers = taskIdAnswer.get(task.getId()).getOpenAnswerValues();
-                if (correctAnswers.equals(studentAnswers)) {
+                log.debug("'studentAnswers={}'", studentAnswers);
+
+                if (correctAnswers.keySet().equals(studentAnswers.keySet()) &&
+                        correctAnswers.values().stream().map(Object::toString).collect(Collectors.toList())
+                                .equals(studentAnswers.values().stream().map(Object::toString).collect(Collectors.toList()))) {
                     answersCounter.add(true);
                 } else {
                     passedTestResponse.getFailedQuestions().add(task.getQuestionToStudent());
@@ -127,6 +132,8 @@ public class StudentServiceImpl implements StudentService {
 
         student.getTestResults().add(new TestResult(mark, testId, test.getName()));
         studentRepository.save(student);
+
+        passedTestResponse.setResultPercent(mark);
 
         return passedTestResponse;
     }
