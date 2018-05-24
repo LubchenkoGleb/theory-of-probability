@@ -63,24 +63,49 @@
         </ul>
     </nav>
 </div>
-            <div class="left">
-                    <ul id="groups">
-                        <li>IS41</li>
-                        <li>IS42</li>
-                    </ul>
-            </div>
-            <div class="right">
-                <table id="studentsTable">
-                    <thead>
-                    <tr>
-                        <th>Прізвище:</th>
-                        <th>Тест:</th>
-                    </tr>
-                    </thead>
-                    <tbody id="studentTableBody"></tbody>
+<div class="left">
+    <div id="group-block">
+        <div id="groups">Loading ...</div>
+    </div>
+</div>
+<div class="right">
+    <table id="studentsTable">
+    </table>
+</div>
 
+<script>
+    $(document).on('click', '#group-block > ul > li', ({target: {id}}) => {
+        activeGroup = id;
+
+        $.ajax({
+            async: true,
+            url: `/teacher/journal/${id}`,
+            method: "GET",
+            headers: {}
+        }).done(({testName: testNames = [], results = []}) => {
+            const table = `
+                <table>
+                  <tr>
+                    <td></td>
+                    ${testNames.map((name) => (`<th scope="col">${name}</th>`))}
+                  </tr>
+                  ${results.map(({studentName, results}) => (`<tr><th scope="row">${studentName}</th>${results.map((result) => (`<td>${result}</td>`))}</tr>`))}
                 </table>
-            </div>
+            `
+            $('#studentsTable').replaceWith(table);
+        });
+    } );
+
+    $.ajax({
+        async: true,
+        url: "/teacher/gropus",
+        method: "GET",
+        headers: {}
+    }).done((groups) => {
+        const newList = groups.map(({id, name}) => (`<ul><li id="${id}">${name}</li></ul>`));
+        $('#groups').replaceWith(newList);
+    });
+</script>
 <!-- D3 -->
 <script src="./js/d3.min.js"></script>
 <!-- Ball JavaScript -->
