@@ -7,7 +7,7 @@ spring:
       database: theory-of-probability
 
 sendgrid:
-  key: test
+  key: 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
 
 logging:
   level:

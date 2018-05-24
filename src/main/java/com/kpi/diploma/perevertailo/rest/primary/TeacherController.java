@@ -34,7 +34,7 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.getAll());
     }
 
-    @GetMapping(value = "/gropus")
+    @GetMapping(value = "/groups")
     private ResponseEntity<List<Group>> getGroups(@AuthenticationPrincipal MongoUserDetails principal) {
         return ResponseEntity.ok(teacherService.getListOfGroup(principal.getUserId()));
     }
