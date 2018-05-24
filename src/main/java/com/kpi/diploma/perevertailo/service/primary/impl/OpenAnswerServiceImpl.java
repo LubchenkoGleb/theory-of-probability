@@ -38,12 +38,15 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                                  TaskFiveCalculator taskFiveCalculator,
                                  TaskSixCalculator taskSixCalculator,
                                  TaskSevenCalculator taskSevenCalculator,
+                                 TaskEightCalculator taskEightCalculator,
+                                 TaskNineCalculator taskNineCalculator,
                                  UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
 
         List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator,
-                taskFourCalculator, taskFiveCalculator, taskSixCalculator, taskSevenCalculator);
+                taskFourCalculator, taskFiveCalculator, taskSixCalculator,
+                taskSevenCalculator, taskEightCalculator, taskNineCalculator);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();
