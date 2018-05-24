@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A visual introduction to probability and statistics.">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+
+    <!-- Home Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- Full Page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Full Page -->
+    <script src="js/jquery.fullpage.js"></script>
+
+
+    <!-- Full Page Setup -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+                anchors: ['firstPage', 'secondPage', '3rdPage'],
+                menu: '#menu',
+                afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
+                    $('.menu-sub li.active').removeClass('active');
+                    $('.menu-sub li').eq(slideIndex).addClass('active');
+                }
+
+            });
+            $('.scroll-down').show("fade");
+            $('.scroll-down').fadeIn(1000).fadeOut(1000).fadeIn(1000).fadeOut(1000).fadeIn(1000);
+
+        });
+    </script>
+</header>
+<body>
+
+<div id="background"></div>
+<div class="header">
+
+
+</div>
+<div class="menu-bottom">
+    <nav>
+        <ul class="topmenu">
+            <li id='home'><a href="student.html">Тест</a></li>
+            <li><a href="student_lect.html">Лекції</a></li>
+            <li class="active"><a href="student_journel.html">Журнал оцінок</a></li>
+            <li><a href="">Вихід</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="left">
+    <h2>Провалені тести</h2>
+    <div id="not-passed-tests-block">
+        <div id="not-passed-tests">Loading ...</div>
+    </div>
+</div>
+<div class="left">
+    <h2>Ще не пройдені тести</h2>
+    <div id="pending-tests-block">
+        <div id="pending-tests">Loading ...</div>
+    </div>
+</div>
+<div class="left">
+    <h2>Пройдені тести</h2>
+    <div id="passed-tests-block">
+        <div id="passed-tests"></div>
+    </div>
+</div>
+<script>
+    $(document).on('click', '#not-passed-tests-block', ({target: {id}}) => {
+        console.log(id);
+
+        // $.ajax({
+        //     async: true,
+        //     url: `/teacher/journal/${id}`,
+        //     method: "GET",
+        //     headers: {}
+        // }).done(({testName: testNames = [], results = []}) => {
+        //     const table = `
+        //         <table>
+        //           <tr>
+        //             <td></td>
+        //             ${testNames.map((name) => (`<th scope="col">${name}</th>`))}
+        //           </tr>
+        //           ${results.map(({studentName, results}) => (`<tr><th scope="row">${studentName}</th>${results.map((result) => (`<td>${result}</td>`))}</tr>`))}
+        //         </table>
+        //     `
+        //     $('#studentsTable').replaceWith(table);
+        // });
+    } );
+
+    $.ajax({
+        async: true,
+        url: '/student/not-passed-tests',
+        method: "GET",
+        headers: {}
+    }).done((tests) => {
+        const newList = tests.map(({id, name, theme}) => (`<ul><li id="${id}">${name} (${theme})</li></ul>`));
+        $('#not-passed-tests').replaceWith(newList);
+    });
+
+    $.ajax({
+        async: true,
+        url: '/student/passed-tests',
+        method: "GET",
+        headers: {}
+    }).done((tests) => {
+        const newList = tests.map(({testId, testName, result}) => (`<ul><li id="${testId}">${testName} - ${result}</li></ul>`));
+        $('#passed-tests').replaceWith(newList);
+    })
+</script>
+</body>
+</html>

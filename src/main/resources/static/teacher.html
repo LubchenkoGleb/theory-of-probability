@@ -75,8 +75,6 @@
 
 <script>
     $(document).on('click', '#group-block > ul > li', ({target: {id}}) => {
-        activeGroup = id;
-
         $.ajax({
             async: true,
             url: `/teacher/journal/${id}`,
