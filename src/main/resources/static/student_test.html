@@ -7,14 +7,15 @@
     <meta name="description" content="A visual introduction to probability and statistics.">
 
     <!-- Fonts -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
 
     <!-- Home Page CSS -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
 
     <!-- Full Page CSS -->
-    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css"/>
 
     <!--Favicon-->
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
@@ -29,11 +30,11 @@
 
     <!-- Full Page Setup -->
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#fullpage').fullpage({
                 anchors: ['firstPage', 'secondPage', '3rdPage'],
                 menu: '#menu',
-                afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
+                afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {
                     $('.menu-sub li.active').removeClass('active');
                     $('.menu-sub li').eq(slideIndex).addClass('active');
                 }
@@ -47,7 +48,6 @@
 </header>
 <body>
 
-<div id="background"></div>
 <div class="header">
 
 
@@ -63,45 +63,115 @@
     </nav>
 </div>
 <div class="left">
-    <h2>Провалені тести</h2>
+    <h2>Не пройдені тести</h2>
     <div id="not-passed-tests-block">
         <div id="not-passed-tests">Loading ...</div>
     </div>
 </div>
 <div class="left">
-    <h2>Ще не пройдені тести</h2>
     <div id="pending-tests-block">
-        <div id="pending-tests">Loading ...</div>
+        <div id="pending-tests"></div>
     </div>
 </div>
 <div class="left">
     <h2>Пройдені тести</h2>
     <div id="passed-tests-block">
-        <div id="passed-tests"></div>
+        <div id="passed-tests">Loading ...</div>
     </div>
 </div>
 <script>
-    $(document).on('click', '#not-passed-tests-block', ({target: {id}}) => {
-        console.log(id);
+    let activeTest = null;
 
-        // $.ajax({
-        //     async: true,
-        //     url: `/teacher/journal/${id}`,
-        //     method: "GET",
-        //     headers: {}
-        // }).done(({testName: testNames = [], results = []}) => {
-        //     const table = `
-        //         <table>
-        //           <tr>
-        //             <td></td>
-        //             ${testNames.map((name) => (`<th scope="col">${name}</th>`))}
-        //           </tr>
-        //           ${results.map(({studentName, results}) => (`<tr><th scope="row">${studentName}</th>${results.map((result) => (`<td>${result}</td>`))}</tr>`))}
-        //         </table>
-        //     `
-        //     $('#studentsTable').replaceWith(table);
-        // });
-    } );
+    const matchStringToQuestion = (string) => {
+        const found = string.match(/[^{{\}]+(?=}})/g);
+        if (!found) {
+            return `<p>${string}</p>`;
+        }
+
+        found.forEach((variable) => {
+            string = string.replace(`{{${variable}}}`, `<input type=\"text\" id=\"${variable}\"/>`)
+        });
+        return `<p>${string}</p>`;
+    };
+
+    $(document).on('click', '#not-passed-tests-block > ul > li', ({target: {id}}) => {
+        $.ajax({
+            async: true,
+            url: `/student/get-test/${id} `,
+            method: "GET",
+            headers: {}
+        }).done((test) => {
+            activeTest = test;
+            const {task} = test;
+
+            const types = ['SINGLE_ANSWER', 'MULTIPLE_ANSWER'];
+            const questionsBlock = task.map((test) => {
+                if (types.includes(test.type)) {
+                    return `<div id="${test.id}" class="closed-answer">
+                                ${test.question}
+                                ${test.answerOptions.map(({answer}) => (`<input name="${test.id}" type="${test.type === 'SINGLE_ANSWER' ? "radio" : "checkbox"}" value="${answer}">${answer}</input>`))}
+                            </div>
+                        `
+                }
+
+                return `
+                    <div id="${test.id}" class="open-answer">
+                        <p>${test.questionToStudent}</p>
+                        ${matchStringToQuestion(test.openAnswerTemplate)}
+                    </div>
+                `
+            });
+            $('#pending-tests').replaceWith(`<div id="pending-tests">${questionsBlock.join('')}<button id="submit" type="submit">Submit</button></div>`);
+        });
+    });
+
+    $(document).on('click', 'button[id="submit"]', ({target: {parentNode}}) => {
+
+        const response = [];
+        parentNode.childNodes.forEach((node) => {
+            if (node.localName !== 'div') {
+                return;
+            }
+            const responseObject = {};
+
+            if (node.className === 'closed-answer') {
+                $(`input[name="${node.id}"]`).each(function () {
+                    Object.assign(responseObject, {[$(this).val()]: $(this).prop('checked')})
+                });
+
+                response.push({taskId: node.id, openAnswerValues: responseObject});
+                return true;
+            }
+
+            if (node.className === 'open-answer') {
+                $(`div[id="${node.id}"] > p > input`).each(function () {
+                    Object.assign(responseObject, {[`${this.id}`]: Number(this.value)})
+                });
+
+                response.push({taskId: node.id, openAnswerValues: responseObject});
+                return true;
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: `/student/pass-test/${activeTest.test.id}`,
+            data: JSON.stringify(response),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            async: false,
+            success: function ({resultPercent, failedQuestions}) {
+                $('#pending-tests').replaceWith(`<div id="pending-tests">
+                    <h2>RESULT: ${resultPercent}</h2>
+                    ${failedQuestions && failedQuestions.length && `<p>Incorrect answers: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
+                 </div>`);
+            },
+            error: function (data) {
+                console.log('error=' + JSON.stringify(data));
+            }
+        })
+    });
 
     $.ajax({
         async: true,
