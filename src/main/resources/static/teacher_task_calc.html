@@ -63,13 +63,13 @@
         </ul>
     </nav>
 </div>
-<div class="leftTasks">
-    <div id="themes-block">
-        <div id="themes">Loading ...</div>
+<div class="leftTasks" style="position: absolute;">
+    <div id="themes-block" style="position: static;">
+        <div id="themes" style="position: static;">Loading ...</div>
     </div>
 </div>
-<div class="right">
-    <div id="task-form">
+<div class="right" style="position: absolute; margin-left: 550px;">
+    <div id="task-form" style="background: #c2c1e8; padding: 30px; width: 650px; border: 1px solid black;">
         <div id="questions">
         </div>
     </div>
@@ -93,7 +93,7 @@
             headers: {}
         }).done((questions) => {
             const noQuestions = '<p>No questions</p>';
-            const questionsExists = `${questions.map(({name, question}) => (`<div id="${name}">${matchStringToQuestion(question)}<button id="submit" type="submit">Submit</button></div>`))}`;
+            const questionsExists = `${questions.map(({name, question}) => (`<div id="${name}">${matchStringToQuestion(question)}<button id="submit" type="submit">ЗБЕРЕГТИ</button></div>`))}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
             return $('#questions').replaceWith(nextTemplate);
         });

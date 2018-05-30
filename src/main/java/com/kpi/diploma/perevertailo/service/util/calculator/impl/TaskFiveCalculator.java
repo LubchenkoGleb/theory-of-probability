@@ -36,8 +36,6 @@ public class TaskFiveCalculator extends CalculatorImpl {
         double pSecond = (double) inputData.get(PARAM_PSECOND);
 
 
-//        for (pFirst >= 0 && pFirst <= 1){
-        //           for (pSecond >= 0 && pSecond <= 1){
         double pa = (1 - pFirst) * (1 - pSecond);
         double po = pFirst * (1 - pSecond) + pSecond * (1 - pFirst);
         double pt = pFirst * pSecond;

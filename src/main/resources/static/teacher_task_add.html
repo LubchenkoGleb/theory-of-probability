@@ -42,7 +42,7 @@
                 <ul class="submenu">
                     <li><a href="teacher_tasks.html">Переглянути задачі</a>
                     </li>
-                    <li><a href="">Додати задачі<span class="fa fa-angle-down"></span></a>
+                    <li><a href="" >Додати задачі<span class="fa fa-angle-down"></span></a>
                         <ul class="submenu">
                             <li><a href="teacher_task_calc.html">З калькулятора</a></li>
                             <li><a href="teacher_task_add.html">Інше</a></li>
@@ -63,43 +63,45 @@
         </ul>
     </nav>
 </div>
-<div style="margin-top: 100px; margin-left: 60px;">
-<h2>Додати задачу</h2>
+<div style="margin-top: 100px; margin-left: 400px;">
+   <h2 style="margin-left: 200px; margin-bottom: 40px; ">ДОДАТИ ЗАДАЧУ</h2>
     <p>
-        <label>Назва </label>
-        <input id="name" class="text"/>
+        <label for="name" style="margin-right: 40px;">НAЗВА ЗАДАЧІ</label>
+        <input id="name" class="text" style="height: 35px;"/>
     </p>
     <p>
 <!--<<<<<<< HEAD-->
 <!--=======-->
-    <p>  <label for="question">Умова </label></p>
-        <input id="question" class="text"/>
-<!--&gt;>>>>>> 406cccbb6f0cab7cf35daa0c3be680591bab5dfc-->
+    <p>  <label for="question">УМОВА: </label></p>
+        <input id="question" class="text" style="width: 400px; height: 100px; size: 400px; margin-left: 100px; text-align: justify;"/>
+    <!--<textarea id="question" class="text" style="width: 400px; height: 100px; size: 400px; margin-left: 100px;"></textarea>-->
+    <!--&gt;>>>>>> 406cccbb6f0cab7cf35daa0c3be680591bab5dfc-->
+    </p>
+    <p>
+        <label>З одним правильним варіантом відповіді?</label>
+        <input type="radio" id="answerTrue" name="oneCorrect" value="true">
+        <label for="answerTrue">ТАК</label>
+
+        <input type="radio" id="answerFalse" name="oneCorrect" value="false" checked>
+        <label for="answerFalse">НІ</label>
     </p>
     <div id="answers">
         <div id="question-block" style="display: flex;flex-direction: column;">
-            <div style="display: inline">
+            <div style="display: inline; color: black; ">
                 <input id="correct-answer" name="correctAnswer" type="checkbox" checked />
-                <label style="color: white">Відповідь</label>
+                <label style="color: white;">Відповідь</label>
                 <input id="answer" class="text"/>
                 <button id="delete-answer">Видалити</button>
             </div>
         </div>
-        <button id="add-answer" style="margin-top: 8px">Додати варіант</button>
+        <button id="add-answer" class="rec_button" style="margin-top: 8px; margin-bottom: 40px;">Додати варіант</button>
     </div>
-        <label for="theme">Обрати тему: </label>
-        <select id="theme" name="theme"></select>
+        <label for="theme" style="margin-bottom: 60px; margin-top: 60px; margin-right: 30px; width: 200px;">ОБРАТИ ТЕМУ: </label>
+        <select id="theme" name="theme" style="margin-top: 25px; width: 400px;"></select>
     </p>
 
-    <p>
-        <label>З одним правильним варіантом відповіді?</label>
-        <input type="radio" id="answerTrue" name="oneCorrect" value="true">
-        <label for="answerTrue">Yes</label>
 
-        <input type="radio" id="answerFalse" name="oneCorrect" value="false" checked>
-        <label for="answerFalse">No</label>
-    </p>
-    <button class="rec_button" id="submit">Зберегти</button>
+    <button class="rec_button" id="submit" style="margin-left: 400px; margin-bottom: 20px;  width: 200px;">ЗБЕРЕГТИ</button>
 </div>
 </div>
 <script>
@@ -118,7 +120,7 @@
             headers: {}
         }).done((questions) => {
             const noQuestions = '<p>No questions</p>';
-            const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">Delete</button></div>`))}`;
+            const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">ВИДАЛИТИ</button></div>`))}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
             return $('#questions').replaceWith(nextTemplate);
         });

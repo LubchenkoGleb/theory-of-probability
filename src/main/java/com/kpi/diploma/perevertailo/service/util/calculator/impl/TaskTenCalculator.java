@@ -25,7 +25,7 @@ public class TaskTenCalculator extends CalculatorImpl {
             "Ймовірність народження хлопчика p = {{" + PARAM_P + "}}. Знайти ймовірність, що в сім'ї буде ріно" +
             "k = {{" + PARAM_K +"}} хлопчиків.";
     private static final String ANSWER_TEMPLATE = " P= {{" + PARAM_PA +"}}.";
-    private static final String QUESTION_TO_STUDENT = " (округлити максимум до другого знаку)";
+    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE +" (округлити максимум до другого знаку)";
 
 
     public TaskTenCalculator() {

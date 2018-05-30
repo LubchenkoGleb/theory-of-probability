@@ -69,7 +69,7 @@
     </div>
 </div>
 <div class="right">
-    <div id="task-form">
+    <div id="task-form" style="background: #c5c5c5; padding: 30px; width: 600px; border: 1px solid black;">
         <div id="questions">
 
         </div>
@@ -95,7 +95,7 @@
             headers: {}
         }).done((questions) => {
             const noQuestions = '<p>No questions</p>';
-            const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">Delete</button></div>`))}`;
+            const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">Видалити задачу</button></div>`))}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
             return $('#questions').replaceWith(nextTemplate);
         });

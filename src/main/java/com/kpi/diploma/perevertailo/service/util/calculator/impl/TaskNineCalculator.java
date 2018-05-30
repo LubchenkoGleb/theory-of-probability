@@ -22,7 +22,7 @@ public class TaskNineCalculator extends CalculatorImpl {
     private static final String PARAM_M = "m";
     private static final String PARAM_PM = "pm";
 
-    private static final String QUESTION_TEMPLATE = "Проводяться n={{" + PARAM_N + "}} випробувань, " +
+    private static final String QUESTION_TEMPLATE = "Задача. Проводяться n={{" + PARAM_N + "}} випробувань, " +
             "Ймовірність настання події А в кожному з них дорівнює p={{" + PARAM_P + "}}. Знайти найбільш ймовірне" +
             "число m настання події А та його йомовірність";
     private static final String ANSWER_TEMPLATE = "m={{" + PARAM_M + "}}, P(m)={{" + PARAM_PM + "}}.";
