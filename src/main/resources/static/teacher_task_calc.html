@@ -52,8 +52,7 @@
             </li>
             <li data-menuanchor="secondPage" id="chapter-menu"><a>Тести<span class="fa fa-angle-down"></span></a>
                 <ul class="submenu">
-                    <li><a href="">Переглянути тести</a>
-                    </li>
+                    <li><a href="teacher_tests.html">Переглянути тести</a></li>
                     <li><a href="teacher_test_mark.html">Назначити тест</a>
                     <li><a href="teacher_test_add.html">Створити тести</a>
                     </li>
@@ -69,7 +68,7 @@
     </div>
 </div>
 <div class="right" style="position: absolute; margin-left: 550px;">
-    <div id="task-form" style="background: #c2c1e8; padding: 30px; width: 650px; border: 1px solid black;">
+    <div id="task-form" style="background: #c2c1e8; padding: 30px; width: 950px; border: 1px solid black;">
         <div id="questions">
         </div>
     </div>
@@ -83,9 +82,14 @@
     }).done((themes) => {
         const newList = themes.map((theme) => (`<ul><li id="${theme.value}">${theme.fullName}</li></ul>`));
         $('#themes').replaceWith(newList);
+        printTasks(themes[0].value);
     });
 
     $(document).on('click', '#themes-block > ul > li', ({target: {id}}) => {
+       printTasks(id);
+    } );
+
+    function printTasks(id) {
         $.ajax({
             async: true,
             url: `/open-answer-task/get-by-theme/${id}`,
@@ -93,11 +97,16 @@
             headers: {}
         }).done((questions) => {
             const noQuestions = '<p>No questions</p>';
-            const questionsExists = `${questions.map(({name, question}) => (`<div id="${name}">${matchStringToQuestion(question)}<button id="submit" type="submit">ЗБЕРЕГТИ</button></div>`))}`;
+            const questionsExists = `${questions.map(({name, question}) => (
+                `<div id="${name}">
+                    ${matchStringToQuestion(question)}
+                    <button id="submit" type="submit">ЗБЕРЕГТИ</button>
+                    <p></p><hr><br><br>
+                </div>`)).join("")}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
             return $('#questions').replaceWith(nextTemplate);
         });
-    } );
+    }
 
     $(document).on('click', '#task-form > div > div > button', ({target: {parentNode}}) => {
         const questionName = parentNode.id;

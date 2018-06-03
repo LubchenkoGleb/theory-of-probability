@@ -9,4 +9,6 @@ import java.util.List;
 public interface TestRepository extends MongoRepository<Test, String> {
 
     List<Test> findAllByIdNotIn(List<String> excludeIds);
+
+    List<Test> findAllByTheme(ThemeValues theme);
 }

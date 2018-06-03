@@ -1,7 +1,8 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.definition;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
 import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,31 +40,11 @@ public class TaskTwoCalculator extends CalculatorImpl {
         StringBuilder calculation = new StringBuilder();
 
         Long res = MathUtil.factorial(n) / MathUtil.factorial(n - k);
-//        int t = 1;
-//        int p;
-//        int q = 1;
-//        int a = 0;
-//        p = n - k;
-//
-//        while(n >= 1) {
-//            t *= n;
-//            n--;
-//            while (p >= 1) {
-//                q *= p;
-//                p--;
-//                a = t/q;
-//                calculation.append("<i>A<sub>n</sub><sup>k</sup></i>").append(n).append(" = ").append(a).append("<br>");
-//            }
-//        }
-
-//        log.info("calculation={}'", calculation.toString());
-//
         HashMap<String, Object> calculatedData = new HashMap<>();
         calculatedData.put(PARAM_A, res);
-//
+
         CalculationData calculationData = new CalculationData(calculatedData, calculation.toString());
-//        log.info("'calculationData={}'", calculatedData);
-//
+        log.info("'calculationData={}'", calculatedData);
         return calculationData;
     }
 }

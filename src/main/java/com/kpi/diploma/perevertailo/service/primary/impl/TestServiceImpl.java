@@ -121,4 +121,22 @@ public class TestServiceImpl implements TestService {
 
         return saveTest;
     }
+
+    @Override
+    public List<TestDto> getByTheme(String theme) {
+        List<Test> tests = testRepository.findAllByTheme(ThemeValues.valueOf(theme.toUpperCase()));
+        return tests.stream()
+                .map(test -> new TestDto(test,null, null, test.getTask()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Test delete(String testId) {
+
+        Test test = testRepository.findById(testId).get();
+
+        testRepository.delete(test);
+
+        return test;
+    }
 }

@@ -1,7 +1,8 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.complete;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
 import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.Map;
 @Slf4j
 @Service
 public class TaskSixCalculator extends CalculatorImpl {
+
     public static final String NAME = "ФормулаБайєса";
     private static final String FULL_NAME = "Формула Байєса";
     private static final ThemeValues THEME_VALUES = ThemeValues.COMPLETE_PROBABILITY;

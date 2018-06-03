@@ -7,14 +7,15 @@
     <meta name="value" content="A visual introduction to probability and statistics.">
 
     <!-- Fonts -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
 
     <!-- Home Page CSS -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
 
     <!-- Full Page CSS -->
-    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullpage.css"/>
 
     <!--Favicon-->
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
@@ -52,8 +53,7 @@
             </li>
             <li data-menuanchor="secondPage" id="chapter-menu"><a>Тести<span class="fa fa-angle-down"></span></a>
                 <ul class="submenu">
-                    <li><a href="">Переглянути тести</a>
-                    </li>
+                    <li><a href="teacher_tests.html">Переглянути тести</a></li>
                     <li><a href="teacher_test_mark.html">Назначити тест</a>
                     <li><a href="teacher_test_add.html">Створити тести</a>
                     </li>
@@ -63,16 +63,14 @@
         </ul>
     </nav>
 </div>
-<div class="leftTasks">
-    <div id="themes-block">
+<div class="leftTasks" style="position: absolute; width: 350px;">
+    <div id="themes-block" style="position: absolute; width: 350px;">
         <div id="themes">Loading ...</div>
     </div>
 </div>
-<div class="right">
-    <div id="task-form" style="background: #c5c5c5; padding: 30px; width: 600px; border: 1px solid black;">
-        <div id="questions">
-
-        </div>
+<div class="right" style="position: absolute; margin-left: 500px; width: 300px;">
+    <div id="task-form" style="background: #c5c5c5; padding: 30px; width: 950px; border: 1px solid black;">
+        <div id="questions"></div>
     </div>
 </div>
 
@@ -85,9 +83,14 @@
     }).done((themes) => {
         const newList = themes.map((theme) => (`<ul><li id="${theme.value}">${theme.fullName}</li></ul>`));
         $('#themes').replaceWith(newList);
+        printTaskByThemeId(themes[0].value);
     });
 
     $(document).on('click', '#themes-block > ul > li', ({target: {id}}) => {
+      printTaskByThemeId(id);
+    });
+
+    function printTaskByThemeId(id) {
         $.ajax({
             async: true,
             url: `/task/get-by-theme/${id}`,
@@ -95,11 +98,17 @@
             headers: {}
         }).done((questions) => {
             const noQuestions = '<p>No questions</p>';
-            const questionsExists = `${questions.map(({id, question}) => (`<div id="${id}"><p>${question}</p><button type="delete">Видалити задачу</button></div>`))}`;
+            let questionsExists = `${questions.map(({id, question, answer}) => (
+                `<div id="${id}">
+                    <p><b>Питання:</b> ${question}</p>
+                    <p><b>Відповідь:</b> ${answer}</p>
+                    <button type="delete">Видалити задачу</button>
+                    <p></p><hr><br>
+                </div>`)).join("")}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
             return $('#questions').replaceWith(nextTemplate);
         });
-    } );
+    }
 
     $(document).on('click', '#task-form > div > div > button', ({target: {parentNode}}) => {
         const questionId = parentNode.id;
@@ -115,7 +124,7 @@
                 console.log('error=' + JSON.stringify(data));
             }
         })
-    } );
+    });
 </script>
 <!-- D3 -->
 <script src="./js/d3.min.js"></script>

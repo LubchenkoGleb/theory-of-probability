@@ -10,7 +10,13 @@ import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import com.kpi.diploma.perevertailo.repository.TaskRepository;
 import com.kpi.diploma.perevertailo.repository.UserRepository;
 import com.kpi.diploma.perevertailo.service.primary.OpenAnswerService;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.*;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.actions.TaskFiveCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskEightCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskNineCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskSevenCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.complete.TaskSixCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

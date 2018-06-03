@@ -54,4 +54,15 @@ public class TestController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping(value = "/get-by-theme/{theme}")
+    private ResponseEntity<List<TestDto>> getByTheme(@PathVariable String theme) {
+        return ResponseEntity.ok(testService.getByTheme(theme));
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    private ResponseEntity<Test> delete(@PathVariable String id) {
+        log.info("'delete' params'{}'", id);
+        return ResponseEntity.ok(testService.delete(id));
+    }
 }

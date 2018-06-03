@@ -18,4 +18,8 @@ public interface TestService {
     Test addToGroup(String groupId, String testId);
 
     Test createTest(CreateTestDto createTestDto, String teacherId);
+
+    List<TestDto> getByTheme(String theme);
+
+    Test delete(String testId);
 }

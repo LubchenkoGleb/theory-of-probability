@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar target/theory-of-probability-0.0.1.jar  --spring.profiles.active=heroku

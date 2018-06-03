@@ -1,13 +1,12 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.definition;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
 import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 

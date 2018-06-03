@@ -1,7 +1,8 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.actions;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

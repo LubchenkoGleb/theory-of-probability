@@ -1,17 +1,16 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
-import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Service
-public class TaskTenCalculator extends CalculatorImpl {
+public class TaskElevenCalculator extends CalculatorImpl {
 
     public static final String NAME = "ФормулаБернуллі";
     private static final String FULL_NAME = "Формула Бернуллі";
@@ -25,10 +24,10 @@ public class TaskTenCalculator extends CalculatorImpl {
             "Ймовірність народження хлопчика p = {{" + PARAM_P + "}}. Знайти ймовірність, що в сім'ї буде ріно" +
             "k = {{" + PARAM_K +"}} хлопчиків.";
     private static final String ANSWER_TEMPLATE = " P= {{" + PARAM_PA +"}}.";
-    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE +" (округлити максимум до другого знаку)";
+    private static final String QUESTION_TO_STUDENT = " (округлити максимум до другого знаку)";
 
 
-    public TaskTenCalculator() {
+    public TaskElevenCalculator() {
         super(NAME, FULL_NAME, QUESTION_TEMPLATE, QUESTION_TO_STUDENT, ANSWER_TEMPLATE, THEME_VALUES);
     }
 
@@ -41,10 +40,11 @@ public class TaskTenCalculator extends CalculatorImpl {
 //
 //
 //        HashMap<String, Object> calculatedData = new HashMap<>();
-////        calculatedData.put(PARAM_PA, res);
+//        calculatedData.put(PARAM_PA, res);
 //        CalculationData calculationData = new CalculationData(calculatedData, "");
 //
 //        return calculationData;
         return null;
     }
+
 }
