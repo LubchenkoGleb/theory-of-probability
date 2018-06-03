@@ -63,22 +63,22 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) {
-//
-//        themeRepository.deleteAll();
-//        roleRepository.deleteAll();
-//        userRepository.deleteAll();
-//        groupRepository.deleteAll();
-//        taskRepository.deleteAll();
-//        testRepository.deleteAll();
-//
-//
-//        initRoles();
-//        intitThemes();
-//        createAdmin();
-//        createGroup(3);
-//        createStudents(2, "noGroup");
-//        usersForConfirmation();
-//
+
+        themeRepository.deleteAll();
+        roleRepository.deleteAll();
+        userRepository.deleteAll();
+        groupRepository.deleteAll();
+        taskRepository.deleteAll();
+        testRepository.deleteAll();
+
+
+        initRoles();
+        intitThemes();
+        createAdmin();
+        createGroup(3);
+        createStudents(2, "noGroup");
+        usersForConfirmation();
+
     }
 
     private void initRoles() {
