@@ -11,12 +11,16 @@ import com.kpi.diploma.perevertailo.repository.TaskRepository;
 import com.kpi.diploma.perevertailo.repository.UserRepository;
 import com.kpi.diploma.perevertailo.service.primary.OpenAnswerService;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.PuassonFormula;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.actions.TaskFiveCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskEightCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskNineCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskSevenCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.complete.TaskSixCalculator;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.*;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskFourCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskOneCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskThreeCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskTwoCalculator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -46,13 +50,14 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                                  TaskSevenCalculator taskSevenCalculator,
                                  TaskEightCalculator taskEightCalculator,
                                  TaskNineCalculator taskNineCalculator,
+                                 PuassonFormula puassonFormula,
                                  UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
 
         List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator,
                 taskFourCalculator, taskFiveCalculator, taskSixCalculator,
-                taskSevenCalculator, taskEightCalculator, taskNineCalculator);
+                taskSevenCalculator, taskEightCalculator, taskNineCalculator, puassonFormula);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();

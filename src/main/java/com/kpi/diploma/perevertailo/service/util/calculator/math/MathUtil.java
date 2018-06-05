@@ -32,4 +32,32 @@ public class MathUtil {
         df.setRoundingMode(RoundingMode.CEILING);
         return Double.valueOf(df.format(number));
     }
+
+    public static double puassonSum(int from, int to, int n, double p) {
+        double res = 0;
+
+        for (int i = from; i <= to; i++) {
+            double curRes = puasson(i, n, p);
+
+            if (Double.isInfinite(curRes))
+                break;
+
+            res += curRes;
+        }
+
+        return res;
+    }
+
+    public static double puasson(int k, int n, double p) {
+        double l = n * p;
+        return Math.pow(l, k) * Math.pow(Math.E, -l) / factorial(k);
+    }
+
+    public static double calcXFroLaplase(int k, int n, double p) {
+        return (k - n * p) / Math.sqrt(n * p * (1 - p));
+    }
+
+    public static double calcLaplase(int k1, int k2, int n, double p) {
+        return LaplaceTable.getNeares(calcXFroLaplase(k2, n, p)) - LaplaceTable.getNeares(calcXFroLaplase(k1, n, p));
+    }
 }
