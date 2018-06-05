@@ -138,7 +138,16 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         themeRepository.save(new Theme(ThemeValues.ACTIONS_ON_EVENTS, "ДІЇ НАД ПОДІЯМИ. ТЕОРЕМА СКЛАДАННЯ ЙМОВІРНОСТЕЙ. ТЕОРЕМА МНОЖЕННЯ ІМОВІРНОСТЕЙ. ВИПАДКОВА ЙМОВІРНІСТЬ"));
         themeRepository.save(new Theme(ThemeValues.COMPLETE_PROBABILITY, "ФОРМУЛА ПОВНОЇ ІМОВІРНОСТІ. ФОРМУЛА Байєса"));
         themeRepository.save(new Theme(ThemeValues.FORMULA_BERNULI, "Формула Бернуллі. ФОРМУЛА Пуассона. ЛОКАЛЬНА І ІНТЕГРАЛЬНІ Теорема Лапласа"));
-        themeRepository.save(new Theme(ThemeValues.DEVIATION_OF_RELATIVE_FREQUENCY, "ВІДХИЛЕННЯ ВІДНОСНОЇ ЧАСТОТИ ВІД ПОСТІЙНОЇ ІМОВІРНОСТІ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ. НАЙЙМОВІРНІСНІШЕ ЧИСЛОПОЯВИ ПОДІЙ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ"));
+        themeRepository.save(new Theme(ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY, "ВІДХИЛЕННЯ ВІДНОСНОЇ ЧАСТОТИ ВІД ПОСТІЙНОЇ ІМОВІРНОСТІ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ. НАЙЙМОВІРНІСНІШЕ ЧИСЛО ПОЯВИ ПОДІЙ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ"));
+        themeRepository.save(new Theme(ThemeValues.RANGE_OF_DISTRIBUTION,  "РЯД РОЗПОДІЛУ ДИСКРЕТНОЇ ВИПАДКОВОЇ ВЕЛИЧИНИ. ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТИКИ."));
+        themeRepository.save(new Theme(ThemeValues.BASIC_LAWS_OF_DISTRIBUTION, "ОСНОВНІ ЗАКОНИ РОЗПОДІЛУ."));
+        themeRepository.save(new Theme(ThemeValues.BASIC_NUMERICAL_CHARACTERISTICS, "СНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТКИ"));
+        themeRepository.save(new Theme(ThemeValues.SYSTEMS_OF_TWO_RANDOM_VALUES, "СИСТЕМИ ДВУХ ВИПАДКОВИХ ВЕЛИЧИН"));
+        themeRepository.save(new Theme(ThemeValues.THE_LAW_OF_LARGE_NUMBERS, "ЗАКОН ВЕЛИКИХ ЧИСЕЛ"));
+        themeRepository.save(new Theme(ThemeValues.SELECTIVE_METHOD,  "ВИБІРКОВИЙ МЕТОД"));
+        themeRepository.save(new Theme(ThemeValues.STATISTICAL_ESTIMATION_OF_PARAMETERS_OF_DISTRIBUTION, "СТАТИСТИЧНІ ОЦІНКИ ПАРАМЕТРІВ РОЗПОДІЛУ"));
+        themeRepository.save(new Theme(ThemeValues.METHODS_OF_ASSESSMENT_OF_THE_EVALUATION, "МЕТОДИ ЗНАХОДЖЕННЯ ОЦІНОК"));
+        themeRepository.save(new Theme(ThemeValues.STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS, "СТАТИСТИЧНА ПЕРЕВІРКА СТАТИСТИЧНИХ ГІПОТЕЗ"));
     }
 
     private Teacher createTeacher(String groupName) {
