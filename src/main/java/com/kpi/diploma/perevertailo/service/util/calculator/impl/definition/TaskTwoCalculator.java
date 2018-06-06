@@ -34,8 +34,8 @@ public class TaskTwoCalculator extends CalculatorImpl {
     public CalculationData calculate(Map<String, Object> inputData) {
         log.info("'calculate' invoked with params'{}'", inputData);
 
-        Integer n = (Integer) inputData.get(PARAM_N);
-        Integer k = (Integer) inputData.get(PARAM_K);
+        Integer n = Integer.valueOf(inputData.get(PARAM_N).toString());
+        Integer k = Integer.valueOf(inputData.get(PARAM_K).toString());
 
         StringBuilder calculation = new StringBuilder();
 

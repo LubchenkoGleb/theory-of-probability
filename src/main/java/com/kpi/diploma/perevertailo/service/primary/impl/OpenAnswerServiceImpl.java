@@ -11,7 +11,6 @@ import com.kpi.diploma.perevertailo.repository.TaskRepository;
 import com.kpi.diploma.perevertailo.repository.UserRepository;
 import com.kpi.diploma.perevertailo.service.primary.OpenAnswerService;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.PuassonFormula;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.actions.TaskFiveCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskEightCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli.TaskNineCalculator;
@@ -21,6 +20,7 @@ import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.Task
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskOneCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskThreeCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskTwoCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement.CharactFirst;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -57,6 +57,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                                  Variance variance,
                                  MathExp mathExp,
                                  Distribution distribution,
+                                 CharactFirst charactFirst,
                                  UserRepository userRepository,
                                  TaskRepository taskRepository) {
         this.userRepository = userRepository;
@@ -65,7 +66,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
         List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator,
                 taskFourCalculator, taskFiveCalculator, taskSixCalculator, taskSevenCalculator, taskEightCalculator,
                 taskNineCalculator, puassonFormula, formulaLaplassa, mostPropableNumber, variance, mathExp,
-                distribution);
+                distribution, charactFirst);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();
@@ -111,6 +112,8 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
         CalculationData calculatedValues = calculator.calculate(inputParams);
         String questionToStudent = calculator.changePlaceHoldersToValues(calculator.getQuestionToStudentTemplate(), inputParams);
         String question = calculator.changePlaceHoldersToValues(calculator.getQuestionTemplate(), inputParams);
+
+        calculatedValues.getCalculatedValues().putAll(inputParams);
         String answer = calculator.changePlaceHoldersToValues(calculator.getAnswerTemplate(), calculatedValues.getCalculatedValues());
 
         OpenAnswerTask openAnswerTask = new OpenAnswerTask(

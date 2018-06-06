@@ -33,7 +33,7 @@ public class TaskOneCalculator extends CalculatorImpl {
     public CalculationData calculate(Map<String, Object> inputData) {
         log.info("'calculate' invoked with params'{}'", inputData);
 
-        Integer n = (Integer) inputData.get(PARAM_N);
+        Integer n = Integer.valueOf(inputData.get(PARAM_N).toString());
 
          StringBuilder calculation = new StringBuilder();
          int pN = 1;

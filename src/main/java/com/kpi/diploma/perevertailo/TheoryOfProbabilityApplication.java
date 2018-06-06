@@ -141,7 +141,7 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         themeRepository.save(new Theme(ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY, "ВІДХИЛЕННЯ ВІДНОСНОЇ ЧАСТОТИ ВІД ПОСТІЙНОЇ ІМОВІРНОСТІ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ. НАЙЙМОВІРНІСНІШЕ ЧИСЛО ПОЯВИ ПОДІЙ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ"));
         themeRepository.save(new Theme(ThemeValues.RANGE_OF_DISTRIBUTION,  "РЯД РОЗПОДІЛУ ДИСКРЕТНОЇ ВИПАДКОВОЇ ВЕЛИЧИНИ. ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТИКИ."));
         themeRepository.save(new Theme(ThemeValues.BASIC_LAWS_OF_DISTRIBUTION, "ОСНОВНІ ЗАКОНИ РОЗПОДІЛУ."));
-        themeRepository.save(new Theme(ThemeValues.BASIC_NUMERICAL_CHARACTERISTICS, "СНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТКИ"));
+        themeRepository.save(new Theme(ThemeValues.BASIC_NUMERICAL_CHARACTERISTICS, "ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТКИ"));
         themeRepository.save(new Theme(ThemeValues.SYSTEMS_OF_TWO_RANDOM_VALUES, "СИСТЕМИ ДВУХ ВИПАДКОВИХ ВЕЛИЧИН"));
         themeRepository.save(new Theme(ThemeValues.THE_LAW_OF_LARGE_NUMBERS, "ЗАКОН ВЕЛИКИХ ЧИСЕЛ"));
         themeRepository.save(new Theme(ThemeValues.SELECTIVE_METHOD,  "ВИБІРКОВИЙ МЕТОД"));

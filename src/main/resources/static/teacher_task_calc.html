@@ -112,7 +112,7 @@
         const questionName = parentNode.id;
         const request = {};
         $(`#${parentNode.id} :input[type='text']`).each(function () {
-            Object.assign(request, {[`${this.id}`]: Number(this.value)})
+            Object.assign(request, {[`${this.id}`]: this.value})
         });
         $.ajax({
             type: "POST",

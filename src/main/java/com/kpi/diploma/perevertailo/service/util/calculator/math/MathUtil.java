@@ -1,8 +1,13 @@
 package com.kpi.diploma.perevertailo.service.util.calculator.math;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.client.RestTemplate;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 
+@Slf4j
 public class MathUtil {
     public static long factorial(int number) {
         long result = 1;
@@ -75,5 +80,18 @@ public class MathUtil {
         }
 
         return res;
+    }
+
+    public static double calculateIntegralOnFB(String function, Double from, Double to) {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+
+        HashMap<String, String> body = new HashMap<>();
+        body.put("command", "integrate(" + function + ", x, " + from + ", " + to + ")");
+        log.info("'body={}'", body);
+
+        return Double.valueOf(restTemplate.postForObject(
+                "https://us-central1-math-integral-count.cloudfunctions.net/mathjs", body, String.class));
     }
 }

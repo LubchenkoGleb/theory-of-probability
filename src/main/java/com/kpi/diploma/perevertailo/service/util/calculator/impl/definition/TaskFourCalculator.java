@@ -46,11 +46,11 @@ public class TaskFourCalculator extends CalculatorImpl {
     public CalculationData calculate(Map<String, Object> inputData) {
         log.info("'calculate' invoked with params'{}'", inputData);
 
-        Integer c = (Integer) inputData.get(PARAM_C);
-        Integer k = (Integer) inputData.get(PARAM_K);
-        Integer m = (Integer) inputData.get(PARAM_M);
-        Integer a = (Integer) inputData.get(PARAM_A);
-        Integer d = (Integer) inputData.get(PARAM_D);
+        Integer c = Integer.valueOf(inputData.get(PARAM_C).toString());
+        Integer k = Integer.valueOf(inputData.get(PARAM_K).toString());
+        Integer m = Integer.valueOf(inputData.get(PARAM_M).toString());
+        Integer a = Integer.valueOf(inputData.get(PARAM_A).toString());
+        Integer d = Integer.valueOf(inputData.get(PARAM_D).toString());
         int n = k + m;
 
         long cck = MathUtil.combinations(c, k);

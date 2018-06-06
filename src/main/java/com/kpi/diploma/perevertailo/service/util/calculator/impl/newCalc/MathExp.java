@@ -57,7 +57,7 @@ public class MathExp extends CalculatorImpl {
             "F(x<sub>3</sub>< x ≤x<sub>4</sub>) = {{" + PARAM_F4 + "}}; <br>" +
             "F(x > x<sub>4</sub>) = {{" + PARAM_F5 + "}}. <br>" +
             "Ймовірність, що випадкова величина Х набуде модливого значення в заданому проміжку: <br>" +
-            "P(a≤x&lt;b) = {{"+ PARAM_NOT_LESS_AND_NOT_MORE +"}}. <br> ";
+            "P(a≤x≤b) = {{"+ PARAM_NOT_LESS_AND_NOT_MORE +"}}. <br> ";
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";
 
