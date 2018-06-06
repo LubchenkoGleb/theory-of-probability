@@ -21,6 +21,7 @@ import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.Task
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskOneCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskThreeCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskTwoCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -51,13 +52,20 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                                  TaskEightCalculator taskEightCalculator,
                                  TaskNineCalculator taskNineCalculator,
                                  PuassonFormula puassonFormula,
-                                 UserRepository userRepository, TaskRepository taskRepository) {
+                                 FormulaLaplassa formulaLaplassa,
+                                 MostPropableNumber mostPropableNumber,
+                                 Variance variance,
+                                 MathExp mathExp,
+                                 Distribution distribution,
+                                 UserRepository userRepository,
+                                 TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
 
         List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator,
-                taskFourCalculator, taskFiveCalculator, taskSixCalculator,
-                taskSevenCalculator, taskEightCalculator, taskNineCalculator, puassonFormula);
+                taskFourCalculator, taskFiveCalculator, taskSixCalculator, taskSevenCalculator, taskEightCalculator,
+                taskNineCalculator, puassonFormula, formulaLaplassa, mostPropableNumber, variance, mathExp,
+                distribution);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();

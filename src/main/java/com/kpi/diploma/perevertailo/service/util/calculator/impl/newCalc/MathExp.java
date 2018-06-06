@@ -1,4 +1,5 @@
 package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
+
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
@@ -38,7 +39,8 @@ public class MathExp extends CalculatorImpl {
 
 
     private static final String QUESTION_TEMPLATE = "Дискретна випадкова величина задана законом розподілу: <br>" +
-            "<table><tr><th>X<sub>i</sub></th><td>{{"+ PARAM_X1 +"}}</td><td>{{"+ PARAM_X2 +"}}</td><td>{{"+ PARAM_X3 +"}}</td><td>{{"+ PARAM_X4 +"}}</td></tr><tr><th>P<sub>i</sub></th><td>{{"+ PARAM_P1 +"}}</td><td>{{"+ PARAM_P2 +"}}</td><td>{{"+ PARAM_P3 +"}}</td><td>{{"+ PARAM_P4 +"}}</td></tr></table> <br>" +
+            "<table>" +
+            "<tr><th>X<sub>i</sub></th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td><td>{{" + PARAM_X4 + "}}</td></tr><tr><th>P<sub>i</sub></th><td>{{" + PARAM_P1 + "}}</td><td>{{" + PARAM_P2 + "}}</td><td>{{" + PARAM_P3 + "}}</td><td>{{" + PARAM_P4 + "}}</td></tr></table> <br>" +
             "Ймовірність, що випадкова величина Х набуде можливого значення в проміжику: <br>" +
             "не менше ніж {{" + PARAM_NOT_LESS + "}} і не більше ніж {{" + PARAM_NOT_MORE + "}} <br>" +
             "Знайти матсподівання, дисперсію, середньоквадратичне відхилення та функцію розподілу.";
@@ -49,15 +51,15 @@ public class MathExp extends CalculatorImpl {
             "Середньоквадратичне відхилення  <br>" +
             " σ(x)  = {{" + PARAM_SIGMA + "}} <br>" +
             "Функція розподілу : <br>" +
-            "F(x≤x<sub>1</sub>) = {{" + PARAM_F1 +"}}; <br>" +
-            "F(x<sub>1</sub>< x ≤x<sub>2</sub>) = {{" + PARAM_F2 +"}}; <br>" +
-            "F(x<sub>2</sub>< x ≤x<sub>3</sub>) = {{" + PARAM_F3 +"}}; <br>" +
-            "F(x<sub>3</sub>< x ≤x<sub>4</sub>) = {{" + PARAM_F4 +"}}; <br>" +
-            "F(x > x<sub>4</sub>) = {{" + PARAM_F5 +"}}. <br>" +
+            "F(x≤x<sub>1</sub>) = {{" + PARAM_F1 + "}}; <br>" +
+            "F(x<sub>1</sub>< x ≤x<sub>2</sub>) = {{" + PARAM_F2 + "}}; <br>" +
+            "F(x<sub>2</sub>< x ≤x<sub>3</sub>) = {{" + PARAM_F3 + "}}; <br>" +
+            "F(x<sub>3</sub>< x ≤x<sub>4</sub>) = {{" + PARAM_F4 + "}}; <br>" +
+            "F(x > x<sub>4</sub>) = {{" + PARAM_F5 + "}}. <br>" +
             "Ймовірність, що випадкова величина Х набуде модливого значення в заданому проміжку: <br>" +
-            "P(a≤x<b) = {{"+ PARAM_NOT_LESS_AND_NOT_MORE +"}}. <br> ";
+            "P(a≤x&lt;b) = {{"+ PARAM_NOT_LESS_AND_NOT_MORE +"}}. <br> ";
 
-    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE +"(округлити максимум до другого знаку)";
+    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";
 
 
     public MathExp() {
@@ -79,23 +81,36 @@ public class MathExp extends CalculatorImpl {
         Integer notLess = Integer.valueOf(inputData.get(PARAM_NOT_LESS).toString());
         Integer notMore = Integer.valueOf(inputData.get(PARAM_NOT_MORE).toString());
 
-//        double eqRes = MathUtil.puasson(eq, n, p);
-//        double lessRss = MathUtil.puassonSum(0, less - 1, n, p);
-//        double notLessRss = MathUtil.puassonSum(notLess, n, n, p);
-//        double moreRes = MathUtil.puassonSum(more + 1, n, n, p);
-//        double notMoreRes = MathUtil.puassonSum(0, notMore, n, p);
-//        double notLessAndNotMoreRes = MathUtil.puassonSum(notLess2, notMore2, n, p);
-//        double exactlyOneRes = 1 - MathUtil.puasson(0, n, p);
+        double mathExpRes = x1 * p1 + x2 * p2 + x3 * p3 + x4 * p4;
+        double disp = x1 * x1 * p1 + x2 * x2 * p2 + x3 * x3 * p3 + x4 * x4 * p4 - mathExpRes * mathExpRes;
+        double sigma = Math.sqrt(disp);
+
+        double f1 = 0;
+        double f2 = f1 + p1;
+        double f3 = f2 + p2;
+        double f4 = f3 + p3;
+        double f5 = f4 + p4;
+
+        Map<Integer, Double> probMap = new HashMap<>();
+        probMap.put(1, f1);
+        probMap.put(2, f2);
+        probMap.put(3, f3);
+        probMap.put(4, f4);
+        probMap.put(5, f5);
+
+        double probRes = probMap.get(notMore) - probMap.get(notLess);
 
         HashMap<String, Object> calculatedData = new HashMap<>();
-        calculatedData.put(PARAM_M, m);
-        calculatedData.put(PARAM_D, d);
-        calculatedData.put(PARAM_SIGMA, sigma);
+        calculatedData.put(PARAM_M, MathUtil.roundDouble(mathExpRes, 4));
+        calculatedData.put(PARAM_D, MathUtil.roundDouble(disp, 4));
+        calculatedData.put(PARAM_SIGMA, MathUtil.roundDouble(sigma, 4));
+        calculatedData.put(PARAM_F1, f1);
+        calculatedData.put(PARAM_F2, f2);
+        calculatedData.put(PARAM_F3, f3);
+        calculatedData.put(PARAM_F4, f4);
+        calculatedData.put(PARAM_F5, f5);
+        calculatedData.put(PARAM_NOT_LESS_AND_NOT_MORE, MathUtil.roundDouble(probRes, 4));
 
-//        calculatedData.put(PARAM_MORE, moreRes);
-//        calculatedData.put(PARAM_NOT_MORE, notMoreRes);
-//        calculatedData.put(PARAM_NOT_LESS_AND_NOT_MORE, notLessAndNotMoreRes);
-//        calculatedData.put(PARAM_EXACTLY_ONE, exactlyOneRes);
         log.info("'calculatedData={}'", calculatedData);
 
         CalculationData calculationData = new CalculationData(calculatedData, "");

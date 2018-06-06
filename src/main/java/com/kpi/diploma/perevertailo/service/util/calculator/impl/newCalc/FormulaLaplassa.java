@@ -1,4 +1,5 @@
 package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
+
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
@@ -47,7 +48,7 @@ public class FormulaLaplassa extends CalculatorImpl {
             "6) P = {{" + PARAM_NOT_LESS_AND_NOT_MORE + "}} <br>" +
             "7) P = {{" + PARAM_EXACTLY_ONE + "}}";
 
-    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE +"(округлити максимум до другого знаку)";
+    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + " (округлити максимум до другого знаку)";
 
 
     public FormulaLaplassa() {
@@ -68,18 +69,18 @@ public class FormulaLaplassa extends CalculatorImpl {
         Integer notLess2 = Integer.valueOf(inputData.get(PARAM_NOT_LESS2).toString());
         Integer notMore2 = Integer.valueOf(inputData.get(PARAM_NOT_MORE2).toString());
 
-//        double eqRes = MathUtil.puasson(eq, n, p);
-//        double lessRss = MathUtil.puassonSum(0, less - 1, n, p);
-//        double notLessRss = MathUtil.puassonSum(notLess, n, n, p);
-//        double moreRes = MathUtil.puassonSum(more + 1, n, n, p);
-//        double notMoreRes = MathUtil.puassonSum(0, notMore, n, p);
-//        double notLessAndNotMoreRes = MathUtil.puassonSum(notLess2, notMore2, n, p);
-//        double exactlyOneRes = 1 - MathUtil.puasson(0, n, p);
+        double eqRes = MathUtil.roundDouble(MathUtil.calcLaplaseForOneValue(n, p, eq, MathUtil.calcXFroLaplase(eq, n, p)), 4);
+        double lessRes = MathUtil.roundDouble(MathUtil.calcLaplase(0, less - 1, n, p), 4);
+        double moreRes = MathUtil.roundDouble(MathUtil.calcLaplase(more + 1, n, n, p), 4);
+        double notLessRes = MathUtil.roundDouble(MathUtil.calcLaplase(notLess, n, n, p), 4);
+        double notMoreRes = MathUtil.roundDouble(MathUtil.calcLaplase(notMore, 0, n, p), 4);
+        double notLessAndNotMoreRes = MathUtil.roundDouble(MathUtil.calcLaplase(notLess2, notMore2, n, p), 4);
+        double exactlyOneRes = MathUtil.roundDouble(1 - Math.pow(1 - p, n), 4);
 
         HashMap<String, Object> calculatedData = new HashMap<>();
         calculatedData.put(PARAM_EQ, eqRes);
-        calculatedData.put(PARAM_LESS, lessRss);
-        calculatedData.put(PARAM_NOT_LESS, notLessRss);
+        calculatedData.put(PARAM_LESS, lessRes);
+        calculatedData.put(PARAM_NOT_LESS, notLessRes);
         calculatedData.put(PARAM_MORE, moreRes);
         calculatedData.put(PARAM_NOT_MORE, notMoreRes);
         calculatedData.put(PARAM_NOT_LESS_AND_NOT_MORE, notLessAndNotMoreRes);

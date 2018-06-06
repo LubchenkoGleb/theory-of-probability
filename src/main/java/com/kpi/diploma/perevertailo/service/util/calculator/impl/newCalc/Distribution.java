@@ -6,6 +6,7 @@ import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ public class Distribution extends CalculatorImpl {
     private static final String PARAM_V2 = "v2";
     private static final String PARAM_V3 = "v3";
     private static final String PARAM_V4 = "v4";
+    private static final String PARAM_M1 = "m1";
     private static final String PARAM_M2 = "m2";
     private static final String PARAM_M3 = "m3";
     private static final String PARAM_M4 = "m4";
@@ -35,7 +37,7 @@ public class Distribution extends CalculatorImpl {
             "<table><tr><th>X<sub>i</sub></th><td>{{"+ PARAM_X1 +"}}</td><td>{{"+ PARAM_X2 +"}}</td><td>{{"+ PARAM_X3 +"}}</td></tr><tr><th>P<sub>i</sub></th><td>{{"+ PARAM_P1 +"}}</td><td>{{"+ PARAM_P2 +"}}</td><td>{{"+ PARAM_P3 +"}}</td></tr></table> <br>" +
             "Знайти центральні моменти першого, другого, третього і четвертого порядків.";
     private static final String ANSWER_TEMPLATE = "Центральні моменти: <br>" +
-            "μ<sub>1</sub> = 0; <br>" +
+            "μ<sub>1</sub> = {{" + PARAM_M1 + "}}; <br>" +
             "μ<sub>2</sub> = {{" + PARAM_M2 + "}}; <br>" +
             "μ<sub>3</sub> = {{" + PARAM_M3 + "}}; <br>" +
             "μ<sub>4</sub> = {{" + PARAM_M4 + "}}.";
@@ -58,23 +60,19 @@ public class Distribution extends CalculatorImpl {
         Double p2 = Double.valueOf(inputData.get(PARAM_P2).toString());
         Double p3 = Double.valueOf(inputData.get(PARAM_P3).toString());
 
+        int[] x = {x1, x2, x3};
+        double[] p = {p1, p2, p3};
 
-//        double eqRes = MathUtil.puasson(eq, n, p);
-//        double lessRss = MathUtil.puassonSum(0, less - 1, n, p);
-//        double notLessRss = MathUtil.puassonSum(notLess, n, n, p);
-//        double moreRes = MathUtil.puassonSum(more + 1, n, n, p);
-//        double notMoreRes = MathUtil.puassonSum(0, notMore, n, p);
-//        double notLessAndNotMoreRes = MathUtil.puassonSum(notLess2, notMore2, n, p);
-//        double exactlyOneRes = 1 - MathUtil.puasson(0, n, p);
+        double m1 = MathUtil.centMoments(x, p, 1);
+        double m2 = MathUtil.centMoments(x, p, 2);
+        double m3 = MathUtil.centMoments(x, p, 3);
+        double m4 = MathUtil.centMoments(x, p, 4);
 
         HashMap<String, Object> calculatedData = new HashMap<>();
-//        calculatedData.put(PARAM_EQ, eqRes);
-//        calculatedData.put(PARAM_LESS, lessRss);
-//        calculatedData.put(PARAM_NOT_LESS, notLessRss);
-//        calculatedData.put(PARAM_MORE, moreRes);
-//        calculatedData.put(PARAM_NOT_MORE, notMoreRes);
-//        calculatedData.put(PARAM_NOT_LESS_AND_NOT_MORE, notLessAndNotMoreRes);
-//        calculatedData.put(PARAM_EXACTLY_ONE, exactlyOneRes);
+        calculatedData.put(PARAM_M1, MathUtil.roundDouble(m1, 3));
+        calculatedData.put(PARAM_M2, MathUtil.roundDouble(m2, 3));
+        calculatedData.put(PARAM_M3, MathUtil.roundDouble(m3, 3));
+        calculatedData.put(PARAM_M4, MathUtil.roundDouble(m4, 3));
         log.info("'calculatedData={}'", calculatedData);
 
         CalculationData calculationData = new CalculationData(calculatedData, "");

@@ -111,7 +111,7 @@
     $(document).on('click', '#task-form > div > div > button', ({target: {parentNode}}) => {
         const questionName = parentNode.id;
         const request = {};
-        $(`#${parentNode.id} > p > input`).each(function () {
+        $(`#${parentNode.id} :input[type='text']`).each(function () {
             Object.assign(request, {[`${this.id}`]: Number(this.value)})
         });
         $.ajax({

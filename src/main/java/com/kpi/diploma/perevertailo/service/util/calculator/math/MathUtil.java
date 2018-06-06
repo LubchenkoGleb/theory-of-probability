@@ -60,4 +60,20 @@ public class MathUtil {
     public static double calcLaplase(int k1, int k2, int n, double p) {
         return LaplaceTable.getNeares(calcXFroLaplase(k2, n, p)) - LaplaceTable.getNeares(calcXFroLaplase(k1, n, p));
     }
+
+    public static double calcLaplaseForOneValue(int n, double p, int k, double x) {
+        double fe = (Math.pow(Math.E, -(x * x / 2)) / Math.sqrt(2 * Math.PI));
+        return fe / Math.sqrt(n * p * (1 - p));
+    }
+
+    public static double centMoments(int[] x, double[] p, int momentNumber) {
+
+        double res = 0;
+
+        for (int i = 0; i < x.length; i++) {
+            res += Math.pow(x[i], momentNumber) * p[i];
+        }
+
+        return res;
+    }
 }
