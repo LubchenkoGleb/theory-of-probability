@@ -1,4 +1,5 @@
 package com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement;
+
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class SystemTwo extends CalculatorImpl {
     public static final String NAME = "SystemOfRandomVariables";
     private static final String FULL_NAME = "Системи випадкових величин";
-    private static final ThemeValues THEME_VALUES = ThemeValues.FORMULA_BERNULI;
+    private static final ThemeValues THEME_VALUES = ThemeValues.SYSTEMS_OF_TWO_RANDOM_VALUES;
 
     private static final String PARAM_X1 = "x1", PARAM_X2 = "x2", PARAM_X3 = "x3";
     private static final String PARAM_Y1 = "y1", PARAM_Y2 = "y2";
@@ -27,6 +28,7 @@ public class SystemTwo extends CalculatorImpl {
     private static final String PARAM_MY = "my";
     private static final String PARAM_DY = "dy";
     private static final String PARAM_SIGMAY = "sigmay";
+
     private static final String PARAM_PXY11 = "pxy11";
     private static final String PARAM_PXY12 = "pxy12";
     private static final String PARAM_PXY13 = "pxy13";
@@ -56,74 +58,74 @@ public class SystemTwo extends CalculatorImpl {
     private static final String PARAM_R = "r";
 
     private static final String QUESTION_TEMPLATE = "Задана дискретна двомірна випадкова величина (X,Y) <br>:" +
-            "<table><tr><th>Y/X</th><td>{{"+ PARAM_X1 +"}}</td><td>{{"+ PARAM_X2 +"}}</td><td>{{"+ PARAM_X3 +"}}</td></tr><tr><th>{{"+ PARAM_Y1 +"}}</th><td>{{"+ PARAM_P11 +"}}</td><td>{{"+ PARAM_P12 +"}}</td><td>{{"+ PARAM_P13 +"}}</td></tr><tr><th>{{"+ PARAM_Y2 +"}}</th><td>{{"+ PARAM_P21 +"}}</td><td>{{"+ PARAM_P22 +"}}</td><td>{{"+ PARAM_P23 +"}}</td></tr></table> <br>"+
+            "<table><tr><th>Y/X</th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td></tr><tr><th>{{" + PARAM_Y1 + "}}</th><td>{{" + PARAM_P11 + "}}</td><td>{{" + PARAM_P12 + "}}</td><td>{{" + PARAM_P13 + "}}</td></tr><tr><th>{{" + PARAM_Y2 + "}}</th><td>{{" + PARAM_P21 + "}}</td><td>{{" + PARAM_P22 + "}}</td><td>{{" + PARAM_P23 + "}}</td></tr></table> <br>" +
             "Знайти математичне сподівання, дисперсію та середньоквадратичне відхилення X і Y. Знайти умовний закон розподілу X і умовний закон розподілу Y. Знайти коваріацію, коефіцієнт корреляції.";
     private static final String ANSWER_TEMPLATE = "1. Математичне сподівання M(X) :<br>" +
-            "M(X) = {{"+ PARAM_MX +"}}; <br>" +
+            "M(X) = {{" + PARAM_MX + "}}; <br>" +
             "Дисперсія D(X): <br>" +
-            "D(X) = {{"+ PARAM_DX +"}}; <br>" +
+            "D(X) = {{" + PARAM_DX + "}}; <br>" +
             "Середньоквадратичне відхилення: <br>" +
             "σ(x)  = {{" + PARAM_SIGMAX + "}} <br>" +
             "Математичне сподівання M(Y) :<br>" +
-            "M(Y) = {{"+ PARAM_MY +"}}; <br>" +
+            "M(Y) = {{" + PARAM_MY + "}}; <br>" +
             "Дисперсія D(Y): <br>" +
-            "D(Y) = {{"+ PARAM_DY +"}}; <br>" +
+            "D(Y) = {{" + PARAM_DY + "}}; <br>" +
             "Середньоквадратичне відхилення: <br>" +
             "σ(y)  = {{" + PARAM_SIGMAY + "}} <br>" +
 
             "2. Умовний закон розподілу X: <br>" +
-            "Умовний закон розподілу X(Y = {{"+ PARAM_Y1 +"}}). <br>" +
-            "P(X = {{"+ PARAM_X1 +"}}/Y = {{"+ PARAM_Y1 +"}}) = {{"+ PARAM_PXY11 +"}} <br>" +
-            "P(X = {{"+ PARAM_X2 +"}}/Y = {{"+ PARAM_Y1 +"}}) = {{"+ PARAM_PXY12 +"}} <br>" +
-            "P(X = {{"+ PARAM_X3 +"}}/Y = {{"+ PARAM_Y1 +"}}) = {{"+ PARAM_PXY13 +"}} <br>" +
-            "Умовне математичне сподівання M(X/Y = {{"+ PARAM_Y1 +"}}) : <br>" +
-            "M(X/Y = {{"+ PARAM_Y1 +"}}) = {{"+ PARAM_MPXY1 +"}} <br>" +
-            "Умовна дисперсія D(X/Y = {{"+ PARAM_Y1 +"}}) <br>" +
-            "D(X/Y = {{"+ PARAM_Y1 +"}}) = {{"+ PARAM_DPXY1 +"}} <br>" +
+            "Умовний закон розподілу X(Y = {{" + PARAM_Y1 + "}}). <br>" +
+            "P(X = {{" + PARAM_X1 + "}}/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_PXY11 + "}} <br>" +
+            "P(X = {{" + PARAM_X2 + "}}/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_PXY12 + "}} <br>" +
+            "P(X = {{" + PARAM_X3 + "}}/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_PXY13 + "}} <br>" +
+            "Умовне математичне сподівання M(X/Y = {{" + PARAM_Y1 + "}}) : <br>" +
+            "M(X/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_MPXY1 + "}} <br>" +
+            "Умовна дисперсія D(X/Y = {{" + PARAM_Y1 + "}}) <br>" +
+            "D(X/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_DPXY1 + "}} <br>" +
 
-            "Умовний закон розподілу X(Y = {{"+ PARAM_Y2 +"}}). <br>" +
-            "P(X = {{"+ PARAM_X1 +"}}/Y = {{"+ PARAM_Y2 +"}}) = {{"+ PARAM_PXY21 +"}} <br>" +
-            "P(X = {{"+ PARAM_X2 +"}}/Y = {{"+ PARAM_Y2 +"}}) = {{"+ PARAM_PXY22 +"}} <br>" +
-            "P(X = {{"+ PARAM_X3 +"}}/Y = {{"+ PARAM_Y2 +"}}) = {{"+ PARAM_PXY23 +"}} <br>" +
-            "Умовне математичне сподівання M(X/Y = {{"+ PARAM_Y2 +"}}) : <br>" +
-            "M(X/Y = {{"+ PARAM_Y2 +"}}) = {{"+ PARAM_MPXY2 +"}} <br>" +
-            "Умовна дисперсія D(X/Y = {{"+ PARAM_Y2 +"}}) <br>" +
-            "D(X/Y = {{"+ PARAM_Y2 +"}}) = {{"+ PARAM_DPXY2 +"}} <br>" +
+            "Умовний закон розподілу X(Y = {{" + PARAM_Y2 + "}}). <br>" +
+            "P(X = {{" + PARAM_X1 + "}}/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_PXY21 + "}} <br>" +
+            "P(X = {{" + PARAM_X2 + "}}/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_PXY22 + "}} <br>" +
+            "P(X = {{" + PARAM_X3 + "}}/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_PXY23 + "}} <br>" +
+            "Умовне математичне сподівання M(X/Y = {{" + PARAM_Y2 + "}}) : <br>" +
+            "M(X/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_MPXY2 + "}} <br>" +
+            "Умовна дисперсія D(X/Y = {{" + PARAM_Y2 + "}}) <br>" +
+            "D(X/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_DPXY2 + "}} <br>" +
+
 
             "3. Умовний закон розподілу Y: <br>" +
-            " Умовний закон розподілу Y(X = {{"+ PARAM_X1 +"}}). <br>" +
-            " P(Y = {{"+ PARAM_Y1 +"}}/X = {{"+ PARAM_X1 +"}}) = {{"+ PARAM_PYX11 +"}} <br>" +
-            " P(Y = {{"+ PARAM_Y2 +"}}/X = {{"+ PARAM_X1 +"}}) = {{"+ PARAM_PYX12 +"}} <br>" +
-            "Умовне математичне сподівання M(Y/X = {{"+ PARAM_X1 +"}}) : <br>" +
-            "M(Y/X = {{"+ PARAM_X1 +"}}) = {{"+ PARAM_MPYX1 +"}} <br>" +
-            "Умовна дисперсія D(Y/X = {{"+ PARAM_X1 +"}}) <br>" +
-            "D(Y/X = {{"+ PARAM_X1 +"}}) = {{"+ PARAM_DPYX1 +"}} <br>" +
+            " Умовний закон розподілу Y(X = {{" + PARAM_X1 + "}}). <br>" +
+            " P(Y = {{" + PARAM_Y1 + "}}/X = {{" + PARAM_X1 + "}}) = {{" + PARAM_PYX11 + "}} <br>" +
+            " P(Y = {{" + PARAM_Y2 + "}}/X = {{" + PARAM_X1 + "}}) = {{" + PARAM_PYX12 + "}} <br>" +
+            "Умовне математичне сподівання M(Y/X = {{" + PARAM_X1 + "}}) : <br>" +
+            "M(Y/X = {{" + PARAM_X1 + "}}) = {{" + PARAM_MPYX1 + "}} <br>" +
+            "Умовна дисперсія D(Y/X = {{" + PARAM_X1 + "}}) <br>" +
+            "D(Y/X = {{" + PARAM_X1 + "}}) = {{" + PARAM_DPYX1 + "}} <br>" +
 
-            " Умовний закон розподілу Y(X = {{"+ PARAM_X2 +"}}). <br>" +
-            " P(Y = {{"+ PARAM_Y1 +"}}/X = {{"+ PARAM_X2 +"}}) = {{"+ PARAM_PYX21 +"}} <br>" +
-            " P(Y = {{"+ PARAM_Y2 +"}}/X = {{"+ PARAM_X2 +"}}) = {{"+ PARAM_PYX22 +"}} <br>" +
-            "Умовне математичне сподівання M(Y/X = {{"+ PARAM_X2 +"}}) : <br>" +
-            "M(Y/X = {{"+ PARAM_X2 +"}}) = {{"+ PARAM_MPYX2 +"}} <br>" +
-            "Умовна дисперсія D(Y/X = {{"+ PARAM_X2 +"}}) <br>" +
-            "D(Y/X = {{"+ PARAM_X2 +"}}) = {{"+ PARAM_DPYX2 +"}} <br>" +
+            " Умовний закон розподілу Y(X = {{" + PARAM_X2 + "}}). <br>" +
+            " P(Y = {{" + PARAM_Y1 + "}}/X = {{" + PARAM_X2 + "}}) = {{" + PARAM_PYX21 + "}} <br>" +
+            " P(Y = {{" + PARAM_Y2 + "}}/X = {{" + PARAM_X2 + "}}) = {{" + PARAM_PYX22 + "}} <br>" +
+            "Умовне математичне сподівання M(Y/X = {{" + PARAM_X2 + "}}) : <br>" +
+            "M(Y/X = {{" + PARAM_X2 + "}}) = {{" + PARAM_MPYX2 + "}} <br>" +
+            "Умовна дисперсія D(Y/X = {{" + PARAM_X2 + "}}) <br>" +
+            "D(Y/X = {{" + PARAM_X2 + "}}) = {{" + PARAM_DPYX2 + "}} <br>" +
 
-            " Умовний закон розподілу Y(X = {{"+ PARAM_X3 +"}}). <br>" +
-            " P(Y = {{"+ PARAM_Y1 +"}}/X = {{"+ PARAM_X3 +"}}) = {{"+ PARAM_PYX31 +"}} <br>" +
-            " P(Y = {{"+ PARAM_Y2 +"}}/X = {{"+ PARAM_X3 +"}}) = {{"+ PARAM_PYX32 +"}} <br>" +
-            "Умовне математичне сподівання M(Y/X = {{"+ PARAM_X3 +"}}) : <br>" +
-            "M(Y/X = {{"+ PARAM_X3 +"}}) = {{"+ PARAM_MPYX3 +"}} <br>" +
-            "Умовна дисперсія D(Y/X = {{"+ PARAM_X3 +"}}) <br>" +
-            "D(Y/X = {{"+ PARAM_X3 +"}}) = {{"+ PARAM_DPYX3 +"}} <br>" +
+            " Умовний закон розподілу Y(X = {{" + PARAM_X3 + "}}). <br>" +
+            " P(Y = {{" + PARAM_Y1 + "}}/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_PYX31 + "}} <br>" +
+            " P(Y = {{" + PARAM_Y2 + "}}/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_PYX32 + "}} <br>" +
+            "Умовне математичне сподівання M(Y/X = {{" + PARAM_X3 + "}}) : <br>" +
+            "M(Y/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_MPYX3 + "}} <br>" +
+            "Умовна дисперсія D(Y/X = {{" + PARAM_X3 + "}}) <br>" +
+            "D(Y/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_DPYX3 + "}} <br>" +
 
             "Коваріація: <br>" +
-            "cov(X,Y) = M[X*Y] - M[X]*M[Y] = {{"+ PARAM_COV +"}} <br>" +
+            "cov(X,Y) = M[X*Y] - M[X]*M[Y] = {{" + PARAM_COV + "}} <br>" +
             "Якщо випадкові величини незалежні, то їх коваріація рівна 0. <br>" +
             "Коефіцієнт корреляції: <br>" +
-            "r<sub>x,y</sub> = {{"+ PARAM_R +"}}";
+            "r<sub>x,y</sub> = {{" + PARAM_R + "}}";
 
 
-
-    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE +"(округлити максимум до другого знаку)";
+    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";
 
 
     public SystemTwo() {
@@ -149,31 +151,94 @@ public class SystemTwo extends CalculatorImpl {
         double px1 = p11 + p21;
         double px2 = p12 + p22;
         double px3 = p13 + p23;
-        double dxRes = (px1)* x1 + (px2) * x2 + (px3) * x3;
-        double mxRes = Math.pow(px1, 2)* x1 + Math.pow(px2, 2) * x2 + Math.pow(px3, 2) * x3;
+        double dxRes = (px1) * x1 + (px2) * x2 + (px3) * x3;
+        double mxRes = Math.pow(px1, 2) * x1 + Math.pow(px2, 2) * x2 + Math.pow(px3, 2) * x3;
         double sigxRes = Math.sqrt(mxRes);
 
         double py1 = p11 + p12 + p13;
         double py2 = p21 + p22 + p23;
-        double dyRes = (py1)* y1 + (py2) * y2;
-        double myRes = Math.pow(py1, 2)* y1 + Math.pow(py2, 2) * y2;
+        double dyRes = (py1) * y1 + (py2) * y2;
+        double myRes = Math.pow(py1, 2) * y1 + Math.pow(py2, 2) * y2;
         double sigyRes = Math.sqrt(myRes);
 
 
-//        int res;
-//
-//        double low = n * p - (1 - p);
-//        if (low != Math.floor(low)) {
-//            res = (int) Math.floor(low) + 1;
-//        } else if (low == Math.floor(low)) {
-//            res = (int) low;
-//        } else {
-//            res = (int) (n * p);
-//        }
-//
+        double resPhy11 = p11 / py1;
+        double resPhy12 = p12 / py1;
+        double resPhy13 = p13 / py1;
+        double resPhMy1 = p11 * resPhy11 + p12 * resPhy12 + p13 * resPhy13;
+        double resPhDy1 = p11 * p11 * resPhy11 + p12 * p12 * resPhy12 + p13 * p13 * resPhy13;
+
+        double resPhy21 = p21 / py2;
+        double resPhy22 = p22 / py2;
+        double resPhy23 = p13 / py2;
+        double resPhMy2 = p21 * resPhy21 + p22 * resPhy22 + p23 * resPhy23;
+        double resPhDy2 = p21 * p21 * resPhy21 + p22 * p22 * resPhy22 + p23 * p23 * resPhy23;
+
+
+        double resPhx11 = p11 / px1;
+        double resPhx21 = p21 / px1;
+        double resPhMx1 = p11 * resPhx11 + p21 * resPhx21;
+        double resPhDx1 = p11 * p11 * resPhx11 + p21 * p21 * resPhx21;
+
+        double resPhx12 = p12 / px2;
+        double resPhx22 = p22 / px2;
+        double resPhMx2 = p12 * resPhx12 + p22 * resPhx22;
+        double resPhDx2 = p12 * p12 * resPhx12 + p22 * p22 * resPhx22;
+
+        double resPhx13 = p13 / px3;
+        double resPhx23 = p23 / px3;
+        double resPhMx3 = p13 * resPhx13 + p23 * resPhx23;
+        double resPhDx3 = p13 * p13 * resPhx13 + p23 * p23 * resPhx23;
+
+        double cov =
+                x1 * y1 * p11 +
+                        x2 * y1 * p12 +
+                        x3 * y1 * p13 +
+                        x1 * y2 * p21 +
+                        x1 * y2 * p22 +
+                        x1 * y2 * p23 - mxRes * myRes;
+
+        double covCoef = cov / (sigxRes * sigyRes);
 
         HashMap<String, Object> calculatedData = new HashMap<>();
-//        calculatedData.put(PARAM_K0, res);
+        calculatedData.put(PARAM_MX, MathUtil.roundDouble(mxRes, 3));
+        calculatedData.put(PARAM_DX, MathUtil.roundDouble(dxRes, 3));
+        calculatedData.put(PARAM_SIGMAX, MathUtil.roundDouble(sigxRes, 3));
+
+        calculatedData.put(PARAM_MY, MathUtil.roundDouble(myRes, 3));
+        calculatedData.put(PARAM_DY, MathUtil.roundDouble(dyRes, 3));
+        calculatedData.put(PARAM_SIGMAY, MathUtil.roundDouble(sigyRes, 3));
+
+        calculatedData.put(PARAM_PXY11, MathUtil.roundDouble(resPhy11, 3));
+        calculatedData.put(PARAM_PXY12, MathUtil.roundDouble(resPhy12, 3));
+        calculatedData.put(PARAM_PXY13, MathUtil.roundDouble(resPhy13, 3));
+        calculatedData.put(PARAM_MPXY1, MathUtil.roundDouble(resPhMy1, 3));
+        calculatedData.put(PARAM_DPXY1, MathUtil.roundDouble(resPhDy1, 3));
+
+        calculatedData.put(PARAM_PXY21, MathUtil.roundDouble(resPhy21, 3));
+        calculatedData.put(PARAM_PXY22, MathUtil.roundDouble(resPhy22, 3));
+        calculatedData.put(PARAM_PXY23, MathUtil.roundDouble(resPhy23, 3));
+        calculatedData.put(PARAM_MPXY2, MathUtil.roundDouble(resPhMy2, 3));
+        calculatedData.put(PARAM_DPXY2, MathUtil.roundDouble(resPhDy2, 3));
+
+
+        calculatedData.put(PARAM_PYX11, MathUtil.roundDouble(resPhx11, 3));
+        calculatedData.put(PARAM_PYX12, MathUtil.roundDouble(resPhx21, 3));
+        calculatedData.put(PARAM_MPYX1, MathUtil.roundDouble(resPhMx1, 3));
+        calculatedData.put(PARAM_DPYX1, MathUtil.roundDouble(resPhDx1, 3));
+
+        calculatedData.put(PARAM_PYX21, MathUtil.roundDouble(resPhx12, 3));
+        calculatedData.put(PARAM_PYX22, MathUtil.roundDouble(resPhx22, 3));
+        calculatedData.put(PARAM_MPYX2, MathUtil.roundDouble(resPhMx2, 3));
+        calculatedData.put(PARAM_DPYX2, MathUtil.roundDouble(resPhDx2, 3));
+
+        calculatedData.put(PARAM_PYX31, MathUtil.roundDouble(resPhx13, 3));
+        calculatedData.put(PARAM_PYX32, MathUtil.roundDouble(resPhx23, 3));
+        calculatedData.put(PARAM_MPYX3, MathUtil.roundDouble(resPhMx3, 3));
+        calculatedData.put(PARAM_DPYX3, MathUtil.roundDouble(resPhDx3, 3));
+
+        calculatedData.put(PARAM_COV, MathUtil.roundDouble(cov, 3));
+        calculatedData.put(PARAM_R, MathUtil.roundDouble(covCoef, 3));
         log.info("'calculatedData={}'", calculatedData);
 
         CalculationData calculationData = new CalculationData(calculatedData, "");
