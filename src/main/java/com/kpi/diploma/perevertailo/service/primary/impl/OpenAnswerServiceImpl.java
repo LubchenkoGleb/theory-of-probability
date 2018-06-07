@@ -20,8 +20,10 @@ import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.Task
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskOneCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskThreeCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskTwoCalculator;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement.CharactFirst;
-import com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement.SystemTwo;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.StatisticHipotes;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.SelectiveMethod;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.CharactFirst;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.SystemTwo;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,8 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                                  Distribution distribution,
                                  CharactFirst charactFirst,
                                  SystemTwo systemTwo,
+                                 SelectiveMethod selectiveMethod,
+                                 StatisticHipotes statisticHipotes,
                                  UserRepository userRepository,
                                  TaskRepository taskRepository) {
         this.userRepository = userRepository;
@@ -68,7 +72,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
         List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator,
                 taskFourCalculator, taskFiveCalculator, taskSixCalculator, taskSevenCalculator, taskEightCalculator,
                 taskNineCalculator, puassonFormula, formulaLaplassa, mostPropableNumber, variance, mathExp,
-                distribution, charactFirst, systemTwo);
+                distribution, charactFirst, systemTwo, selectiveMethod, statisticHipotes);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();

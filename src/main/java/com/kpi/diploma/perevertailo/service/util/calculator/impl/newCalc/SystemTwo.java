@@ -1,4 +1,4 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
@@ -60,7 +60,7 @@ public class SystemTwo extends CalculatorImpl {
     private static final String QUESTION_TEMPLATE = "Задана дискретна двомірна випадкова величина (X,Y) <br>:" +
             "<table><tr><th>Y/X</th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td></tr><tr><th>{{" + PARAM_Y1 + "}}</th><td>{{" + PARAM_P11 + "}}</td><td>{{" + PARAM_P12 + "}}</td><td>{{" + PARAM_P13 + "}}</td></tr><tr><th>{{" + PARAM_Y2 + "}}</th><td>{{" + PARAM_P21 + "}}</td><td>{{" + PARAM_P22 + "}}</td><td>{{" + PARAM_P23 + "}}</td></tr></table> <br>" +
             "Знайти математичне сподівання, дисперсію та середньоквадратичне відхилення X і Y. Знайти умовний закон розподілу X і умовний закон розподілу Y. Знайти коваріацію, коефіцієнт корреляції.";
-    private static final String ANSWER_TEMPLATE = "1. Математичне сподівання M(X) :<br>" +
+    private static final String ANSWER_TEMPLATE = "<h2>1. Математичне сподівання M(X) :</h2>" +
             "M(X) = {{" + PARAM_MX + "}}; <br>" +
             "Дисперсія D(X): <br>" +
             "D(X) = {{" + PARAM_DX + "}}; <br>" +
@@ -73,8 +73,8 @@ public class SystemTwo extends CalculatorImpl {
             "Середньоквадратичне відхилення: <br>" +
             "σ(y)  = {{" + PARAM_SIGMAY + "}} <br>" +
 
-            "2. Умовний закон розподілу X: <br>" +
-            "Умовний закон розподілу X(Y = {{" + PARAM_Y1 + "}}). <br>" +
+            "<h2>2. Умовний закон розподілу X: </h2>" +
+            "<b>Умовний закон розподілу X(Y = {{" + PARAM_Y1 + "}}). </b><br>" +
             "P(X = {{" + PARAM_X1 + "}}/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_PXY11 + "}} <br>" +
             "P(X = {{" + PARAM_X2 + "}}/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_PXY12 + "}} <br>" +
             "P(X = {{" + PARAM_X3 + "}}/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_PXY13 + "}} <br>" +
@@ -83,7 +83,7 @@ public class SystemTwo extends CalculatorImpl {
             "Умовна дисперсія D(X/Y = {{" + PARAM_Y1 + "}}) <br>" +
             "D(X/Y = {{" + PARAM_Y1 + "}}) = {{" + PARAM_DPXY1 + "}} <br>" +
 
-            "Умовний закон розподілу X(Y = {{" + PARAM_Y2 + "}}). <br>" +
+            "<b>Умовний закон розподілу X(Y = {{" + PARAM_Y2 + "}}). </b><br>" +
             "P(X = {{" + PARAM_X1 + "}}/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_PXY21 + "}} <br>" +
             "P(X = {{" + PARAM_X2 + "}}/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_PXY22 + "}} <br>" +
             "P(X = {{" + PARAM_X3 + "}}/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_PXY23 + "}} <br>" +
@@ -93,8 +93,8 @@ public class SystemTwo extends CalculatorImpl {
             "D(X/Y = {{" + PARAM_Y2 + "}}) = {{" + PARAM_DPXY2 + "}} <br>" +
 
 
-            "3. Умовний закон розподілу Y: <br>" +
-            " Умовний закон розподілу Y(X = {{" + PARAM_X1 + "}}). <br>" +
+            "<h2>3. Умовний закон розподілу Y: </h2>" +
+            "<b> Умовний закон розподілу Y(X = {{" + PARAM_X1 + "}}). </b><br>" +
             " P(Y = {{" + PARAM_Y1 + "}}/X = {{" + PARAM_X1 + "}}) = {{" + PARAM_PYX11 + "}} <br>" +
             " P(Y = {{" + PARAM_Y2 + "}}/X = {{" + PARAM_X1 + "}}) = {{" + PARAM_PYX12 + "}} <br>" +
             "Умовне математичне сподівання M(Y/X = {{" + PARAM_X1 + "}}) : <br>" +
@@ -102,7 +102,7 @@ public class SystemTwo extends CalculatorImpl {
             "Умовна дисперсія D(Y/X = {{" + PARAM_X1 + "}}) <br>" +
             "D(Y/X = {{" + PARAM_X1 + "}}) = {{" + PARAM_DPYX1 + "}} <br>" +
 
-            " Умовний закон розподілу Y(X = {{" + PARAM_X2 + "}}). <br>" +
+            "<b> Умовний закон розподілу Y(X = {{" + PARAM_X2 + "}}). </b><br>" +
             " P(Y = {{" + PARAM_Y1 + "}}/X = {{" + PARAM_X2 + "}}) = {{" + PARAM_PYX21 + "}} <br>" +
             " P(Y = {{" + PARAM_Y2 + "}}/X = {{" + PARAM_X2 + "}}) = {{" + PARAM_PYX22 + "}} <br>" +
             "Умовне математичне сподівання M(Y/X = {{" + PARAM_X2 + "}}) : <br>" +
@@ -110,7 +110,7 @@ public class SystemTwo extends CalculatorImpl {
             "Умовна дисперсія D(Y/X = {{" + PARAM_X2 + "}}) <br>" +
             "D(Y/X = {{" + PARAM_X2 + "}}) = {{" + PARAM_DPYX2 + "}} <br>" +
 
-            " Умовний закон розподілу Y(X = {{" + PARAM_X3 + "}}). <br>" +
+            "<b> Умовний закон розподілу Y(X = {{" + PARAM_X3 + "}}). </b><br>" +
             " P(Y = {{" + PARAM_Y1 + "}}/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_PYX31 + "}} <br>" +
             " P(Y = {{" + PARAM_Y2 + "}}/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_PYX32 + "}} <br>" +
             "Умовне математичне сподівання M(Y/X = {{" + PARAM_X3 + "}}) : <br>" +
@@ -118,7 +118,7 @@ public class SystemTwo extends CalculatorImpl {
             "Умовна дисперсія D(Y/X = {{" + PARAM_X3 + "}}) <br>" +
             "D(Y/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_DPYX3 + "}} <br>" +
 
-            "Коваріація: <br>" +
+            "<h2>Коваріація: </h2><br>" +
             "cov(X,Y) = M[X*Y] - M[X]*M[Y] = {{" + PARAM_COV + "}} <br>" +
             "Якщо випадкові величини незалежні, то їх коваріація рівна 0. <br>" +
             "Коефіцієнт корреляції: <br>" +
@@ -151,52 +151,52 @@ public class SystemTwo extends CalculatorImpl {
         double px1 = p11 + p21;
         double px2 = p12 + p22;
         double px3 = p13 + p23;
-        double dxRes = (px1) * x1 + (px2) * x2 + (px3) * x3;
-        double mxRes = Math.pow(px1, 2) * x1 + Math.pow(px2, 2) * x2 + Math.pow(px3, 2) * x3;
-        double sigxRes = Math.sqrt(mxRes);
+        double mxRes = (px1) * x1 + (px2) * x2 + (px3) * x3;
+        double dxRes = Math.pow(x1, 2) * px1 + Math.pow(x2, 2) * px2 + Math.pow(x3, 2) * px3 - mxRes * mxRes;
+        double sigxRes = Math.sqrt(dxRes);
 
         double py1 = p11 + p12 + p13;
         double py2 = p21 + p22 + p23;
-        double dyRes = (py1) * y1 + (py2) * y2;
-        double myRes = Math.pow(py1, 2) * y1 + Math.pow(py2, 2) * y2;
-        double sigyRes = Math.sqrt(myRes);
+        double myRes = (py1) * y1 + (py2) * y2;
+        double dyRes = Math.pow(y1, 2) * py1 + Math.pow(y2, 2) * py2 - myRes * myRes;
+        double sigyRes = Math.sqrt(dyRes);
 
 
         double resPhy11 = p11 / py1;
         double resPhy12 = p12 / py1;
         double resPhy13 = p13 / py1;
-        double resPhMy1 = p11 * resPhy11 + p12 * resPhy12 + p13 * resPhy13;
-        double resPhDy1 = p11 * p11 * resPhy11 + p12 * p12 * resPhy12 + p13 * p13 * resPhy13;
+        double resPhMy1 = x1 * resPhy11 + x2 * resPhy12 + x3 * resPhy13;
+        double resPhDy1 = x1 * x1 * resPhy11 + x2 * x2 * resPhy12 + x3 * x3 * resPhy13 - resPhMy1 * resPhMy1;
 
         double resPhy21 = p21 / py2;
         double resPhy22 = p22 / py2;
-        double resPhy23 = p13 / py2;
-        double resPhMy2 = p21 * resPhy21 + p22 * resPhy22 + p23 * resPhy23;
-        double resPhDy2 = p21 * p21 * resPhy21 + p22 * p22 * resPhy22 + p23 * p23 * resPhy23;
+        double resPhy23 = p23 / py2;
+        double resPhMy2 = x1 * resPhy21 + x2 * resPhy22 + x3 * resPhy23;
+        double resPhDy2 = x1 * x1 * resPhy21 + x2 * x2 * resPhy22 + x3 * x3 * resPhy23 - resPhMy2 * resPhMy2;
 
 
         double resPhx11 = p11 / px1;
         double resPhx21 = p21 / px1;
-        double resPhMx1 = p11 * resPhx11 + p21 * resPhx21;
-        double resPhDx1 = p11 * p11 * resPhx11 + p21 * p21 * resPhx21;
+        double resPhMx1 = y1 * resPhx11 + y2 * resPhx21;
+        double resPhDx1 = y1 * y1 * resPhx11 + y2 * y2 * resPhx21 - resPhMx1 * resPhMx1;
 
         double resPhx12 = p12 / px2;
         double resPhx22 = p22 / px2;
-        double resPhMx2 = p12 * resPhx12 + p22 * resPhx22;
-        double resPhDx2 = p12 * p12 * resPhx12 + p22 * p22 * resPhx22;
+        double resPhMx2 = y1 * resPhx12 + y2 * resPhx22;
+        double resPhDx2 = y1 * y1 * resPhx12 + y2 * y2 * resPhx22 - resPhMx2 * resPhMx2;
 
         double resPhx13 = p13 / px3;
         double resPhx23 = p23 / px3;
-        double resPhMx3 = p13 * resPhx13 + p23 * resPhx23;
-        double resPhDx3 = p13 * p13 * resPhx13 + p23 * p23 * resPhx23;
+        double resPhMx3 = y1 * resPhx13 + y1 * resPhx23;
+        double resPhDx3 = y1 * y1 * resPhx13 + y2 * y2 * resPhx23 - resPhMx3 * resPhMx3;
 
         double cov =
                 x1 * y1 * p11 +
                         x2 * y1 * p12 +
                         x3 * y1 * p13 +
                         x1 * y2 * p21 +
-                        x1 * y2 * p22 +
-                        x1 * y2 * p23 - mxRes * myRes;
+                        x2 * y2 * p22 +
+                        x3 * y2 * p23 - mxRes * myRes;
 
         double covCoef = cov / (sigxRes * sigyRes);
 
