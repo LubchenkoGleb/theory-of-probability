@@ -20,6 +20,8 @@ import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.Task
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskOneCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskThreeCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskTwoCalculator;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.Batler;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.Kohren;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.StatisticHipotes;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.SelectiveMethod;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.CharactFirst;
@@ -64,6 +66,8 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                                  SystemTwo systemTwo,
                                  SelectiveMethod selectiveMethod,
                                  StatisticHipotes statisticHipotes,
+                                 Batler batler,
+                                 Kohren kohren,
                                  UserRepository userRepository,
                                  TaskRepository taskRepository) {
         this.userRepository = userRepository;
@@ -72,7 +76,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
         List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator,
                 taskFourCalculator, taskFiveCalculator, taskSixCalculator, taskSevenCalculator, taskEightCalculator,
                 taskNineCalculator, puassonFormula, formulaLaplassa, mostPropableNumber, variance, mathExp,
-                distribution, charactFirst, systemTwo, selectiveMethod, statisticHipotes);
+                distribution, charactFirst, systemTwo, selectiveMethod, statisticHipotes, batler, kohren);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();

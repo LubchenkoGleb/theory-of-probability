@@ -16,7 +16,7 @@ public class TaskNineCalculator extends CalculatorImpl {
 
     public static final String NAME = "possibleNumber";
     private static final String FULL_NAME = "Формула Бернуллі";
-    private static final ThemeValues THEME_VALUES = ThemeValues.FORMULA_BERNULI;
+    private static final ThemeValues THEME_VALUES = ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY;
     private static final String PARAM_N = "n";
     private static final String PARAM_P = "p";
 
@@ -24,8 +24,8 @@ public class TaskNineCalculator extends CalculatorImpl {
     private static final String PARAM_PM = "pm";
 
     private static final String QUESTION_TEMPLATE = "Задача. Проводяться n={{" + PARAM_N + "}} випробувань, " +
-            "Ймовірність настання події А в кожному з них дорівнює p={{" + PARAM_P + "}}. Знайти найбільш ймовірне" +
-            "число m настання події А та його йомовірність";
+            "Ймовірність настання події А в кожному з них дорівнює p = {{" + PARAM_P + "}}. Знайти найбільш ймовірне" +
+            "число m настання події А та його ймовірність";
     private static final String ANSWER_TEMPLATE = "m={{" + PARAM_M + "}}, P(m)={{" + PARAM_PM + "}}.";
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + " (округлити максимум до 3го знаку)";
 

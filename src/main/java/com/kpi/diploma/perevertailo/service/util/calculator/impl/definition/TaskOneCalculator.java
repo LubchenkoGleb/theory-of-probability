@@ -19,9 +19,9 @@ public class TaskOneCalculator extends CalculatorImpl {
     private static final String PARAM_N = "n";
     private static final String PARAM_PN = "pN";
 
-    private static final String QUESTION_TEMPLATE = "Введіть число перестановок для n={{" + PARAM_N + "}}";
+    private static final String QUESTION_TEMPLATE = "Введіть число перестановок для n = {{" + PARAM_N + "}}";
     private static final String ANSWER_TEMPLATE = "Pn =  {{" + PARAM_PN + "}}";
-    private static final String QUESTION_TO_STUDENT_TEMPLATE = "P<sub>n</sub> =  {{" + PARAM_N + "}}";
+    private static final String QUESTION_TO_STUDENT_TEMPLATE = "P<sub> {{" + PARAM_N + "}} </sub> ?";
 
 
     public TaskOneCalculator() {

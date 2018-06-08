@@ -16,7 +16,7 @@ import java.util.Map;
 public class Variance extends CalculatorImpl {
     public static final String NAME = "Variance";
     private static final String FULL_NAME = "Відхилення";
-    private static final ThemeValues THEME_VALUES = ThemeValues.FORMULA_BERNULI;
+    private static final ThemeValues THEME_VALUES = ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY;
     private static final String PARAM_N = "n";
     private static final String PARAM_P = "p";
 
@@ -25,7 +25,7 @@ public class Variance extends CalculatorImpl {
     private static final String PARAM_P1 = "p1";
 
 
-    private static final String QUESTION_TEMPLATE = "Подія може наступи = {{" + PARAM_N + "}}" +
+    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}}" +
             "разів. Ймовірність, що ця подія відбудеться =  {{" + PARAM_P + "}}. Знайти ймовірність, що відносна частота появи подїї" +
             "відхилиться від її ймовірності по абсолютній велечині не більш ніж на ε = {{" + PARAM_E + "}}<br>";
     private static final String ANSWER_TEMPLATE = "Ймовірність дорівнює {{" + PARAM_P1 + "}}<br>";

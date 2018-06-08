@@ -29,8 +29,15 @@ public class FormulaLaplassa extends CalculatorImpl {
     private static final String PARAM_EXACTLY_ONE = "exactlyOne";
     private static final String PARAM_NOT_LESS_AND_NOT_MORE = "notLessAndNotMore";
 
+    private static final String PARAM_EQRES = "eqRes";
+    private static final String PARAM_LESSRES = "lessRes";
+    private static final String PARAM_NOT_LESSRES = "notLessRes";
+    private static final String PARAM_MORES = "moreRes";
+    private static final String PARAM_NOT_MORERES = "notMoreReS";
+    private static final String PARAM_EXACTLY_ONERES = "exactlyOneRes";
 
-    private static final String QUESTION_TEMPLATE = "Подія може наступи = {{" + PARAM_N + "}}" +
+
+    private static final String QUESTION_TEMPLATE = " Формула Лапласса. Подія може наступити = {{" + PARAM_N + "}}" +
             "разів. Ймовірність, що ця подія відбудеться =  {{" + PARAM_P + "}}. Знайти ймоаврність, що подія: <br>" +
             "1) наступить {{" + PARAM_EQ + "}} разів; <br>" +
             "2) менше {{" + PARAM_LESS + "}} разів; <br>" +
@@ -40,13 +47,13 @@ public class FormulaLaplassa extends CalculatorImpl {
             "6) не менше ніж {{" + PARAM_NOT_LESS2 + "}} і не більше ніж {{" + PARAM_NOT_MORE2 + "}} разів; <br>" +
             "7) хоча б один раз.";
     private static final String ANSWER_TEMPLATE = "йомвірність того що подія настане задану кількість разів:<br>" +
-            "1) P = {{" + PARAM_EQ + "}}<br>" +
-            "2) P = {{" + PARAM_LESS + "}} <br>" +
-            "3) P = {{" + PARAM_NOT_LESS + "}} <br>" +
-            "4) P = {{" + PARAM_MORE + "}} <br>" +
-            "5) P = {{" + PARAM_NOT_MORE + "}} <br>" +
-            "6) P = {{" + PARAM_NOT_LESS_AND_NOT_MORE + "}} <br>" +
-            "7) P = {{" + PARAM_EXACTLY_ONE + "}}";
+            "1) P(x = {{" + PARAM_EQ + "}}) = {{" + PARAM_EQRES + "}} <br>" +
+            "2) P (x < {{"+ PARAM_MORE+"}}) = {{" + PARAM_LESSRES + "}} <br>" +
+            "3) P({{"+ PARAM_NOT_LESS +"}} ≤ x)= {{" + PARAM_NOT_LESSRES + "}} <br>" +
+            "4) P(x > {{"+ PARAM_MORE+"}}) = {{" + PARAM_MORES + "}} <br>" +
+            "5) P(x ≤ {{"+ PARAM_NOT_MORE +"}}) = {{" + PARAM_NOT_MORERES + "}} <br>" +
+            "6) P({{"+ PARAM_NOT_LESS +"}} ≤ x ≤ {{"+ PARAM_NOT_MORE+"}})  = {{" + PARAM_NOT_LESS_AND_NOT_MORE + "}} <br>" +
+            "7) P = {{" + PARAM_EXACTLY_ONERES + "}}";
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + " (округлити максимум до другого знаку)";
 
@@ -78,13 +85,13 @@ public class FormulaLaplassa extends CalculatorImpl {
         double exactlyOneRes = MathUtil.roundDouble(1 - Math.pow(1 - p, n), 4);
 
         HashMap<String, Object> calculatedData = new HashMap<>();
-        calculatedData.put(PARAM_EQ, eqRes);
-        calculatedData.put(PARAM_LESS, lessRes);
-        calculatedData.put(PARAM_NOT_LESS, notLessRes);
-        calculatedData.put(PARAM_MORE, moreRes);
-        calculatedData.put(PARAM_NOT_MORE, notMoreRes);
+        calculatedData.put(PARAM_EQRES, eqRes);
+        calculatedData.put(PARAM_LESSRES, lessRes);
+        calculatedData.put(PARAM_NOT_LESSRES, notLessRes);
+        calculatedData.put(PARAM_MORES, moreRes);
+        calculatedData.put(PARAM_NOT_MORERES, notMoreRes);
         calculatedData.put(PARAM_NOT_LESS_AND_NOT_MORE, notLessAndNotMoreRes);
-        calculatedData.put(PARAM_EXACTLY_ONE, exactlyOneRes);
+        calculatedData.put(PARAM_EXACTLY_ONERES, exactlyOneRes);
         log.info("'calculatedData={}'", calculatedData);
 
         CalculationData calculationData = new CalculationData(calculatedData, "");

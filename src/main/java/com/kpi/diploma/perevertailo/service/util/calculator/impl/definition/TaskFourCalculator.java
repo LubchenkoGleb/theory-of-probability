@@ -35,7 +35,7 @@ public class TaskFourCalculator extends CalculatorImpl {
             " З неї навмання і не повертаючи виймають {{" + PARAM_A + "}} куль. Знайти ймовірність того, що буде " +
             "обрано рівно {{" + PARAM_C + "}} білих та {{" + PARAM_D + "}} чорних куль.";
     private static final String ANSWER_TEMPLATE = "P = {{" + PARAM_P + "}}";
-    private static final String QUESTION_TO_STUDENT = "(відповідь округлити до 4х знаків після коми)";
+    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(відповідь округлити до 4х знаків після коми)";
 
 
     public TaskFourCalculator() {

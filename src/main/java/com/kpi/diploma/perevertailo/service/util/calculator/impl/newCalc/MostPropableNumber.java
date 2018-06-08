@@ -21,7 +21,7 @@ public class MostPropableNumber extends CalculatorImpl {
     private static final String PARAM_K0 = "k0";
 
 
-    private static final String QUESTION_TEMPLATE = "Подія може наступи = {{" + PARAM_N + "}}" +
+    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}}" +
             "разів. Ймовірність, що ця подія відбудеться =  {{" + PARAM_P + "}}. Знайти найймовірніше число. <br>";
     private static final String ANSWER_TEMPLATE = "Наймовірніше число для данного випадку:<br>" +
             " k<sub>0</sub> = {{" + PARAM_K0 + "}}<br>";

@@ -41,7 +41,7 @@ public class MathExp extends CalculatorImpl {
     private static final String QUESTION_TEMPLATE = "Дискретна випадкова величина задана законом розподілу: <br>" +
             "<table>" +
             "<tr><th>X<sub>i</sub></th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td><td>{{" + PARAM_X4 + "}}</td></tr><tr><th>P<sub>i</sub></th><td>{{" + PARAM_P1 + "}}</td><td>{{" + PARAM_P2 + "}}</td><td>{{" + PARAM_P3 + "}}</td><td>{{" + PARAM_P4 + "}}</td></tr></table> <br>" +
-            "Ймовірність, що випадкова величина Х набуде можливого значення в проміжику: <br>" +
+            "Ймовірність, що випадкова величина Х набуде можливого значення в проміжку: <br>" +
             "не менше ніж {{" + PARAM_NOT_LESS + "}} і не більше ніж {{" + PARAM_NOT_MORE + "}} <br>" +
             "Знайти матсподівання, дисперсію, середньоквадратичне відхилення та функцію розподілу.";
     private static final String ANSWER_TEMPLATE = "Математичне сподівання: <br>" +

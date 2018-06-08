@@ -19,11 +19,11 @@ public class TaskFiveCalculator extends CalculatorImpl {
     private static final String PARAM_PONE = "po"; // ймовірність що попаде 1
     private static final String PARAM_PTWO = "pt"; // ймовірність що попадуть обидва
 
-    private static final String QUESTION_TEMPLATE = "Два стрілка стріляють по мішені, ймовірність, що влучить перший P<sub>1</sub> = {{" + PARAM_PFIRST + "}}, другий P<sub>2</sub>{{" + PARAM_PSECOND + "}}.";
-    private static final String ANSWER_TEMPLATE = "Ймовірність, що не влучить жоден: <br> P<sub>0</sub> ={{" + PARAM_PANY + "}}<br>" +
-            "Ймовірність, що влучить один з них: <br> P<sub>1</sub> = {{" + PARAM_PONE + "}}<br> " +
-            "Ймовірність, що влучать обидва: <br> P<sub>2</sub> ={{" + PARAM_PTWO + "}}.";
-    private static final String QUESTION_TO_STUDENT = "";
+    private static final String QUESTION_TEMPLATE = "Два стрілка стріляють по мішені, ймовірність, що влучить перший P<sub>1</sub> = {{" + PARAM_PFIRST + "}}, другий P<sub>2</sub> = {{" + PARAM_PSECOND + "}}.";
+    private static final String ANSWER_TEMPLATE = "Ймовірність, що не влучить жоден: <br> P<sub>0</sub> = {{" + PARAM_PANY + "}} <br>" +
+            "Ймовірність, що влучить один з них: <br> P<sub>1</sub> = {{" + PARAM_PONE + "}} <br> " +
+            "Ймовірність, що влучать обидва: <br> P<sub>2</sub> = {{" + PARAM_PTWO + "}}.";
+    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE;
 
 
     public TaskFiveCalculator() {
