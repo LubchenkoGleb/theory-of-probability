@@ -92,7 +92,7 @@ public class PuassonFormula extends CalculatorImpl {
         calculatedData.put(PARAM_MORES, moreRes);
         calculatedData.put(PARAM_NOT_MORERES, notMoreRes);
         calculatedData.put(PARAM_NOT_LESS_AND_NOT_MORE, notLessAndNotMoreRes);
-        calculatedData.put(PARAM_EXACTLY_ONE, exactlyOneRes);
+        calculatedData.put(PARAM_EXACTLY_ONERES, exactlyOneRes);
         log.info("'calculatedData={}'", calculatedData);
 
         CalculationData calculationData = new CalculationData(calculatedData, "");

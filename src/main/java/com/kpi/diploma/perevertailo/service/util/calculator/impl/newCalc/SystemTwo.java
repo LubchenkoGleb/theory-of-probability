@@ -159,7 +159,7 @@ public class SystemTwo extends CalculatorImpl {
         double py2 = p21 + p22 + p23;
         double myRes = (py1) * y1 + (py2) * y2;
         double dyRes = Math.pow(y1, 2) * py1 + Math.pow(y2, 2) * py2 - myRes * myRes;
-        double sigyRes = Math.sqrt(dyRes);
+        double sigyRes = Math.sqrt(Math.abs(dyRes));
 
 
         double resPhy11 = p11 / py1;
