@@ -119,8 +119,11 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
         String questionToStudent = calculator.changePlaceHoldersToValues(calculator.getQuestionToStudentTemplate(), inputParams);
         String question = calculator.changePlaceHoldersToValues(calculator.getQuestionTemplate(), inputParams);
 
-        calculatedValues.getCalculatedValues().putAll(inputParams);
-        String answer = calculator.changePlaceHoldersToValues(calculator.getAnswerTemplate(), calculatedValues.getCalculatedValues());
+        Map<String, Object> tempMap = new HashMap<>();
+        tempMap.putAll(calculatedValues.getCalculatedValues());
+        tempMap.putAll(inputParams);
+
+        String answer = calculator.changePlaceHoldersToValues(calculator.getAnswerTemplate(), tempMap);
 
         OpenAnswerTask openAnswerTask = new OpenAnswerTask(
                 calculator.getName(),

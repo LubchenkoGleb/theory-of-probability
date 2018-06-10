@@ -46,151 +46,206 @@
         });
     </script>
 </header>
-<body>
 
-<div class="header">
-
-
-</div>
-<!--<div class="menu-bottom">-->
-    <!--<nav>-->
-        <!--<ul class="topmenu">-->
-            <!--<li id='home'><a href="student.html">Тест</a></li>-->
-            <!--&lt;!&ndash;<li class="active"><a href="student_journel.html">Журнал оцінок</a></li>&ndash;&gt;-->
-            <!--<li><a href="">Вихід</a></li>-->
-        <!--</ul>-->
-    <!--</nav>-->
-<!--</div>-->
-<div class="left" style="position: absolute; margin-top: 80px;">
-    <h2>Не пройдені тести</h2>
-    <div id="not-passed-tests-block">
-        <div id="not-passed-tests">Loading ...</div>
-    </div>
-</div>
-<div class="left" style="position: absolute; margin-top: 80px; margin-left: 500px; width: 900px;">
-    <div id="pending-tests-block">
-        <div id="pending-tests"></div>
-    </div>
-</div>
-<div class="left" style="position: absolute; margin-top: 80px; margin-left: 1000px;">
-    <h2>Пройдені тести</h2>
-    <div id="passed-tests-block">
-        <div id="passed-tests">Loading ...</div>
-    </div>
-</div>
-<script>
-    let activeTest = null;
-
-    const matchStringToQuestion = (string) => {
-        const found = string.match(/[^{{\}]+(?=}})/g);
-        if (!found) {
-            return `<p>${string}</p>`;
+<head>
+    <style>
+        .container {
+            padding: 2%;
+            width: 100%;
+            height: 100%;
         }
 
-        found.forEach((variable) => {
-            string = string.replace(`{{${variable}}}`, `<input type=\"text\" id=\"${variable}\"/>`)
+        .leftpane {
+            margin: 1%;
+            padding: 3%;
+            width: 23%;
+            height: 100%;
+            float: left;
+            background-color: rosybrown;
+            border-collapse: collapse;
+        }
+
+        .middlepane {
+            margin: 1%;
+            padding: 3%;
+            width: 48%;
+            height: 100%;
+            float: left;
+            background-color: royalblue;
+            border-collapse: collapse;
+        }
+
+        .rightpane {
+            margin: 1%;
+            padding: 3%;
+            width: 23%;
+            height: 100%;
+            position: relative;
+            float: right;
+            background-color: yellow;
+            border-collapse: collapse;
+        }
+    </style>
+
+    <script>
+        let activeTest = null;
+
+        const matchStringToQuestion = (string) => {
+            const found = string.match(/[^{{\}]+(?=}})/g);
+            if (!found) {
+                return `<p>${string}</p>`;
+            }
+
+            found.forEach((variable) => {
+                string = string.replace(`{{${variable}}}`, `<input type=\"text\" id=\"${variable}\"/>`)
+            });
+            return `<p>${string}</p>`;
+        };
+
+        $(document).on('click', '#not-passed-tests-block > ul > li', ({target: {id}}) => {
+            showTest(id);
         });
-        return `<p>${string}</p>`;
-    };
 
-    $(document).on('click', '#not-passed-tests-block > ul > li', ({target: {id}}) => {
-        $.ajax({
-            async: true,
-            url: `/student/get-test/${id} `,
-            method: "GET",
-            headers: {}
-        }).done((test) => {
-            activeTest = test;
-            const {task} = test;
+        $(document).on('click', 'button[id="submit"]', ({target: {parentNode}}) => {
 
-            const types = ['SINGLE_ANSWER', 'MULTIPLE_ANSWER'];
-            const questionsBlock = task.map((test) => {
-                if (types.includes(test.type)) {
-                    return `<div id="${test.id}" class="closed-answer">
-                                ${test.question}
-                                ${test.answerOptions.map(({answer}) => (`<input name="${test.id}" type="${test.type === 'SINGLE_ANSWER' ? "radio" : "checkbox"}" value="${answer}">${answer}</input>`))}
-                            </div>
-                        `
+            const response = [];
+            parentNode.childNodes.forEach((node) => {
+                if (node.localName !== 'div') {
+                    return;
+                }
+                const responseObject = {};
+
+                if (node.className === 'closed-answer') {
+                    $(`input[name="${node.id}"]`).each(function () {
+                        Object.assign(responseObject, {[$(this).val()]: $(this).prop('checked')})
+                    });
+
+                    response.push({taskId: node.id, openAnswerValues: responseObject});
+                    return true;
                 }
 
-                return `
-                    <div id="${test.id}" class="open-answer">
-                        <p>${test.questionToStudent}</p>
-                        ${matchStringToQuestion(test.openAnswerTemplate)}
-                    </div>
-                `
+                if (node.className === 'open-answer') {
+                    $(`div[id="${node.id}"] > p > input`).each(function () {
+                        Object.assign(responseObject, {[`${this.id}`]: Number(this.value)})
+                    });
+
+                    response.push({taskId: node.id, openAnswerValues: responseObject});
+                    return true;
+                }
             });
-            $('#pending-tests').replaceWith(`<div id="pending-tests">${questionsBlock.join('')}<button id="submit" type="submit">Submit</button></div>`);
+
+            $.ajax({
+                type: "POST",
+                url: `/student/pass-test/${activeTest.test.id}`,
+                data: JSON.stringify(response),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                async: false,
+                success: function ({resultPercent, failedQuestions}) {
+                    $('#pending-tests').replaceWith(`<div id="pending-tests">
+                        <h2>Результат: ${resultPercent}</h2>
+                        ${failedQuestions && failedQuestions.length && `<p>Incorrect answers: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
+                        <a href="lectures/1.txt">Завантажиты лекцію</button>
+                     </div>`);
+                },
+                error: function (data) {
+                    console.log('error=' + JSON.stringify(data));
+                }
+            })
         });
-    });
 
-    $(document).on('click', 'button[id="submit"]', ({target: {parentNode}}) => {
+        function showTest(id) {
+            $.ajax({
+                async: true,
+                url: `/student/get-test/${id}`,
+                method: "GET",
+                headers: {}
+            }).done((test) => {
+                activeTest = test;
+                const {task} = test;
 
-        const response = [];
-        parentNode.childNodes.forEach((node) => {
-            if (node.localName !== 'div') {
-                return;
-            }
-            const responseObject = {};
+                const types = ['SINGLE_ANSWER', 'MULTIPLE_ANSWER'];
+                const questionsBlock = task.map((test) => {
+                    if (types.includes(test.type)) {
+                        return `<div id="${test.id}" class="closed-answer">
+                                    ${test.question}
+                                    ${test.answerOptions.map(({answer}) => (`
+                                        <input name="${test.id}" type="${test.type === 'SINGLE_ANSWER' ? "radio" : "checkbox"}" value="${answer}">${answer}</input>`))}
+                                </div>`
+                    }
 
-            if (node.className === 'closed-answer') {
-                $(`input[name="${node.id}"]`).each(function () {
-                    Object.assign(responseObject, {[$(this).val()]: $(this).prop('checked')})
+                    return `
+                        <div id="${test.id}" class="open-answer">
+                            <p>${test.questionToStudent}</p>
+                            ${matchStringToQuestion(test.openAnswerTemplate)}
+                        </div>
+                    `
                 });
+                $('#pending-tests').replaceWith(`<div id="pending-tests">${questionsBlock.join('<hr>')}<button id="submit" type="submit">Submit</button></div>`);
 
-                response.push({taskId: node.id, openAnswerValues: responseObject});
-                return true;
-            }
+            });
+        }
 
-            if (node.className === 'open-answer') {
-                $(`div[id="${node.id}"] > p > input`).each(function () {
-                    Object.assign(responseObject, {[`${this.id}`]: Number(this.value)})
-                });
-
-                response.push({taskId: node.id, openAnswerValues: responseObject});
-                return true;
+        $.ajax({
+            async: true,
+            url: '/student/not-passed-tests',
+            method: "GET",
+            headers: {}
+        }).done((tests) => {
+            const newList = tests.map(({id, name, theme}) => (`<ul><li id="${id}">${name} (${theme})<hr></li></ul>`));
+            $('#not-passed-tests').replaceWith(newList);
+            console.log('test=' + JSON.stringify(tests[0]));
+            if(tests.length != 0) {
+                showTest(tests[0].id);
             }
         });
 
         $.ajax({
-            type: "POST",
-            url: `/student/pass-test/${activeTest.test.id}`,
-            data: JSON.stringify(response),
-            headers: {
-                "Content-Type": "application/json"
-            },
-            async: false,
-            success: function ({resultPercent, failedQuestions}) {
-                $('#pending-tests').replaceWith(`<div id="pending-tests">
-                    <h2>RESULT: ${resultPercent}</h2>
-                    ${failedQuestions && failedQuestions.length && `<p>Incorrect answers: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
-                 </div>`);
-            },
-            error: function (data) {
-                console.log('error=' + JSON.stringify(data));
-            }
+            async: true,
+            url: '/student/passed-tests',
+            method: "GET",
+            headers: {}
+        }).done((tests) => {
+            const newList = tests.map(({testId, testName, result}) => (`<ul><li id="${testId}">${testName} - ${result}%<hr></li></ul>`));
+            $('#passed-tests').replaceWith(newList);
         })
-    });
+    </script>
+</head>
 
-    $.ajax({
-        async: true,
-        url: '/student/not-passed-tests',
-        method: "GET",
-        headers: {}
-    }).done((tests) => {
-        const newList = tests.map(({id, name, theme}) => (`<ul><li id="${id}">${name} (${theme})</li></ul>`));
-        $('#not-passed-tests').replaceWith(newList);
-    });
+<body>
+<div class="container">
+    <div class="leftpane">
+        <h2>Не пройдені тести</h2>
+        <div id="not-passed-tests-block">
+            <div id="not-passed-tests">Loading ...</div>
+        </div>
+    </div>
 
-    $.ajax({
-        async: true,
-        url: '/student/passed-tests',
-        method: "GET",
-        headers: {}
-    }).done((tests) => {
-        const newList = tests.map(({testId, testName, result}) => (`<ul><li id="${testId}">${testName} - ${result}</li></ul>`));
-        $('#passed-tests').replaceWith(newList);
-    })
-</script>
+    <div class="middlepane">
+        <h2>Поточний тест</h2>
+        <div id="pending-tests-block">
+            <div id="pending-tests"></div>
+        </div>
+    </div>
+
+    <div class="rightpane">
+        <h2>Пройдені тести</h2>
+        <div id="passed-tests-block">
+            <div id="passed-tests">Loading ...</div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="menu-bottom">-->
+<!--<nav>-->
+<!--<ul class="topmenu">-->
+<!--<li id='home'><a href="student.html">Тест</a></li>-->
+<!--&lt;!&ndash;<li class="active"><a href="student_journel.html">Журнал оцінок</a></li>&ndash;&gt;-->
+<!--<li><a href="">Вихід</a></li>-->
+<!--</ul>-->
+<!--</nav>-->
+<!--</div>-->
+
 </body>
 </html>
