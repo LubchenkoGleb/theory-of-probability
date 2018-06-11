@@ -20,6 +20,33 @@ import java.util.*;
 @SpringBootApplication
 public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
+    public static final Map<ThemeValues, String> themeValues = new TreeMap<>();
+
+    private static final List<String> firstNames = Arrays.asList(
+            "Александр", "Сергей", "Елена", "Андрей", "Владимир", "Татьяна", "Алексей", "Ольга", "Дмитрий", "Наталья",
+            "Ирина", "Анна", "Николай", "Евгений", "Иван", "Светлана", "Екатерина", "Юлия", "Мария", "Михаил");
+
+    private static final List<String> lastNames = Arrays.asList(
+            "Смирнов", "Иванов", "Кузнецов", "Соколов", "Попов", "Лебедев", "Козлов", "Новиков", "Морозов", "Петров",
+            "Волков", "Соловьёв", "Васильев", "Зайцев", "Павлов", "Семёнов", "Голубев", "Виноградов", "Богданов");
+
+    static {
+        themeValues.put(ThemeValues.DEFINITION_PROBABILITIES, "КЛАСИЧНЕ І СТАТИСТИЧНЕ ВИЗНАЧЕННЯ ІМОВІРНОСТІ");
+        themeValues.put(ThemeValues.ACTIONS_ON_EVENTS, "ДІЇ НАД ПОДІЯМИ. ТЕОРЕМА СКЛАДАННЯ ЙМОВІРНОСТЕЙ. ТЕОРЕМА МНОЖЕННЯ ІМОВІРНОСТЕЙ. ВИПАДКОВА ЙМОВІРНІСТЬ");
+        themeValues.put(ThemeValues.COMPLETE_PROBABILITY, "ФОРМУЛА ПОВНОЇ ІМОВІРНОСТІ. ФОРМУЛА Байєса");
+        themeValues.put(ThemeValues.FORMULA_BERNULI, "Формула Бернуллі. ФОРМУЛА Пуассона. ЛОКАЛЬНА І ІНТЕГРАЛЬНІ Теорема Лапласа");
+        themeValues.put(ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY, "ВІДХИЛЕННЯ ВІДНОСНОЇ ЧАСТОТИ ВІД ПОСТІЙНОЇ ІМОВІРНОСТІ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ. НАЙЙМОВІРНІСНІШЕ ЧИСЛО ПОЯВИ ПОДІЙ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ");
+        themeValues.put(ThemeValues.RANGE_OF_DISTRIBUTION, "РЯД РОЗПОДІЛУ ДИСКРЕТНОЇ ВИПАДКОВОЇ ВЕЛИЧИНИ. ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТИКИ.");
+        themeValues.put(ThemeValues.BASIC_LAWS_OF_DISTRIBUTION, "ОСНОВНІ ЗАКОНИ РОЗПОДІЛУ.");
+        themeValues.put(ThemeValues.BASIC_NUMERICAL_CHARACTERISTICS, "ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТКИ");
+        themeValues.put(ThemeValues.SYSTEMS_OF_TWO_RANDOM_VALUES, "СИСТЕМИ ДВУХ ВИПАДКОВИХ ВЕЛИЧИН");
+        themeValues.put(ThemeValues.THE_LAW_OF_LARGE_NUMBERS, "ЗАКОН ВЕЛИКИХ ЧИСЕЛ");
+        themeValues.put(ThemeValues.SELECTIVE_METHOD, "ВИБІРКОВИЙ МЕТОД");
+        themeValues.put(ThemeValues.STATISTICAL_ESTIMATION_OF_PARAMETERS_OF_DISTRIBUTION, "СТАТИСТИЧНІ ОЦІНКИ ПАРАМЕТРІВ РОЗПОДІЛУ");
+        themeValues.put(ThemeValues.METHODS_OF_ASSESSMENT_OF_THE_EVALUATION, "МЕТОДИ ЗНАХОДЖЕННЯ ОЦІНОК");
+        themeValues.put(ThemeValues.STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS, "СТАТИСТИЧНА ПЕРЕВІРКА СТАТИСТИЧНИХ ГІПОТЕЗ");
+    }
+
     private final UserRepository userRepository;
 
     private final TeacherRepository teacherRepository;
@@ -37,11 +64,6 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
     private final TaskRepository taskRepository;
 
     private final TestRepository testRepository;
-
-    private User admin;
-
-    private List<Group> groups = new ArrayList<>();
-
 
     @Autowired
     public TheoryOfProbabilityApplication(UserRepository userRepository, TeacherRepository teacherRepository, StudentRepository studentRepository, RoleRepository roleRepository,
@@ -73,12 +95,18 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 //
 //
 //        initRoles();
-//        intitThemes();
+//        initThemes();
 //        createAdmin();
 //        createGroup(3);
 //        createStudents(2, "noGroup");
 //        usersForConfirmation();
 
+    }
+
+    private void initThemes() {
+        for (Map.Entry<ThemeValues, String> themeValuesStringEntry : themeValues.entrySet()) {
+            themeRepository.save(new Theme(themeValuesStringEntry.getKey(), themeValuesStringEntry.getValue()));
+        }
     }
 
     private void initRoles() {
@@ -96,13 +124,13 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
 
         Role adminRole = roleRepository.findByRole(RoleValues.ROLE_ADMIN.toString());
 
-        admin = new User();
+        User admin = new User();
         admin.setEmail("admin");
         admin.setEnable(true);
         admin.setPassword(passwordEncoder.encode("1234"));
         admin.setRoles(new HashSet<>(Collections.singletonList(adminRole)));
 
-        admin = userRepository.save(admin);
+        userRepository.save(admin);
 
     }
 
@@ -118,8 +146,8 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
             student.setId("st" + groupName + i);
             student.setEmail("st" + groupName + i);
             student.setPassword(passwordEncoder.encode("1234"));
-            student.setFirstName("stFtNm-" + groupName + i);
-            student.setLastName("stLstName-" + groupName + i);
+            student.setFirstName(firstNames.get((int)(Math.random() * firstNames.size())));
+            student.setLastName(lastNames.get((int)(Math.random() * lastNames.size())));
             student.setEnable(true);
             student.getRoles().add(studentRole);
             students.add(student);
@@ -127,27 +155,6 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         }
 
         return studentRepository.saveAll(students);
-    }
-
-    private void intitThemes() {
-
-//        for (ThemeValues themeValues : ThemeValues.values()) {
-//            themeRepository.save(new Theme(themeValues, themeValues.toString()));
-//        }
-        themeRepository.save(new Theme(ThemeValues.DEFINITION_PROBABILITIES,  "КЛАСИЧНЕ І СТАТИСТИЧНЕ ВИЗНАЧЕННЯ ІМОВІРНОСТІ"));
-        themeRepository.save(new Theme(ThemeValues.ACTIONS_ON_EVENTS, "ДІЇ НАД ПОДІЯМИ. ТЕОРЕМА СКЛАДАННЯ ЙМОВІРНОСТЕЙ. ТЕОРЕМА МНОЖЕННЯ ІМОВІРНОСТЕЙ. ВИПАДКОВА ЙМОВІРНІСТЬ"));
-        themeRepository.save(new Theme(ThemeValues.COMPLETE_PROBABILITY, "ФОРМУЛА ПОВНОЇ ІМОВІРНОСТІ. ФОРМУЛА Байєса"));
-        themeRepository.save(new Theme(ThemeValues.FORMULA_BERNULI, "Формула Бернуллі. ФОРМУЛА Пуассона. ЛОКАЛЬНА І ІНТЕГРАЛЬНІ Теорема Лапласа"));
-        themeRepository.save(new Theme(ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY, "ВІДХИЛЕННЯ ВІДНОСНОЇ ЧАСТОТИ ВІД ПОСТІЙНОЇ ІМОВІРНОСТІ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ. НАЙЙМОВІРНІСНІШЕ ЧИСЛО ПОЯВИ ПОДІЙ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ"));
-        themeRepository.save(new Theme(ThemeValues.RANGE_OF_DISTRIBUTION,  "РЯД РОЗПОДІЛУ ДИСКРЕТНОЇ ВИПАДКОВОЇ ВЕЛИЧИНИ. ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТИКИ."));
-        themeRepository.save(new Theme(ThemeValues.BASIC_LAWS_OF_DISTRIBUTION, "ОСНОВНІ ЗАКОНИ РОЗПОДІЛУ."));
-        themeRepository.save(new Theme(ThemeValues.BASIC_NUMERICAL_CHARACTERISTICS, "ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТКИ"));
-        themeRepository.save(new Theme(ThemeValues.SYSTEMS_OF_TWO_RANDOM_VALUES, "СИСТЕМИ ДВУХ ВИПАДКОВИХ ВЕЛИЧИН"));
-        themeRepository.save(new Theme(ThemeValues.THE_LAW_OF_LARGE_NUMBERS, "ЗАКОН ВЕЛИКИХ ЧИСЕЛ"));
-        themeRepository.save(new Theme(ThemeValues.SELECTIVE_METHOD,  "ВИБІРКОВИЙ МЕТОД"));
-        themeRepository.save(new Theme(ThemeValues.STATISTICAL_ESTIMATION_OF_PARAMETERS_OF_DISTRIBUTION, "СТАТИСТИЧНІ ОЦІНКИ ПАРАМЕТРІВ РОЗПОДІЛУ"));
-        themeRepository.save(new Theme(ThemeValues.METHODS_OF_ASSESSMENT_OF_THE_EVALUATION, "МЕТОДИ ЗНАХОДЖЕННЯ ОЦІНОК"));
-        themeRepository.save(new Theme(ThemeValues.STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS, "СТАТИСТИЧНА ПЕРЕВІРКА СТАТИСТИЧНИХ ГІПОТЕЗ"));
     }
 
     private Teacher createTeacher(String groupName) {
@@ -158,8 +165,8 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         teacher.setId("tch" + groupName);
         teacher.setEmail("tch" + groupName);
         teacher.setPassword(passwordEncoder.encode("1234"));
-        teacher.setFirstName("tchFitNm-" + groupName);
-        teacher.setLastName("tchLstName-" + groupName);
+        teacher.setFirstName(firstNames.get((int)(Math.random() * firstNames.size())));
+        teacher.setLastName(lastNames.get((int)(Math.random() * lastNames.size())));
         teacher.setEnable(true);
         teacher.getRoles().add(teacherRole);
 
@@ -171,7 +178,7 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         for (int i = 0; i < amount; i++) {
 
             String groupName = "IS4" + (i + 1);
-            List<Student> students = createStudents(amount, groupName);
+            List<Student> students = createStudents(15, groupName);
             Teacher teacher = createTeacher(groupName);
 
             Group group = new Group();
@@ -202,5 +209,6 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         teacher.setId("tchForConfirm");
         teacherRepository.save(teacher);
     }
+
 
 }

@@ -102,7 +102,7 @@
             return `<p>${string}</p>`;
         };
 
-        $(document).on('click', '#not-passed-tests-block > ul > li', ({target: {id}}) => {
+        $(document).on('click', '#not-passed-tests-block > ul > li', ({currentTarget: {id}}) => {
             showTest(id);
         });
 
@@ -182,6 +182,8 @@
                         </div>
                     `
                 });
+                console.log('test.name=' + test.test.name);
+                $('#testName').text(test.test.name);
                 $('#pending-tests').replaceWith(`<div id="pending-tests">${questionsBlock.join('<hr>')}<button id="submit" type="submit">Submit</button></div>`);
 
             });
@@ -193,10 +195,9 @@
             method: "GET",
             headers: {}
         }).done((tests) => {
-            const newList = tests.map(({id, name, theme}) => (`<ul><li id="${id}">${name} (${theme})<hr></li></ul>`));
+            const newList = tests.map(({id, name, themeName}) => (`<ul><li id="${id}"><p><b>Назва:     ${name}</b> <br>Тема: ${themeName.toLocaleLowerCase()}</p> <hr></li></ul>`));
             $('#not-passed-tests').replaceWith(newList);
-            console.log('test=' + JSON.stringify(tests[0]));
-            if(tests.length != 0) {
+            if (tests.length != 0) {
                 showTest(tests[0].id);
             }
         });
@@ -207,7 +208,7 @@
             method: "GET",
             headers: {}
         }).done((tests) => {
-            const newList = tests.map(({testId, testName, result}) => (`<ul><li id="${testId}">${testName} - ${result}%<hr></li></ul>`));
+            const newList = tests.map(({testId, testName, result}) => (`<ul><li id="${testId}">Назва: ${testName}<br>Результат: ${result}%<hr></li></ul>`));
             $('#passed-tests').replaceWith(newList);
         })
     </script>
@@ -224,6 +225,7 @@
 
     <div class="middlepane">
         <h2>Поточний тест</h2>
+        <h3 id="testName"></h3>
         <div id="pending-tests-block">
             <div id="pending-tests"></div>
         </div>

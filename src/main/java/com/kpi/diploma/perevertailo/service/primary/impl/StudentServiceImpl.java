@@ -8,6 +8,7 @@ import com.kpi.diploma.perevertailo.model.dto.TestDto;
 import com.kpi.diploma.perevertailo.model.util.value.TaskTypeValues;
 import com.kpi.diploma.perevertailo.repository.*;
 import com.kpi.diploma.perevertailo.service.primary.StudentService;
+import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -128,7 +129,7 @@ public class StudentServiceImpl implements StudentService {
             }
         });
         log.debug("'answersCounter.size()={}'", answersCounter.size());
-        double mark = (double) answersCounter.size() / questionsTasksAmount * 100;
+        double mark = MathUtil.roundDouble((double) answersCounter.size() / questionsTasksAmount * 100, 2);
 
         student.getTestResults().add(new TestResult(mark, testId, test.getName()));
         studentRepository.save(student);

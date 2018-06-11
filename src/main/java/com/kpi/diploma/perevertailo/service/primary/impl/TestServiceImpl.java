@@ -1,5 +1,6 @@
 package com.kpi.diploma.perevertailo.service.primary.impl;
 
+import com.kpi.diploma.perevertailo.TheoryOfProbabilityApplication;
 import com.kpi.diploma.perevertailo.model.document.Group;
 import com.kpi.diploma.perevertailo.model.document.Test;
 import com.kpi.diploma.perevertailo.model.document.task.Task;
@@ -112,6 +113,7 @@ public class TestServiceImpl implements TestService {
         test.setTask(tasks);
 
         test.setTheme(createTestDto.getTheme());
+        test.setThemeName(TheoryOfProbabilityApplication.themeValues.get(createTestDto.getTheme()));
         test.setName(createTestDto.getName());
 
         Test saveTest = testRepository.save(test);

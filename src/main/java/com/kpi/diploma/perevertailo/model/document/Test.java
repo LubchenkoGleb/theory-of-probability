@@ -33,6 +33,8 @@ public class Test {
 
     private ThemeValues theme;
 
+    private String themeName;
+
     public Test() {
         this.groups = new ArrayList<>();
         this.task = new ArrayList<>();

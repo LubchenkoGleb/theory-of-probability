@@ -9,7 +9,6 @@ import com.kpi.diploma.perevertailo.model.dto.StudentDto;
 import com.kpi.diploma.perevertailo.model.dto.TestDto;
 
 import java.util.List;
-import java.util.Map;
 
 public interface StudentService {
 
