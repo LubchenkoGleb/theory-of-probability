@@ -21,6 +21,7 @@ import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.Task
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskThreeCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.definition.TaskTwoCalculator;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement.Kolmagorov;
+import com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement.Pirson;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,7 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
                                  Batler batler,
                                  Kohren kohren,
                                  Kolmagorov kolmagorov,
+                                 Pirson pirson,
                                  UserRepository userRepository,
                                  TaskRepository taskRepository) {
         this.userRepository = userRepository;
@@ -72,7 +74,8 @@ public class OpenAnswerServiceImpl implements OpenAnswerService {
         List<CalculatorImpl> calculators = Arrays.asList(taskOneCalculator, taskTwoCalculator, taskThreeCalculator,
                 taskFourCalculator, taskFiveCalculator, taskSixCalculator, taskSevenCalculator, taskEightCalculator,
                 taskNineCalculator, puassonFormula, formulaLaplassa, mostPropableNumber, variance, mathExp,
-                distribution, charactFirst, systemTwo, selectiveMethod, statisticHipotes, batler, kohren, kolmagorov);
+                distribution, charactFirst, systemTwo, selectiveMethod, statisticHipotes, batler, kohren, kolmagorov,
+                pirson);
 
         this.taskTemplatesByName = new HashMap<>();
         this.tasksByTheme = new HashMap<>();
