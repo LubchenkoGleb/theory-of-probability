@@ -14,14 +14,14 @@ import java.util.Map;
 public class TaskOneCalculator extends CalculatorImpl {
 
     private static final String NAME = "Permutations";
-    private static final String FULL_NAME = "ФОРМУЛА ЧИСЛА ПЕРЕСТАНОВОК";
+    private static final String FULL_NAME = "Перестановки";
     private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
     private static final String PARAM_N = "n";
     private static final String PARAM_PN = "pN";
 
     private static final String QUESTION_TEMPLATE = "Введіть число перестановок для n = {{" + PARAM_N + "}}";
     private static final String ANSWER_TEMPLATE = "Pn =  {{" + PARAM_PN + "}}";
-    private static final String QUESTION_TO_STUDENT_TEMPLATE = "P<sub> {{" + PARAM_N + "}} </sub> ?";
+    private static final String QUESTION_TO_STUDENT_TEMPLATE = " Знайти число перестановок P<sub>{{" + PARAM_N + "}}</sub> ?";
 
 
     public TaskOneCalculator() {

@@ -31,20 +31,16 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
             "Волков", "Соловьёв", "Васильев", "Зайцев", "Павлов", "Семёнов", "Голубев", "Виноградов", "Богданов");
 
     static {
-        themeValues.put(ThemeValues.DEFINITION_PROBABILITIES, "КЛАСИЧНЕ І СТАТИСТИЧНЕ ВИЗНАЧЕННЯ ІМОВІРНОСТІ");
-        themeValues.put(ThemeValues.ACTIONS_ON_EVENTS, "ДІЇ НАД ПОДІЯМИ. ТЕОРЕМА СКЛАДАННЯ ЙМОВІРНОСТЕЙ. ТЕОРЕМА МНОЖЕННЯ ІМОВІРНОСТЕЙ. ВИПАДКОВА ЙМОВІРНІСТЬ");
-        themeValues.put(ThemeValues.COMPLETE_PROBABILITY, "ФОРМУЛА ПОВНОЇ ІМОВІРНОСТІ. ФОРМУЛА Байєса");
-        themeValues.put(ThemeValues.FORMULA_BERNULI, "Формула Бернуллі. ФОРМУЛА Пуассона. ЛОКАЛЬНА І ІНТЕГРАЛЬНІ Теорема Лапласа");
-        themeValues.put(ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY, "ВІДХИЛЕННЯ ВІДНОСНОЇ ЧАСТОТИ ВІД ПОСТІЙНОЇ ІМОВІРНОСТІ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ. НАЙЙМОВІРНІСНІШЕ ЧИСЛО ПОЯВИ ПОДІЙ В НЕЗАЛЕЖНИХ ВИПРОБУВАННЯХ");
-        themeValues.put(ThemeValues.RANGE_OF_DISTRIBUTION, "РЯД РОЗПОДІЛУ ДИСКРЕТНОЇ ВИПАДКОВОЇ ВЕЛИЧИНИ. ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТИКИ.");
-        themeValues.put(ThemeValues.BASIC_LAWS_OF_DISTRIBUTION, "ОСНОВНІ ЗАКОНИ РОЗПОДІЛУ.");
-        themeValues.put(ThemeValues.BASIC_NUMERICAL_CHARACTERISTICS, "ОСНОВНІ ЧИСЛОВІ ХАРАКТЕРИСТКИ");
-        themeValues.put(ThemeValues.SYSTEMS_OF_TWO_RANDOM_VALUES, "СИСТЕМИ ДВУХ ВИПАДКОВИХ ВЕЛИЧИН");
-        themeValues.put(ThemeValues.THE_LAW_OF_LARGE_NUMBERS, "ЗАКОН ВЕЛИКИХ ЧИСЕЛ");
-        themeValues.put(ThemeValues.SELECTIVE_METHOD, "ВИБІРКОВИЙ МЕТОД");
-        themeValues.put(ThemeValues.STATISTICAL_ESTIMATION_OF_PARAMETERS_OF_DISTRIBUTION, "СТАТИСТИЧНІ ОЦІНКИ ПАРАМЕТРІВ РОЗПОДІЛУ");
-        themeValues.put(ThemeValues.METHODS_OF_ASSESSMENT_OF_THE_EVALUATION, "МЕТОДИ ЗНАХОДЖЕННЯ ОЦІНОК");
-        themeValues.put(ThemeValues.STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS, "СТАТИСТИЧНА ПЕРЕВІРКА СТАТИСТИЧНИХ ГІПОТЕЗ");
+        themeValues.put(ThemeValues.DEFINITION_PROBABILITIES, "Класичне і статистичне визначення ймовірності.");
+        themeValues.put(ThemeValues.ACTIONS_ON_EVENTS, "Дії над подіями. Принцип суми і принцип добутку ймовірностей. Випадкова ймовірність.");
+        themeValues.put(ThemeValues.COMPLETE_PROBABILITY, "Формула повної ймовірності. Формула Байєса.");
+        themeValues.put(ThemeValues.FORMULA_BERNULI, "Формула Бернуллі. Формула Пуассона. Локальна і інтегральна теореми Лапласа");
+        themeValues.put(ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY, "Відхилення відносної частоти від постійної імовірності в незалежних випробуваннях. Найбільш ймовірне число появи події в незалежних випробуваннях.");
+        themeValues.put(ThemeValues.RANGE_OF_DISTRIBUTION, "Ряд розподілу дискретної випадкової величини. Основні числові характеристики.");
+        themeValues.put(ThemeValues.BASIC_NUMERICAL_CHARACTERISTICS, "Основні числові характеристики неперервних випадкових велечин");
+        themeValues.put(ThemeValues.SYSTEMS_OF_TWO_RANDOM_VALUES, "Системи двух випадкових величин");
+        themeValues.put(ThemeValues.SELECTIVE_METHOD, "Вибірковий метод");
+        themeValues.put(ThemeValues.STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS, "Статистична перевірка статистичних гіпотез");
     }
 
     private final UserRepository userRepository;

@@ -15,7 +15,7 @@ import java.util.Map;
 public class TaskFourCalculator extends CalculatorImpl {
     public static final String NAME = "ЗадачаПроКулі";
     private static final String FULL_NAME = "Задача про кулі";
-    private static final ThemeValues THEME_VALUES = ThemeValues.DEFINITION_PROBABILITIES;
+    private static final ThemeValues THEME_VALUES = ThemeValues.ACTIONS_ON_EVENTS;
 
     private static final String PARAM_N = "n"; // всего шариков K + M
     private static final String PARAM_CCK = "ck"; //первая комбинация для расчета с C по K
@@ -31,7 +31,7 @@ public class TaskFourCalculator extends CalculatorImpl {
     private static final String PARAM_P = "p"; // искомая вероятность
 
 
-    private static final String QUESTION_TEMPLATE = "В урні знаходяться K = {{" + PARAM_K + "}} – білих та M = {{" + PARAM_M + "}}- чорних куль." +
+    private static final String QUESTION_TEMPLATE = "В урні знаходяться K = {{" + PARAM_K + "}} – білих та M = {{" + PARAM_M + "}} - чорних куль." +
             " З неї навмання і не повертаючи виймають {{" + PARAM_A + "}} куль. Знайти ймовірність того, що буде " +
             "обрано рівно {{" + PARAM_C + "}} білих та {{" + PARAM_D + "}} чорних куль.";
     private static final String ANSWER_TEMPLATE = "P = {{" + PARAM_P + "}}";

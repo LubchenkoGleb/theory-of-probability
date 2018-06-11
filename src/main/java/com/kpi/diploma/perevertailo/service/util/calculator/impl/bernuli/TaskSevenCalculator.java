@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 
 public class TaskSevenCalculator  extends CalculatorImpl {
-    public static final String NAME = "ФормулаБернуллі";
+    public static final String NAME = "Bernuli";
     private static final String FULL_NAME = "Формула Бернуллі";
     private static final ThemeValues THEME_VALUES = ThemeValues.FORMULA_BERNULI;
     private static final String PARAM_N = "n";

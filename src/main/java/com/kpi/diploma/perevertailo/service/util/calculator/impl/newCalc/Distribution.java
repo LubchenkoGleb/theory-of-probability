@@ -15,7 +15,7 @@ import java.util.Map;
 public class Distribution extends CalculatorImpl {
     public static final String NAME = "Distribution";
     private static final String FULL_NAME = "Центральні моменти";
-    private static final ThemeValues THEME_VALUES = ThemeValues.BASIC_LAWS_OF_DISTRIBUTION;
+    private static final ThemeValues THEME_VALUES = ThemeValues.RANGE_OF_DISTRIBUTION;
     private static final String PARAM_X1 = "x1";
     private static final String PARAM_P1 = "p1";
     private static final String PARAM_X2 = "x2";

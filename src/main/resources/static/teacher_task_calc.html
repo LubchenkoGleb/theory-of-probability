@@ -100,7 +100,7 @@
             const questionsExists = `${questions.map(({name, question}) => (
                 `<div id="${name}">
                     ${matchStringToQuestion(question)}
-                    <button id="submit" type="submit">ЗБЕРЕГТИ</button>
+                    <button id="submit" type="submit">Зберегти</button>
                     <p></p><hr><br><br>
                 </div>`)).join("")}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
@@ -123,7 +123,7 @@
             },
             async: false,
             success: function ({answer}) {
-                $(`#${parentNode.id} > button`).replaceWith(`<h4>Answer: ${answer}</h4>`);
+                $(`#${parentNode.id} > button`).replaceWith(`<h4>Відповідь: ${answer}</h4>`);
             },
             error: function (data) {
                 console.log('error=' + JSON.stringify(data));
