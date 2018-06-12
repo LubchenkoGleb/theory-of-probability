@@ -49,7 +49,10 @@ public class SelectiveMethod extends CalculatorImpl {
             "Коефіцієнт варіації: <br>" +
             "v = {{" + PARAM_V + "}} <br> " +
             "Коефіцієнт асиметрії: <br>" +
-            "A<sub>s</sub> = {{" + PARAM_AS + "}} <br> ";
+            "A<sub>s</sub> = {{" + PARAM_AS + "}} <br>" +
+            "Ексцесс : <br>" +
+            "E<sub>x</sub> = -1.36 <br>" +
+            "Ex < 0 - плосковершинний розподіл";
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";
 

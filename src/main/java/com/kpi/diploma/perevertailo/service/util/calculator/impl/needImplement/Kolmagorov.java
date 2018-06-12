@@ -30,7 +30,7 @@ public class Kolmagorov extends CalculatorImpl {
 
     private static final String PARAM_L = "l";    //lamda
 
-    private static final String QUESTION_TEMPLATE = "??? <br>" +
+    private static final String QUESTION_TEMPLATE = "За допомогою критерія Колмагорова перевірити гіпотезу  <br>" +
             "<table>" +
             "<tr><th>f<sub>1</sub></th><td>{{" + PARAM_F11 + "}}</td><td>{{" + PARAM_F12 + "}}</td><td>{{" + PARAM_F13 + "}}</td><td>{{" + PARAM_F14 + "}}</td><td>{{" + PARAM_F15 + "}}</td></tr>" +
             "<tr><th>f<sub>2</sub></th><td>{{" + PARAM_F21 + "}}</td><td>{{" + PARAM_F22 + "}}</td><td>{{" + PARAM_F23 + "}}</td><td>{{" + PARAM_F24 + "}}</td><td>{{" + PARAM_F25 + "}}</td></tr>" +

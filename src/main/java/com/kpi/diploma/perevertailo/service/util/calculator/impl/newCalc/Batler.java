@@ -45,7 +45,7 @@ public class Batler extends CalculatorImpl {
             "V = {{" + PARAM_V + "}} <br> " +
             "C = {{" + PARAM_C + "}} <br>" +
             "F<sub>набл.</sub> = {{" + PARAM_F_NABL + "}} <br>" +
-            "Порівнюємо F критичне та F наближене. Якщо. Fнабл < Fкр - не відвергаємо нульову гіпотезу, дисперсії однорідні, якщо навпаки - нульова гіпотеза не відвергається.";
+            "Якщо. Fнабл > Fкр - відкидаємо нульову гіпотезу.";
 
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";

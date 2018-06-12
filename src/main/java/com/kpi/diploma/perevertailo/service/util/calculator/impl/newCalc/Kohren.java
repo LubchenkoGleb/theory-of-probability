@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class Kohren extends CalculatorImpl {
     public static final String NAME = "Kohren";
-    private static final String FULL_NAME = "Статистичні гіпотези";
+    private static final String FULL_NAME = "Статистичні гіпотези Кочрен.";
     private static final ThemeValues THEME_VALUES = ThemeValues.STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS;
 
     private static final String PARAM_N = "n";
@@ -37,8 +37,7 @@ public class Kohren extends CalculatorImpl {
             "k = {{" + PARAM_K + "}}; <br> " +
             "G<sub>крит.</sub>(0.05, {{" + PARAM_K + "}}) = {{" + PARAM_GKR + "}}  <br> : <br>" +
             "G<sub>набл.</sub> = {{" + PARAM_G_NABL + "}} <br>" +
-            "Порівнюємо G критичне та G наближене. Якщо. Gнабл < Gкр - не відвергаємо нульову гіпотезу, дисперсії " +
-            "однорідні, якщо навпаки - нульова гіпотеза не відвергається.";
+            "Якщо Gнабл > Gкр - відкидаємо нульову гіпотезу.";
 
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";

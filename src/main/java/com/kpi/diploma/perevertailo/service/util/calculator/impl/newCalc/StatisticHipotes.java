@@ -39,7 +39,7 @@ public class StatisticHipotes extends CalculatorImpl {
             "f<sub>1</sub> = {{" + PARAM_F1 + "}}; <br> " +
             "f<sub>2</sub> = {{" + PARAM_F2 + "}}; <br> " +
             "F<sub>крит.</sub> = {{" + PARAM_FKR + "}} <br> " +
-            "Порівнюємо F критичне та F наближене. Якщо. Fнабл < Fкр, то не відвергаємо нульову гіпотезу.";
+            "Нульова гіпотеза приймається, якщо  Fексп. < Fкр.";
 
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";
