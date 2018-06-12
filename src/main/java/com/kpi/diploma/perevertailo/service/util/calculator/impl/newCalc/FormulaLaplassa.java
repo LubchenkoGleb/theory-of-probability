@@ -37,8 +37,8 @@ public class FormulaLaplassa extends CalculatorImpl {
     private static final String PARAM_EXACTLY_ONERES = "exactlyOneRes";
 
 
-    private static final String QUESTION_TEMPLATE = " Формула Лапласса. Подія може наступити = {{" + PARAM_N + "}}" +
-            "разів. Ймовірність, що ця подія відбудеться =  {{" + PARAM_P + "}}. Знайти ймоаврність, що подія: <br>" +
+    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}} " +
+            "разів. Ймовірність, що ця подія відбудеться = {{" + PARAM_P + "}}. Використовуючи формулу Лапласса знайти ймоаврність, що подія: <br>" +
             "1) наступить {{" + PARAM_EQ + "}} разів; <br>" +
             "2) менше {{" + PARAM_LESS + "}} разів; <br>" +
             "3) не менш ніж {{" + PARAM_NOT_LESS + "}} разів; <br>" +
@@ -46,13 +46,13 @@ public class FormulaLaplassa extends CalculatorImpl {
             "5) не більше ніж {{" + PARAM_NOT_MORE + "}} разів; <br> " +
             "6) не менше ніж {{" + PARAM_NOT_LESS2 + "}} і не більше ніж {{" + PARAM_NOT_MORE2 + "}} разів; <br>" +
             "7) хоча б один раз.";
-    private static final String ANSWER_TEMPLATE = "йомвірність того що подія настане задану кількість разів:<br>" +
+    private static final String ANSWER_TEMPLATE = "Ймвірність того що подія настане задану кількість разів:<br>" +
             "1) P(x = {{" + PARAM_EQ + "}}) = {{" + PARAM_EQRES + "}} <br>" +
             "2) P (x < {{"+ PARAM_MORE+"}}) = {{" + PARAM_LESSRES + "}} <br>" +
-            "3) P({{"+ PARAM_NOT_LESS +"}} ≤ x)= {{" + PARAM_NOT_LESSRES + "}} <br>" +
+            "3) P({{"+ PARAM_NOT_LESS +"}} ≤ x) = {{" + PARAM_NOT_LESSRES + "}} <br>" +
             "4) P(x > {{"+ PARAM_MORE+"}}) = {{" + PARAM_MORES + "}} <br>" +
             "5) P(x ≤ {{"+ PARAM_NOT_MORE +"}}) = {{" + PARAM_NOT_MORERES + "}} <br>" +
-            "6) P({{"+ PARAM_NOT_LESS +"}} ≤ x ≤ {{"+ PARAM_NOT_MORE+"}})  = {{" + PARAM_NOT_LESS_AND_NOT_MORE + "}} <br>" +
+            "6) P({{"+ PARAM_NOT_LESS2 +"}} ≤ x ≤ {{"+ PARAM_NOT_MORE2 +"}})  = {{" + PARAM_NOT_LESS_AND_NOT_MORE + "}} <br>" +
             "7) P = {{" + PARAM_EXACTLY_ONERES + "}}";
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + " (округлити максимум до другого знаку)";

@@ -13,17 +13,17 @@ package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
 @Service
 public class MostPropableNumber extends CalculatorImpl {
     public static final String NAME = "MostPropableNumber";
-    private static final String FULL_NAME = "Найймовірніше число";
-    private static final ThemeValues THEME_VALUES = ThemeValues.FORMULA_BERNULI;
+    private static final String FULL_NAME = "Найімовірніше число";
+    private static final ThemeValues THEME_VALUES = ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY;
     private static final String PARAM_N = "n";
     private static final String PARAM_P = "p";
     //  в одном случае в ответе К0 и К1 в другом только К0
     private static final String PARAM_K0 = "k0";
 
 
-    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}}" +
-            "разів. Ймовірність, що ця подія відбудеться =  {{" + PARAM_P + "}}. Знайти найймовірніше число. <br>";
-    private static final String ANSWER_TEMPLATE = "Наймовірніше число для данного випадку:<br>" +
+    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}} " +
+            "разів. Ймовірність, що ця подія відбудеться = {{" + PARAM_P + "}}. Знайти найімовірніше число. <br>";
+    private static final String ANSWER_TEMPLATE = "Найімовірніше число:<br>" +
             " k<sub>0</sub> = {{" + PARAM_K0 + "}}<br>";
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE +"(округлити максимум до другого знаку)";
