@@ -89,7 +89,6 @@ public class TheoryOfProbabilityApplication implements CommandLineRunner {
         taskRepository.deleteAll();
         testRepository.deleteAll();
 
-
         initRoles();
         initThemes();
         createAdmin();

@@ -34,7 +34,7 @@ public class MathUtil {
 
     public static double roundDouble(double number, int precision) {
         log.info("'roundDouble params {}, {}", number, precision);
-        if(number < 0.0001) {
+        if(Math.abs(number) < 0.0001) {
             return 0.0;
         }
         DecimalFormat df = new DecimalFormat("#." + new String(new char[precision]).replace("\0", "#"));

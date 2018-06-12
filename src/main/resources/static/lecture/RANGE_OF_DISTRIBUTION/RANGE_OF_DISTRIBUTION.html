@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS Imports -->
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+    <!--Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.png" />
+    <!-- General Chapter -->
+    <link rel="stylesheet" type="text/css" href="../css1/chapter-style1.css">
+    <!-- Specific Chapter -->
+    <link rel="stylesheet" type="text/css" href="basic-probability1.css">
+    <!-- JavaScript Imports -->
+    <!-- D3 -->
+    <script src="../js1/d3.min.js"></script>
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- jstat -->
+    <script src="../js1/jstat.min.js"></script>
+    <!-- MathJax -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- Tool Tip -->
+    <script src="../js1/d3.tip.v0.6.3.js"></script>
+    <!-- General Chapter -->
+    <script src="../js1/chapter1.js"></script>
+    <!-- Visualizations -->
+    <script src="basic-probability1.js"></script>
+    <!-- Google Analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-85617614-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body id='1'>
+<div id="share-modal"></div>
+<div class="header">
+    <div class="progress-bar">
+        <div class="progress-bar-color"></div>
+    </div>
+    <div class="header-wrapper">
+        <ul class="chapter-nav">
+<!--            <li><a href="../index.html" id="seeing-theory">Назад</a></li>-->
+            <li><a onclick='toTop()' id='display-chapter'>Лекція :	Ряд розподілу дискретної випадкової велечини. Основні числові характеристики</a></li>
+        </ul>
+    </div>
+</div>
+<div class="col-left">
+    <div class="col-left-wrapper">
+        <div id="section0">
+            <div class="chapter-intro">
+                <h4>Лекція </h4>
+                <h1>Ряд розподілу дискретної випадкової велечини. Основні числові характеристики</h1>
+                <a href="../doc/Lection_6.pdf">
+                    <i class="fa fa-file-text-o action-icon" aria-hidden="true"></i> <span>Завантажити</span>
+                </a> <br>
+                <a href="../doc/Lection_5.pdf">
+                    <i class="fa fa-file-text-o action-icon" aria-hidden="true"></i> <span>Завантажити</span>
+                </a>
+            </div>
+            <div class="scroll-down"> <img src="../img/bottom-arrow.svg"></div>
+        </div>
+        <div id="section1">
+            
+        </div>
+        <div id="section2">
+            <div class="unit">
+                <h3>Математичне сподівння</h3>
+                <p> Математичним сподіванням
+M X( )
+дискретної випадкової
+величини
+X
+називається сума добутків всіх її можливих значень на ймовірності, з
+якими випадкова величина приймає ці значення:</p>
+                <span id="centered">$$\text{M}[X] = \sum_{x \in \mathcal{X}}xP(x)$$</span>
+                <p>Розгляньмо експеримент з підкиданням кісток.</p>
+                <div class="interactive-wrapper">
+                    <div id="dieWrapper">
+                        <div id="die"></div>
+                        <div id="dieButtons">
+                            <div class="button-1" id="rollOne">Підкинути кості</div>
+                            <div class="button-1" id="rollHundred">Підкинути 100 разів</div>
+                        </div>
+                    </div></div>
+                <p><span style="font-weight: 600;">Змініть</span> розподіл різних сторін кістки пересуваючи стовпчики нижче.</p>
+                <div id="barDie"></div>
+            </div>
+        </div>
+        <div id="section3">
+            <div class="unit">
+                <h3>Дисперсія</h3>
+                <p>Дисперсією (розсіянням)
+D X( )
+випадкової величини
+X
+називається математичне сподівання квадрата її відхилення:,</p>
+                <span id="left-mathjax">$$\text{D}(X) = \text{M}[(X - \text{M}[X])^2]$$</span>
+                <p>Намалюйте випадкові картки з колоди з десяти карт. Зауважте, що середнє значення квадратів відмінностей (у зеленому кольорі) починає нагадувати дисперсію (синю).</p>
+                <div class="interactive-wrapper">
+                    <div id="cardWrapper">
+                        <div id="card"></div>
+                        <div id="cardButtons">
+                            <div class="button-1" id="drawOne">Намалювати картку</div>
+                            <div class="button-1" id="drawHundred">Намалювати 100 разів</div>
+                        </div>
+                    </div>
+                </div>
+                <p>Переключіть, які карти ви хочете включити в колоду, натиснувши на них нижче.</p>
+                <div class="interactive-wrapper">
+
+                    <input type="checkbox" class="deck" id="card_one" value="1">
+                    <label for="card_one"></label>
+                    <input type="checkbox" class="deck" id="card_two" value="2">
+                    <label for="card_two"></label>
+                    <input type="checkbox" class="deck" id="card_three" value="3">
+                    <label for="card_three"></label>
+                    <input type="checkbox" class="deck" id="card_four" value="4">
+                    <label for="card_four"></label>
+                    <input type="checkbox" class="deck" id="card_five" value="5">
+                    <label for="card_five"></label>
+                    <input type="checkbox" class="deck" id="card_six" value="6">
+                    <label for="card_six"></label>
+                    <input type="checkbox" class="deck" id="card_seven" value="7">
+                    <label for="card_seven"></label>
+                    <input type="checkbox" class="deck" id="card_eight" value="8">
+                    <label for="card_eight"></label>
+                    <input type="checkbox" class="deck" id="card_nine" value="9">
+                    <label for="card_nine"></label>
+                    <input type="checkbox" class="deck" id="card_ten" value="10">
+                    <label for="card_ten"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-right">
+    <div class="nav-section" id="section-0">
+        <div class="nav-unit-wrapper" id='two' style="margin-top: 100px;" >
+            <img src="../img/tiles/1-2.png">
+            <span class="nav-unit-title"> Математичне сподівання </span>
+        </div>
+        <div class="nav-unit-wrapper" id='three'>
+            <img src="../img/tiles/1-3.png">
+            <span class="nav-unit-title"> Дисперсія </span>
+        </div>
+    </div>
+    <div class="visualization-section" id="section-1">
+        <div class="visualization-wrapper" id="barCoin"></div>
+    </div>
+    <div class="visualization-section" id="section-2">
+        <div class="visualization-wrapper" id="plotDie"></div>
+    </div>
+    <div class="visualization-section" id="section-3">
+        <div class="visualization-wrapper" id="varSvg"></div>
+    </div>
+</div>
+
+<!-- Share CSS and JavaScript -->
+<link rel="stylesheet" type="text/css" href="../css1/jssocials1.css" />
+<link rel="stylesheet" type="text/css" href="../css1/jssocials-theme-flat1.css" />
+<script src="../js1/jssocials.min.js"></script>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement;
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
 import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
+import com.kpi.diploma.perevertailo.service.util.calculator.math.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -77,17 +78,17 @@ public class Pirson extends CalculatorImpl {
             "n'<sub>i</sub> = {{" + PARAM_N_I + "}}φ(u<sub>i</sub>) <br>" +
             "Таблиця для розрахунків : <br>" +
             "<table><tr><th>x<sub>i</sub></th><th>u<sub>i</sub></th><th>φ(u<sub>i</sub>)</th><th>n'<sub>i</sub></th></tr>" +
-            "<tr><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_U1 + "}}</td<td>{{" + PARAM_F1 + "}}</td><td>{{" + PARAM_N11 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_U2 + "}}</td<td>{{" + PARAM_F2 + "}}</td><td>{{" + PARAM_N21 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_X3 + "}}</td><td>{{" + PARAM_U3 + "}}</td<td>{{" + PARAM_F3 + "}}</td><td>{{" + PARAM_N31 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_X4 + "}}</td><td>{{" + PARAM_U4 + "}}</td<td>{{" + PARAM_F4 + "}}</td><td>{{" + PARAM_N41 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_X5 + "}}</td><td>{{" + PARAM_U5 + "}}</td<td>{{" + PARAM_F5 + "}}</td><td>{{" + PARAM_N51 + "}}</td></tr></table> <br>" +
+            "<tr><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_U1 + "}}</td><td>{{" + PARAM_F1 + "}}</td><td>{{" + PARAM_N11 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_U2 + "}}</td><td>{{" + PARAM_F2 + "}}</td><td>{{" + PARAM_N21 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_X3 + "}}</td><td>{{" + PARAM_U3 + "}}</td><td>{{" + PARAM_F3 + "}}</td><td>{{" + PARAM_N31 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_X4 + "}}</td><td>{{" + PARAM_U4 + "}}</td><td>{{" + PARAM_F4 + "}}</td><td>{{" + PARAM_N41 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_X5 + "}}</td><td>{{" + PARAM_U5 + "}}</td><td>{{" + PARAM_F5 + "}}</td><td>{{" + PARAM_N51 + "}}</td></tr></table> <br>" +
             "<table><tr><th>n<sub>i</sub></th><th>n'<sub>i</sub></th><th>(n<sub>i</sub> - n'<sub>i</sub>)<sup>2</sup>/n'<sub>i</sub></th></tr>" +
-            "<tr><td>{{" + PARAM_N1 + "}}</td><td>{{" + PARAM_N11 + "}}</td<td>{{" + PARAM_N12 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_N2 + "}}</td><td>{{" + PARAM_N21 + "}}</td<td>{{" + PARAM_N22 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_N3 + "}}</td><td>{{" + PARAM_N31 + "}}</td<td>{{" + PARAM_N32 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_N4 + "}}</td><td>{{" + PARAM_N41 + "}}</td<td>{{" + PARAM_N42 + "}}</td></tr>" +
-            "<tr><td>{{" + PARAM_N5 + "}}</td><td>{{" + PARAM_N51 + "}}</td<td>{{" + PARAM_N52 + "}}</td></tr></table> <br>" +
+            "<tr><td>{{" + PARAM_N1 + "}}</td><td>{{" + PARAM_N11 + "}}</td><td>{{" + PARAM_N12 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_N2 + "}}</td><td>{{" + PARAM_N21 + "}}</td><td>{{" + PARAM_N22 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_N3 + "}}</td><td>{{" + PARAM_N31 + "}}</td><td>{{" + PARAM_N32 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_N4 + "}}</td><td>{{" + PARAM_N41 + "}}</td><td>{{" + PARAM_N42 + "}}</td></tr>" +
+            "<tr><td>{{" + PARAM_N5 + "}}</td><td>{{" + PARAM_N51 + "}}</td><td>{{" + PARAM_N52 + "}}</td></tr></table> <br>" +
             "X<sup>2</sup><sub>набл.</sub> = {{" + PARAM_H_NABL + "}} <br>" +
             "Число ступенів свободи :<br>" +
             "k = 5 - 3 = 2 <br>" +
@@ -105,38 +106,66 @@ public class Pirson extends CalculatorImpl {
         log.info("'calculate' invoked with params'{}'", inputData);
 
         List<Integer> Nis = new ArrayList<>();
-//        Integer x1 = Integer.valueOf(inputData.get(PARAM_X1).toString());
-//        Integer x2 = Integer.valueOf(inputData.get(PARAM_X2).toString());
-//        Integer x3 = Integer.valueOf(inputData.get(PARAM_X3).toString());
-//        Integer x4 = Integer.valueOf(inputData.get(PARAM_X4).toString());
-//        Double p1 = Double.valueOf(inputData.get(PARAM_P1).toString());
-//        Double p2 = Double.valueOf(inputData.get(PARAM_P2).toString());
-//        Double p3 = Double.valueOf(inputData.get(PARAM_P3).toString());
-//        Double p4 = Double.valueOf(inputData.get(PARAM_P4).toString());
-//        Integer notLess = Integer.valueOf(inputData.get(PARAM_NOT_LESS).toString());
-//        Integer notMore = Integer.valueOf(inputData.get(PARAM_NOT_MORE).toString());
-//
-//        double mathExpRes = x1 * p1 + x2 * p2 + x3 * p3 + x4 * p4;
-//        double disp = x1 * x1 * p1 + x2 * x2 * p2 + x3 * x3 * p3 + x4 * x4 * p4 - mathExpRes * mathExpRes;
-//        double sigma = Math.sqrt(disp);
-//
-//        double f1 = 0;
-//        double f2 = f1 + p1;
-//        double f3 = f2 + p2;
-//        double f4 = f3 + p3;
-//        double f5 = f4 + p4;
-//
-//        Map<Integer, Double> probMap = new HashMap<>();
-//        probMap.put(1, f1);
-//        probMap.put(2, f2);
-//        probMap.put(3, f3);
-//        probMap.put(4, f4);
-//        probMap.put(5, f5);
-//
-//        double probRes = probMap.get(notMore) - probMap.get(notLess);
-//
+        List<Double> Xis = new ArrayList<>();
+
+        for (int i = 1; i <= 5; i++) {
+            Nis.add(Integer.valueOf(inputData.get("n" + i).toString()));
+            Xis.add(Double.valueOf(inputData.get("x" + i).toString()));
+        }
+
+        double xifiSum = 0;
+        for (int i = 0; i < 5; i++) {
+            xifiSum += Xis.get(i) * Nis.get(i);
+        }
+        int fiSum = Nis.stream().mapToInt(n -> n).sum();
+        double xAVG = xifiSum / fiSum;
+
+        double xiMinusxAVGpow2Fi = 0;
+        for (int i = 0; i < 5; i++) {
+            xiMinusxAVGpow2Fi += Math.pow(Xis.get(i) - xAVG, 2) * Nis.get(i);
+        }
+        double D = xiMinusxAVGpow2Fi / fiSum;
+
+        double sigma = Math.sqrt(D);
+
+        List<Double> NisCalcs = new ArrayList<>();
+        List<Double> Uis = new ArrayList<>();
+        List<Double> fUis = new ArrayList<>();
+        List<Double> NisCalcs2 = new ArrayList<>();
+
+        double niCoef = (fiSum * Math.abs(Xis.get(1) - Xis.get(0))) / sigma;
+
+        for (int i = 0; i < 5; i++) {
+            double ui = (Xis.get(i) - xAVG) / sigma;
+            Uis.add(ui);
+
+            double fi = (1 / Math.sqrt(2 * Math.PI)) * Math.pow(Math.E, (-ui * ui / 2));
+            fUis.add(fi);
+
+            double ni = niCoef * fi;
+            NisCalcs.add(ni);
+
+            double ni2 = Math.pow(Nis.get(i) - NisCalcs.get(i), 2) / NisCalcs.get(i);
+            NisCalcs2.add(ni2);
+        }
+        log.info("uis='{}'", Uis);
+
         HashMap<String, Object> calculatedData = new HashMap<>();
+        calculatedData.put(PARAM_X_AVG, MathUtil.roundDouble(xAVG, 3));
+        calculatedData.put(PARAM_SIGMA, MathUtil.roundDouble(sigma, 3));
+        calculatedData.put(PARAM_N_I, MathUtil.roundDouble(niCoef, 3));
+
+        for (int i = 1; i <= 5; i++) {
+            calculatedData.put("u" + i, MathUtil.roundDouble(Uis.get(i - 1), 3));
+            calculatedData.put("f" + i, MathUtil.roundDouble(fUis.get(i - 1), 3));
+            calculatedData.put("n" + i + "1", MathUtil.roundDouble(NisCalcs.get(i - 1), 3));
+
+            calculatedData.put("n" + i + "2", MathUtil.roundDouble(NisCalcs2.get(i - 1), 3));
+        }
         log.info("'calculatedData={}'", calculatedData);
+
+        calculatedData.put(PARAM_H_NABL, 0);
+        calculatedData.put(PARAM_H_CR, 0);
 
         CalculationData calculationData = new CalculationData(calculatedData, "");
 

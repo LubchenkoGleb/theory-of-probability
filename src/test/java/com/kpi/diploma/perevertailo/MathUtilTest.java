@@ -52,4 +52,10 @@ public class MathUtilTest {
         Assert.assertEquals(0.5, KohrenTable.getValues(1, 1000), 0.0001);
         Assert.assertEquals(0.6602, KohrenTable.getValues(1, 30), 0.0001);
     }
+
+    @Test
+    public void test4() {
+        double res = MathUtil.roundDouble(-1.6, 3);
+        System.out.println("res=" + res);
+    }
 }

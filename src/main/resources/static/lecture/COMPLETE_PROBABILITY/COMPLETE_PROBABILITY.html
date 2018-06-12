@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS Imports -->
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,600,700" rel="stylesheet">
+    <!--Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.png" />
+    <!-- General Chapter -->
+    <link rel="stylesheet" type="text/css" href="../css1/chapter-style1.css">
+    <!-- Specific Chapter -->
+    <link rel="stylesheet" type="text/css" href="bayesian-inference.css">
+    <!-- JavaScript Imports -->
+    <!-- D3 -->
+    <script src="../js1/d3.min.js"></script>
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- jstat -->
+    <script src="../js1/jstat.min.js"></script>
+    <!-- MathJax -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- Tool Tip -->
+    <script src="../js1/d3.tip.v0.6.3.js"></script>
+    <!-- General Chapter -->
+    <script src="../js1/chapter1.js"></script>
+    <!-- Visualizations -->
+    <script src="bayesian-inference.js"></script>
+    <!-- Google Analytics -->
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-85617614-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</head>
+
+<body id='5'>
+    <div id="share-modal"></div>
+    <div class="header">
+        <div class="progress-bar">
+            <div class="progress-bar-color"></div>
+        </div>
+        <div class="header-wrapper">
+            <ul class="chapter-nav">
+<!--                <li><a href="../index.html" id="seeing-theory">Назад</a></li>-->
+                <li><a onclick='toTop()' id='display-chapter'>Лекція : Формула повної ймовірності. Формула Байєса.</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-left">
+        <div class="col-left-wrapper">
+            <div id="section0">
+                <div class="chapter-intro">
+                    <h4>Лекція</h4>
+                    <h1>Формула повної ймовірності. Формула Байєса.</h1>
+                        <a href="../doc/Lection_4.pdf">
+                            <i class="fa fa-file-text-o action-icon" aria-hidden="true"></i> <span>Завантажити</span>
+                        </a>
+                </div>
+                <div class="scroll-down"> <img src="../img/bottom-arrow.svg"></div>
+            </div>
+            <div id="section1">
+                <div class="unit">
+                    <h3>Формула Байєса</h3>
+                    <p>Припустімо, що під час вашого останнього візиту до лікаря ви вирішите пройти тест на рідкісні захворювання. Якщо вам не пощастило отримати позитивний результат, логічним наступним питанням є: "Враховуючи результат тесту, якою є вірогідність того, що у мене справді є це захворювання?" (Медичні випробування, зрештою, не зовсім точні.) За допомогою формули Байєса розрахуємо цю ймовірність:</p>
+
+                    <span id="mathjax-5-1">$$P(\text{Захворювання}|+) = \frac{P(+|\text{Захворювання})P(\text{Захворювання})}{P(+)}$$</span>
+                    <p>Як показує рівняння, ймовірність мати це захворювання при позитивному тесті залежить від ймовірностs мати захворювання  \( P(\text{Захворювання}) \). Подумайте про це як про захворюваність у загальному населенні. Установіть ймовірностізахворювання  <span style="font-weight: 600;">пересуваючи </span> стовпчики нижче.</p>
+                    <div class="interactive-wrapper">
+                        <div id="bayes_prior"></div>
+                    </div>
+                    <p>Наступна вірогідність також залежить від точності випробування: як часто тести  визначають негативний результат для здорового пацієнта і як часто позитивний результат для когось із хворобою? Визначте ці два розподіли <span style="font-weight: 600;">нижче</span>.</p>
+                    <div id="bayes_likelihood"></div>
+                    <p>Нам потрібно дізнатись загальну вірогідність позитивного результату. Використовуйте кнопки нижче, щоб імітувати виконання тесту за репрезентативною вибіркою з населення.</p>
+                    <div class="interactive-wrapper">
+                        <div class="button-1" id="test_one">Тестувати одного пацієнта</div>
+                        <div class="button-1" id="test_rest">Тестувати тих хто залишився</div>
+                        <table id="marginal">
+                            <tr>
+                                <th>Негативний</th>
+                                <th>Позитивний</th>
+                            </tr>
+                            <tr>
+                                <td id="neg"></td>
+                                <td id="pos"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p>Тепер у нас є все, що нам потрібно для визначення попередньої ймовірності, що у вас хвороба. У таблиці нижче дана така вірогідність, використана теорема Байєса.</p>
+                    <div class="interactive-wrapper">
+                        <table id="posterior">
+                            <tr>
+                                <th></th>
+                                <th>Негативний</th>
+                                <th>Позитивний</th>
+                            </tr>
+                            <tr>
+                                <th>Здоровий</th>
+                                <td id="h_n"></td>
+                                <td id="h_p"></td>
+                            </tr>
+                            <tr>
+                                <th>Хворий</th>
+                                <td id="d_n"></td>
+                                <td id="d_p"></td>
+                            </tr>
+                        </table>
+                        <div class="button-1" id="sort">Сортування</div>
+                        <!-- <div class="button-1" id="unsort">Unsort</div> -->
+                        <div class="button-1" id="reset">Скинути</div>
+                    </div>
+                </div>
+            </div>
+            <div id="section2">
+               
+            </div>
+            <div id="section3">
+              
+                        </div>
+                 
+    </div>
+    <div class="col-right">
+        <div class="nav-section" id="section-0">
+            <div class="nav-unit-wrapper" id='one'  style="margin-top: 150px;">
+                <img src="../img/tiles/5-1.png">
+                <span class="nav-unit-title">Формула Байєса  </span>
+            </div>
+           
+        </div>
+        <div class="visualization-section" id="section-1">
+            <div class="visualization-wrapper" id="bayes"></div>
+        </div>
+        
+    </div>
+    </div>
+    <!-- Share CSS and JavaScript -->
+    <link rel="stylesheet" type="text/css" href="../css1/jssocials1.css" />
+    <link rel="stylesheet" type="text/css" href="../css1/jssocials-theme-flat1.css" />
+    <script src="../js1/jssocials.min.js"></script>
+    
+</body>
+
+</html>
