@@ -1,4 +1,4 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.basicNumerical;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;

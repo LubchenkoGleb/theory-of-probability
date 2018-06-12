@@ -33,8 +33,8 @@ public class TaskFiveCalculator extends CalculatorImpl {
     @Override
     public CalculationData calculate(Map<String, Object> inputData) {
         //    log.info("'calculate' invoked with params'{}'", inputData);
-        double pFirst = (double) inputData.get(PARAM_PFIRST);
-        double pSecond = (double) inputData.get(PARAM_PSECOND);
+        double pFirst = Double.valueOf(inputData.get(PARAM_PFIRST).toString());
+        double pSecond = Double.valueOf(inputData.get(PARAM_PSECOND).toString());
 
 
         double pa = (1 - pFirst) * (1 - pSecond);

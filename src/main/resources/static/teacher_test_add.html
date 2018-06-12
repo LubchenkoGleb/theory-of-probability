@@ -144,7 +144,7 @@
     });
 
     $(document).on('change', 'select[name="theme"]', ({target: {value}}) => {
-        $('#added-tasks').replaceWith('<li id="added-tasks"></li>');
+        $('#added-tasks').replaceWith('<ul id="added-tasks"></ul>');
         fillTasks(value);
     });
 

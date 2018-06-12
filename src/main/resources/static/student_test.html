@@ -144,10 +144,10 @@
                 async: false,
                 success: function ({resultPercent, failedQuestions}) {
                     $('#pending-tests').replaceWith(`<div id="pending-tests">
-                        <h2>Результат: ${resultPercent}</h2>
-                        ${failedQuestions && failedQuestions.length && `<p>Incorrect answers: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
-                        <a href="lectures/1.txt">Завантажиты лекцію</button>
-                     </div>`);
+                         <h2>Результат: ${resultPercent}</h2>
+                         ${failedQuestions && failedQuestions.length && `<p>Incorrect answers: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
+                         <a href="${map[testIdThemeMap[activeTest.test.id]]}">Завантажиты лекцію</button>
+                      </div>`);
                 },
                 error: function (data) {
                     console.log('error=' + JSON.stringify(data));
@@ -182,7 +182,6 @@
                         </div>
                     `
                 });
-                console.log('test.name=' + test.test.name);
                 $('#testName').text(test.test.name);
                 $('#pending-tests').replaceWith(`<div id="pending-tests">${questionsBlock.join('<hr>')}<button id="submit" type="submit">Submit</button></div>`);
 
@@ -195,11 +194,18 @@
             method: "GET",
             headers: {}
         }).done((tests) => {
-            const newList = tests.map(({id, name, themeName}) => (`<ul><li id="${id}"><p><b>Назва:     ${name}</b> <br>Тема: ${themeName.toLocaleLowerCase()}</p> <hr></li></ul>`));
+
+            const newList = tests.map(({id, name, themeName, theme}) => {
+                testIdThemeMap[id] = theme;
+                return (`<ul><li id="${id}"><p><b>Назва:     ${name}</b> <br>Тема: ${themeName.toLocaleLowerCase()}</p> <hr></li></ul>`);
+            });
+
             $('#not-passed-tests').replaceWith(newList);
             if (tests.length != 0) {
                 showTest(tests[0].id);
             }
+
+            console.log('testIdThemeMap' + JSON.stringify(testIdThemeMap));
         });
 
         $.ajax({
@@ -211,6 +217,22 @@
             const newList = tests.map(({testId, testName, result}) => (`<ul><li id="${testId}">Назва: ${testName}<br>Результат: ${result}%<hr></li></ul>`));
             $('#passed-tests').replaceWith(newList);
         })
+
+
+
+        let testIdThemeMap = {};
+
+        let map = {};
+        map['DEFINITION_PROBABILITIES'] = '/lecture/DEFINITION_PROBABILITIES/index.html';
+        map['ACTIONS_ON_EVENTS'] = '/lecture/DEFINITION_PROBABILITIES/index.html';
+        map['COMPLETE_PROBABILITY'] = '/lecture/COMPLETE_PROBABILITY/index.html';
+        map['FORMULA_BERNULI'] = '/lecture/doc/Lection_9.pdf';
+        map['VARIANCE_OF_RELATIVE_FREQUENCY'] = '/lecture/doc/Lection_9.pdf';
+        map['RANGE_OF_DISTRIBUTION'] = '/lecture/RANGE_OF_DISTRIBUTION/index.html';
+        map['BASIC_NUMERICAL_CHARACTERISTICS'] = '/lecture/BASIC_NUMERICAL_CHARACTERISTICS/index.html';
+        map['SYSTEMS_OF_TWO_RANDOM_VALUES'] = '/lecture/doc/SYSTEMS_OF_TWO_RANDOM_VALUES.pdf';
+        map['SELECTIVE_METHOD'] = '/lecture/doc/Lection_13.pdf';
+        map['STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS'] = '/lecture/doc/STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS.pdf';
     </script>
 </head>
 

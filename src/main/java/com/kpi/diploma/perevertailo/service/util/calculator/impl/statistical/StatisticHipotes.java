@@ -1,4 +1,4 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.statistical;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
@@ -17,6 +17,7 @@ public class StatisticHipotes extends CalculatorImpl {
     public static final String NAME = "StatisticHipotes";
     private static final String FULL_NAME = "Статистичні гіпотези";
     private static final ThemeValues THEME_VALUES = ThemeValues.STATISTICAL_CHECK_OF_STATISTICAL_HYPOTHESIS;
+
     private static final String PARAM_N1 = "n1";
     private static final String PARAM_N2 = "n2";
     private static final String PARAM_DX = "dx";

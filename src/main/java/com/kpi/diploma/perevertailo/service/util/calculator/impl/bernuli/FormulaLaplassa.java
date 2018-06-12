@@ -1,4 +1,4 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.bernuli;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
@@ -12,12 +12,10 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class PuassonFormula extends CalculatorImpl {
-
-    public static final String NAME = "puassonFormula";
-    private static final String FULL_NAME = "Формула Пуассона";
+public class FormulaLaplassa extends CalculatorImpl {
+    public static final String NAME = "LaplassFormula";
+    private static final String FULL_NAME = "Формула Лапласса";
     private static final ThemeValues THEME_VALUES = ThemeValues.FORMULA_BERNULI;
-
     private static final String PARAM_N = "n";
     private static final String PARAM_P = "p";
 
@@ -28,6 +26,9 @@ public class PuassonFormula extends CalculatorImpl {
     private static final String PARAM_NOT_MORE = "notMore";
     private static final String PARAM_NOT_LESS2 = "notLess2";
     private static final String PARAM_NOT_MORE2 = "notMore2";
+    private static final String PARAM_EXACTLY_ONE = "exactlyOne";
+    private static final String PARAM_NOT_LESS_AND_NOT_MORE = "notLessAndNotMore";
+
     private static final String PARAM_EQRES = "eqRes";
     private static final String PARAM_LESSRES = "lessRes";
     private static final String PARAM_NOT_LESSRES = "notLessRes";
@@ -36,30 +37,28 @@ public class PuassonFormula extends CalculatorImpl {
     private static final String PARAM_EXACTLY_ONERES = "exactlyOneRes";
 
 
-    private static final String PARAM_EXACTLY_ONE = "exactlyOne";
-    private static final String PARAM_NOT_LESS_AND_NOT_MORE = "notLessAndNotMore";
-
-
-    private static final String QUESTION_TEMPLATE = "Число випробувань: n = {{" + PARAM_N + "}}, ймовірність p = {{" + PARAM_P + "}}." +
-            "Використовуючи формулу Пуассона знайти йомвірність того що подія настане:<br>" +
-            "1) настане рівно {{" + PARAM_EQ + "}} разів<br>" +
-            "2) менше {{" + PARAM_LESS + "}} разів<br>" +
-            "3) не менше {{" + PARAM_NOT_LESS + "}} разів<br>" +
-            "4) більше {{" + PARAM_MORE + "}} разів<br>" +
-            "5) не більше {{" + PARAM_NOT_MORE + "}} разів<br>" +
-            "6) не менше {{" + PARAM_NOT_LESS2 + "}} та не більше {{" + PARAM_NOT_MORE2 + "}} разів<br>" +
-            "7) хоча б один раз";
-    private static final String ANSWER_TEMPLATE = "Ймвірність того, що подія настане задану кількість разів:<br>" +
+    private static final String QUESTION_TEMPLATE = "Подія може наступити {{" + PARAM_N + "}} " +
+            "разів. Ймовірність, що ця подія відбудеться {{" + PARAM_P + "}}. Використовуючи формулу Лапласса знайти ймоаврність, що подія: <br>" +
+            "1) наступить {{" + PARAM_EQ + "}} разів; <br>" +
+            "2) менше {{" + PARAM_LESS + "}} разів; <br>" +
+            "3) не менш ніж {{" + PARAM_NOT_LESS + "}} разів; <br>" +
+            "4) більше ніж {{" + PARAM_MORE + "}} разів; <br>" +
+            "5) не більше ніж {{" + PARAM_NOT_MORE + "}} разів; <br> " +
+            "6) не менше ніж {{" + PARAM_NOT_LESS2 + "}} і не більше ніж {{" + PARAM_NOT_MORE2 + "}} разів; <br>" +
+            "7) хоча б один раз.";
+    private static final String ANSWER_TEMPLATE = "Ймвірність того що подія настане задану кількість разів:<br>" +
             "1) P(x = {{" + PARAM_EQ + "}}) = {{" + PARAM_EQRES + "}} <br>" +
             "2) P(x < {{"+ PARAM_MORE+"}}) = {{" + PARAM_LESSRES + "}} <br>" +
-            "3) P({{"+ PARAM_NOT_LESS +"}} ≤ x)= {{" + PARAM_NOT_LESSRES + "}} <br>" +
+            "3) P({{"+ PARAM_NOT_LESS +"}} ≤ x) = {{" + PARAM_NOT_LESSRES + "}} <br>" +
             "4) P(x > {{"+ PARAM_MORE+"}}) = {{" + PARAM_MORES + "}} <br>" +
             "5) P(x ≤ {{"+ PARAM_NOT_MORE +"}}) = {{" + PARAM_NOT_MORERES + "}} <br>" +
-            "6) P({{"+ PARAM_NOT_LESS2 +"}} ≤ x ≤ {{"+ PARAM_NOT_MORE2+"}})  = {{" + PARAM_NOT_LESS_AND_NOT_MORE + "}} <br>" +
+            "6) P({{"+ PARAM_NOT_LESS2 +"}} ≤ x ≤ {{"+ PARAM_NOT_MORE2 +"}})  = {{" + PARAM_NOT_LESS_AND_NOT_MORE + "}} <br>" +
             "7) P = {{" + PARAM_EXACTLY_ONERES + "}}";
-    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE;
 
-    public PuassonFormula() {
+    private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + " (округлити максимум до другого знаку)";
+
+
+    public FormulaLaplassa() {
         super(NAME, FULL_NAME, QUESTION_TEMPLATE, QUESTION_TO_STUDENT, ANSWER_TEMPLATE, THEME_VALUES);
     }
 
@@ -77,13 +76,13 @@ public class PuassonFormula extends CalculatorImpl {
         Integer notLess2 = Integer.valueOf(inputData.get(PARAM_NOT_LESS2).toString());
         Integer notMore2 = Integer.valueOf(inputData.get(PARAM_NOT_MORE2).toString());
 
-        double eqRes = MathUtil.puasson(eq, n, p);
-        double lessRes = MathUtil.puassonSum(0, less - 1, n, p);
-        double notLessRes = MathUtil.puassonSum(notLess, n, n, p);
-        double moreRes = MathUtil.puassonSum(more + 1, n, n, p);
-        double notMoreRes = MathUtil.puassonSum(0, notMore, n, p);
-        double notLessAndNotMoreRes = MathUtil.puassonSum(notLess2, notMore2, n, p);
-        double exactlyOneRes = 1 - MathUtil.puasson(0, n, p);
+        double eqRes = MathUtil.roundDouble(MathUtil.calcLaplaseForOneValue(n, p, eq, MathUtil.calcXFroLaplase(eq, n, p)), 4);
+        double lessRes = MathUtil.roundDouble(MathUtil.calcLaplase(0, less - 1, n, p), 4);
+        double moreRes = MathUtil.roundDouble(MathUtil.calcLaplase(more + 1, n, n, p), 4);
+        double notLessRes = MathUtil.roundDouble(MathUtil.calcLaplase(notLess, n, n, p), 4);
+        double notMoreRes = MathUtil.roundDouble(MathUtil.calcLaplase(notMore, 0, n, p), 4);
+        double notLessAndNotMoreRes = MathUtil.roundDouble(MathUtil.calcLaplase(notLess2, notMore2, n, p), 4);
+        double exactlyOneRes = MathUtil.roundDouble(1 - Math.pow(1 - p, n), 4);
 
         HashMap<String, Object> calculatedData = new HashMap<>();
         calculatedData.put(PARAM_EQRES, eqRes);

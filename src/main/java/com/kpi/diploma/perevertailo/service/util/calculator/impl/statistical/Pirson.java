@@ -1,4 +1,4 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl.needImplement;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.statistical;
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
 import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
@@ -134,6 +134,7 @@ public class Pirson extends CalculatorImpl {
         List<Double> NisCalcs2 = new ArrayList<>();
 
         double niCoef = (fiSum * Math.abs(Xis.get(1) - Xis.get(0))) / sigma;
+        double ni2Sum = 0;
 
         for (int i = 0; i < 5; i++) {
             double ui = (Xis.get(i) - xAVG) / sigma;
@@ -147,8 +148,11 @@ public class Pirson extends CalculatorImpl {
 
             double ni2 = Math.pow(Nis.get(i) - NisCalcs.get(i), 2) / NisCalcs.get(i);
             NisCalcs2.add(ni2);
+            ni2Sum += ni2;
         }
         log.info("uis='{}'", Uis);
+
+
 
         HashMap<String, Object> calculatedData = new HashMap<>();
         calculatedData.put(PARAM_X_AVG, MathUtil.roundDouble(xAVG, 3));
@@ -164,8 +168,8 @@ public class Pirson extends CalculatorImpl {
         }
         log.info("'calculatedData={}'", calculatedData);
 
-        calculatedData.put(PARAM_H_NABL, 0);
-        calculatedData.put(PARAM_H_CR, 0);
+        calculatedData.put(PARAM_H_NABL, MathUtil.roundDouble(ni2Sum, 2));
+        calculatedData.put(PARAM_H_CR, 12.6);
 
         CalculationData calculationData = new CalculationData(calculatedData, "");
 

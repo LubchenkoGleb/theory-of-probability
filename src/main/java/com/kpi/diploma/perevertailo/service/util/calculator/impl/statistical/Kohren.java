@@ -1,4 +1,4 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.statistical;
 
 
 import com.kpi.diploma.perevertailo.model.pojo.CalculationData;

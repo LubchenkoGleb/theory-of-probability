@@ -1,4 +1,4 @@
-package com.kpi.diploma.perevertailo.service.util.calculator.impl.newCalc;
+package com.kpi.diploma.perevertailo.service.util.calculator.impl.variance;
         import com.kpi.diploma.perevertailo.model.pojo.CalculationData;
         import com.kpi.diploma.perevertailo.model.util.value.ThemeValues;
         import com.kpi.diploma.perevertailo.service.util.calculator.impl.CalculatorImpl;
@@ -15,6 +15,7 @@ public class MostPropableNumber extends CalculatorImpl {
     public static final String NAME = "MostPropableNumber";
     private static final String FULL_NAME = "Найімовірніше число";
     private static final ThemeValues THEME_VALUES = ThemeValues.VARIANCE_OF_RELATIVE_FREQUENCY;
+
     private static final String PARAM_N = "n";
     private static final String PARAM_P = "p";
     //  в одном случае в ответе К0 и К1 в другом только К0
