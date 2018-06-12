@@ -25,8 +25,8 @@ public class Variance extends CalculatorImpl {
     private static final String PARAM_P1 = "p1";
 
 
-    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}}" +
-            "разів. Ймовірність, що ця подія відбудеться =  {{" + PARAM_P + "}}. Знайти ймовірність, що відносна частота появи подїї" +
+    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}} " +
+            "разів. Ймовірність, що ця подія відбудеться = {{" + PARAM_P + "}}. Знайти ймовірність, що відносна частота появи подїї" +
             "відхилиться від її ймовірності по абсолютній велечині не більш ніж на ε = {{" + PARAM_E + "}}<br>";
     private static final String ANSWER_TEMPLATE = "Ймовірність дорівнює {{" + PARAM_P1 + "}}<br>";
 

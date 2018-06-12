@@ -57,10 +57,10 @@ public class SystemTwo extends CalculatorImpl {
     private static final String PARAM_COV = "cov";
     private static final String PARAM_R = "r";
 
-    private static final String QUESTION_TEMPLATE = "Задана дискретна двомірна випадкова величина (X,Y) <br>:" +
+    private static final String QUESTION_TEMPLATE = "Задана дискретна двовимірна випадкова величина (X,Y): <br>" +
             "<table><tr><th>Y/X</th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td></tr><tr><th>{{" + PARAM_Y1 + "}}</th><td>{{" + PARAM_P11 + "}}</td><td>{{" + PARAM_P12 + "}}</td><td>{{" + PARAM_P13 + "}}</td></tr><tr><th>{{" + PARAM_Y2 + "}}</th><td>{{" + PARAM_P21 + "}}</td><td>{{" + PARAM_P22 + "}}</td><td>{{" + PARAM_P23 + "}}</td></tr></table> <br>" +
             "Знайти математичне сподівання, дисперсію та середньоквадратичне відхилення X і Y. Знайти умовний закон розподілу X і умовний закон розподілу Y. Знайти коваріацію, коефіцієнт корреляції.";
-    private static final String ANSWER_TEMPLATE = "<h2>1. Математичне сподівання M(X) :</h2>" +
+    private static final String ANSWER_TEMPLATE = "<h2> Математичне сподівання M(X) :</h2>" +
             "M(X) = {{" + PARAM_MX + "}}; <br>" +
             "Дисперсія D(X): <br>" +
             "D(X) = {{" + PARAM_DX + "}}; <br>" +
@@ -118,7 +118,7 @@ public class SystemTwo extends CalculatorImpl {
             "Умовна дисперсія D(Y/X = {{" + PARAM_X3 + "}}) <br>" +
             "D(Y/X = {{" + PARAM_X3 + "}}) = {{" + PARAM_DPYX3 + "}} <br>" +
 
-            "<h2>Коваріація: </h2><br>" +
+            "<h2>Коваріація: </h2> <br>" +
             "cov(X,Y) = M[X*Y] - M[X]*M[Y] = {{" + PARAM_COV + "}} <br>" +
             "Якщо випадкові величини незалежні, то їх коваріація рівна 0. <br>" +
             "Коефіцієнт корреляції: <br>" +

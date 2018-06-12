@@ -33,11 +33,9 @@ public class SelectiveMethod extends CalculatorImpl {
     private static final String PARAM_V = "v";
     private static final String PARAM_AS = "as";
 
-    private static final String QUESTION_TEMPLATE = "Дана вибірка кількості товарів проданої в магазині за 5 днів.<br>" +
-            "<table><tr><th>X<sub>i</sub></th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td><td>{{" + PARAM_X4 + "}}</td><td>{{" + PARAM_X5 + "}}</td></tr></table>" +
-            " Знайти: <br>" +
-            "вибіркове середнє, середнє лінійне відхилення, дисперсію, середньоквадратичне відхилення, коефіцієнт варіації та коефіцієнт асиметрії.";
-
+    private static final String QUESTION_TEMPLATE = "Дана вибірка кількості товарів проданої в магазині за 5 днів. Знайти: <br>" +
+            "вибіркове середнє, середнє лінійне відхилення, дисперсію, середньоквадратичне відхилення, коефіцієнт варіації та коефіцієнт асиметрії. <br>" +
+            "<table><tr><th>X<sub>i</sub></th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td><td>{{" + PARAM_X4 + "}}</td><td>{{" + PARAM_X5 + "}}</td></tr></table>";
 
     private static final String ANSWER_TEMPLATE = "Вибіркова середня : <br>" +
             "x<sub>сер.</sub> = {{" + PARAM_X_AVG + "}}; <br>" +
@@ -47,7 +45,7 @@ public class SelectiveMethod extends CalculatorImpl {
             "Дисперсія: <br>" +
             "D(X) = {{" + PARAM_D + "}} <br>" +
             "Середньоквадратичне відхилення  <br>" +
-            " σ(x)  = {{" + PARAM_SIGMA + "}} <br>" +
+            "σ(x)  = {{" + PARAM_SIGMA + "}} <br>" +
             "Коефіцієнт варіації: <br>" +
             "v = {{" + PARAM_V + "}} <br> " +
             "Коефіцієнт асиметрії: <br>" +

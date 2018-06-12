@@ -43,19 +43,19 @@ public class MathExp extends CalculatorImpl {
             "<tr><th>X<sub>i</sub></th><td>{{" + PARAM_X1 + "}}</td><td>{{" + PARAM_X2 + "}}</td><td>{{" + PARAM_X3 + "}}</td><td>{{" + PARAM_X4 + "}}</td></tr><tr><th>P<sub>i</sub></th><td>{{" + PARAM_P1 + "}}</td><td>{{" + PARAM_P2 + "}}</td><td>{{" + PARAM_P3 + "}}</td><td>{{" + PARAM_P4 + "}}</td></tr></table> <br>" +
             "Ймовірність, що випадкова величина Х набуде можливого значення в проміжку: <br>" +
             "не менше ніж {{" + PARAM_NOT_LESS + "}} і не більше ніж {{" + PARAM_NOT_MORE + "}} <br>" +
-            "Знайти матсподівання, дисперсію, середньоквадратичне відхилення та функцію розподілу.";
+            "Знайти математичне сподівання, дисперсію, середньоквадратичне відхилення та функцію розподілу.";
     private static final String ANSWER_TEMPLATE = "Математичне сподівання: <br>" +
             "M(X) = {{" + PARAM_M + "}}<br>" +
             "Дисперсія: <br>" +
             "D(X) = {{" + PARAM_D + "}} <br>" +
-            "Середньоквадратичне відхилення  <br>" +
-            " σ(x)  = {{" + PARAM_SIGMA + "}} <br>" +
+            "Середньоквадратичне відхилення: <br>" +
+            "σ(x)  = {{" + PARAM_SIGMA + "}} <br>" +
             "Функція розподілу : <br>" +
-            "F(x≤x<sub>1</sub>) = {{" + PARAM_F1 + "}}; <br>" +
-            "F(x<sub>1</sub>< x ≤x<sub>2</sub>) = {{" + PARAM_F2 + "}}; <br>" +
-            "F(x<sub>2</sub>< x ≤x<sub>3</sub>) = {{" + PARAM_F3 + "}}; <br>" +
-            "F(x<sub>3</sub>< x ≤x<sub>4</sub>) = {{" + PARAM_F4 + "}}; <br>" +
-            "F(x > x<sub>4</sub>) = {{" + PARAM_F5 + "}}. <br>" +
+            "F(x ≤ {{" + PARAM_X1 + "}}) = {{" + PARAM_F1 + "}}; <br>" +
+            "F({{" + PARAM_X1 + "}} < x ≤ {{" + PARAM_X2 + "}}) = {{" + PARAM_F2 + "}}; <br>" +
+            "F({{" + PARAM_X2 + "}} < x ≤ {{" + PARAM_X3 + "}}) = {{" + PARAM_F3 + "}}; <br>" +
+            "F({{" + PARAM_X3 + "}} < x ≤ {{" + PARAM_X4 + "}}) = {{" + PARAM_F4 + "}}; <br>" +
+            "F(x > {{" + PARAM_X4 + "}}) = {{" + PARAM_F5 + "}}. <br>" +
             "Ймовірність, що випадкова величина Х набуде модливого значення в заданому проміжку: <br>" +
             "P(a≤x≤b) = {{"+ PARAM_NOT_LESS_AND_NOT_MORE +"}}. <br> ";
 

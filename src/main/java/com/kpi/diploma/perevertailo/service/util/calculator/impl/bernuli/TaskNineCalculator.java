@@ -27,7 +27,7 @@ public class TaskNineCalculator extends CalculatorImpl {
             "ймовірність настання події А в кожному з них дорівнює p = {{" + PARAM_P + "}}. Знайти найімовірніше" +
             "число  настання події А та його ймовірність";
     private static final String ANSWER_TEMPLATE = "Найімовірніше чило m та його ймовірність:<br>" +
-            "m ={{" + PARAM_M + "}}, P(m) = {{" + PARAM_PM + "}}.";
+            "m = {{" + PARAM_M + "}}, P(m) = {{" + PARAM_PM + "}}.";
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + " (округлити максимум до 3го знаку)";
 
     public TaskNineCalculator() {

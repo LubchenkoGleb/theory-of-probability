@@ -37,8 +37,8 @@ public class FormulaLaplassa extends CalculatorImpl {
     private static final String PARAM_EXACTLY_ONERES = "exactlyOneRes";
 
 
-    private static final String QUESTION_TEMPLATE = "Подія може наступити = {{" + PARAM_N + "}} " +
-            "разів. Ймовірність, що ця подія відбудеться = {{" + PARAM_P + "}}. Використовуючи формулу Лапласса знайти ймоаврність, що подія: <br>" +
+    private static final String QUESTION_TEMPLATE = "Подія може наступити {{" + PARAM_N + "}} " +
+            "разів. Ймовірність, що ця подія відбудеться {{" + PARAM_P + "}}. Використовуючи формулу Лапласса знайти ймоаврність, що подія: <br>" +
             "1) наступить {{" + PARAM_EQ + "}} разів; <br>" +
             "2) менше {{" + PARAM_LESS + "}} разів; <br>" +
             "3) не менш ніж {{" + PARAM_NOT_LESS + "}} разів; <br>" +
@@ -48,7 +48,7 @@ public class FormulaLaplassa extends CalculatorImpl {
             "7) хоча б один раз.";
     private static final String ANSWER_TEMPLATE = "Ймвірність того що подія настане задану кількість разів:<br>" +
             "1) P(x = {{" + PARAM_EQ + "}}) = {{" + PARAM_EQRES + "}} <br>" +
-            "2) P (x < {{"+ PARAM_MORE+"}}) = {{" + PARAM_LESSRES + "}} <br>" +
+            "2) P(x < {{"+ PARAM_MORE+"}}) = {{" + PARAM_LESSRES + "}} <br>" +
             "3) P({{"+ PARAM_NOT_LESS +"}} ≤ x) = {{" + PARAM_NOT_LESSRES + "}} <br>" +
             "4) P(x > {{"+ PARAM_MORE+"}}) = {{" + PARAM_MORES + "}} <br>" +
             "5) P(x ≤ {{"+ PARAM_NOT_MORE +"}}) = {{" + PARAM_NOT_MORERES + "}} <br>" +
