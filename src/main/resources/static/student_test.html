@@ -61,7 +61,7 @@
             width: 23%;
             height: 100%;
             float: left;
-            background-color: rosybrown;
+            background-color: #d4d3ff;
             border-collapse: collapse;
         }
 
@@ -71,7 +71,7 @@
             width: 48%;
             height: 100%;
             float: left;
-            background-color: royalblue;
+            background-color: #d4d3ff;
             border-collapse: collapse;
         }
 
@@ -82,7 +82,7 @@
             height: 100%;
             position: relative;
             float: right;
-            background-color: yellow;
+            background-color: #d4d3ff;
             border-collapse: collapse;
         }
     </style>
@@ -146,7 +146,7 @@
                     $('#pending-tests').replaceWith(`<div id="pending-tests">
                          <h2>Результат: ${resultPercent}</h2>
                          ${failedQuestions && failedQuestions.length && `<p>Incorrect answers: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
-                         <a href="${map[testIdThemeMap[activeTest.test.id]]}">Завантажиты лекцію</button>
+                         <a href="${map[testIdThemeMap[activeTest.test.id]]}">Завантажити лекцію</button>
                       </div>`);
                 },
                 error: function (data) {
