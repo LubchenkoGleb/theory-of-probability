@@ -145,7 +145,7 @@
                 success: function ({resultPercent, failedQuestions}) {
                     $('#pending-tests').replaceWith(`<div id="pending-tests">
                          <h2>Результат: ${resultPercent}</h2>
-                         ${failedQuestions && failedQuestions.length && `<p>Відповідь не вірна: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
+                         ${failedQuestions && failedQuestions.length && `<p>Ви помилилися у наступних питаннях: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
                         <p> <a href="${map[testIdThemeMap[activeTest.test.id]]}"><h2> ВІДКРИТИ ЛЕКЦІЮ </h2></button> </p>
                       </div>`);
                 },
