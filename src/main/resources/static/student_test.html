@@ -145,8 +145,8 @@
                 success: function ({resultPercent, failedQuestions}) {
                     $('#pending-tests').replaceWith(`<div id="pending-tests">
                          <h2>Результат: ${resultPercent}</h2>
-                         ${failedQuestions && failedQuestions.length && `<p>Incorrect answers: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
-                         <a href="${map[testIdThemeMap[activeTest.test.id]]}">Завантажити лекцію</button>
+                         ${failedQuestions && failedQuestions.length && `<p>Відповідь не вірна: </p>${failedQuestions.map((name) => (`<ul><li>${name}</li></ul>`))}`}
+                        <p> <a href="${map[testIdThemeMap[activeTest.test.id]]}"><h2> ВІДКРИТИ ЛЕКЦІЮ </h2></button> </p>
                       </div>`);
                 },
                 error: function (data) {
@@ -183,7 +183,7 @@
                     `
                 });
                 $('#testName').text(test.test.name);
-                $('#pending-tests').replaceWith(`<div id="pending-tests">${questionsBlock.join('<hr>')}<button id="submit" type="submit">Submit</button></div>`);
+                $('#pending-tests').replaceWith(`<div id="pending-tests">${questionsBlock.join('<hr>')}<button id="submit" type="submit" class = "rec_button">Підтвердити</button></div>`);
 
             });
         }

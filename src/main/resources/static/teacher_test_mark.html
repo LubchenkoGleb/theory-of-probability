@@ -62,13 +62,14 @@
         </ul>
     </nav>
 </div>
-<div class="left">
+<div class = "container">
+<div class="leftpane1">
     <h2>Список груп</h2>
     <div id="group-block">
         <div id="groups">Loading ...</div>
     </div>
 </div>
-<div class="right">
+<div class="rightpane1">
     <div id="task-form">
         <li id="tasks">
 
@@ -80,6 +81,35 @@
         </div>
     </div>
 </div>
+</div>
+<style>
+    .container {
+        padding: 2%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .leftpane1 {
+        margin: 1%;
+        padding: 3%;
+        width: 48%;
+        height: 100%;
+        float: left;
+        background-color: #d4d3ff;
+        border-collapse: collapse;
+    }
+
+    .rightpane1 {
+        margin: 1%;
+        padding: 3%;
+        width: 48%;
+        height: 100%;
+        position: relative;
+        float: right;
+        background-color: #d4d3ff;
+        border-collapse: collapse;
+    }
+</style>
 <script>
     let activeGroup = null;
 
