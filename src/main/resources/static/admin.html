@@ -42,6 +42,36 @@
 
 </header>
 <body>
+<style>
+    .container {
+        padding: 2%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .leftGr {
+        margin: 1%;
+        padding: 3%;
+        width: 26%;
+        height: 100%;
+        float: left;
+        background-color: #d4d3ff;
+        border-collapse: collapse;
+    }
+
+
+    .rightGr {
+        margin: 1%;
+        padding: 3%;
+        width: 70%;
+        height: 100%;
+        position: relative;
+        float: right;
+        background-color: #d4d3ff;
+        border-collapse: collapse;
+    }
+</style>
+
 <div class="menu-bottom">
     <nav>
     <ul class="topmenu">
@@ -53,14 +83,14 @@
     </nav>
 </div>
 
-<div class="section">
+<div class="container">
     <div class="leftGr">
         <ul id="groups"></ul>
         <input id="newGroupName" class="inpGr"/>
         <br>
         <button id="addGroupButton" class="rec_button">Додати групу</button>
     </div>
-    <div class="right">
+    <div class="rightGr">
         <div class="rb">
             <h2>Обрати викладача для групи</h2>
         </div>
