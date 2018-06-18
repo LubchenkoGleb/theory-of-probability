@@ -44,8 +44,8 @@ public class Batler extends CalculatorImpl {
             "F<sub>крит.</sub>(0.05, 2) = 6 <br> " +
             "V = {{" + PARAM_V + "}} <br> " +
             "C = {{" + PARAM_C + "}} <br>" +
-            "F<sub>набл.</sub> = {{" + PARAM_F_NABL + "}} <br>" +
-            "Якщо. Fнабл > Fкр - відкидаємо нульову гіпотезу.";
+            "F<sub>експ.</sub> = {{" + PARAM_F_NABL + "}} <br>" +
+            "Fексп. < Fкр. - приймаємо нульову гіпотезу.";
 
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";

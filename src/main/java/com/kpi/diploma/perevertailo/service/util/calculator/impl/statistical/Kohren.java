@@ -36,8 +36,8 @@ public class Kohren extends CalculatorImpl {
     private static final String ANSWER_TEMPLATE = "  Число ступенів свободи: <br>" +
             "k = {{" + PARAM_K + "}}; <br> " +
             "G<sub>крит.</sub>(0.05, {{" + PARAM_K + "}}) = {{" + PARAM_GKR + "}}  <br> : <br>" +
-            "G<sub>набл.</sub> = {{" + PARAM_G_NABL + "}} <br>" +
-            "Якщо Gнабл > Gкр - відкидаємо нульову гіпотезу.";
+            "G<sub>експ.</sub> = {{" + PARAM_G_NABL + "}} <br>" +
+            " Gексп. < Gкр. - не маємо підстав відкидати нульову гіпотезу.";
 
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";

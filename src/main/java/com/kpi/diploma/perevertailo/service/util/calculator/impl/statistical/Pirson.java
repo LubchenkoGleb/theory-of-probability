@@ -89,10 +89,11 @@ public class Pirson extends CalculatorImpl {
             "<tr><td>{{" + PARAM_N3 + "}}</td><td>{{" + PARAM_N31 + "}}</td><td>{{" + PARAM_N32 + "}}</td></tr>" +
             "<tr><td>{{" + PARAM_N4 + "}}</td><td>{{" + PARAM_N41 + "}}</td><td>{{" + PARAM_N42 + "}}</td></tr>" +
             "<tr><td>{{" + PARAM_N5 + "}}</td><td>{{" + PARAM_N51 + "}}</td><td>{{" + PARAM_N52 + "}}</td></tr></table> <br>" +
-            "X<sup>2</sup><sub>набл.</sub> = {{" + PARAM_H_NABL + "}} <br>" +
+            "X<sup>2</sup><sub>експ.</sub> = {{" + PARAM_H_NABL + "}} <br>" +
             "Число ступенів свободи :<br>" +
             "k = 5 - 3 = 2 <br>" +
-            "X<sup>2</sup><sub>крит.</sub> = {{" + PARAM_H_CR + "}} <br>";
+            "X<sup>2</sup><sub>крит.</sub> = {{" + PARAM_H_CR + "}} <br>" +
+            "X<sup>2</sup><sub>експ.</sub> < X<sup>2</sup><sub>крит.</sub>, не маємо підстав відкинути гіпотезу.";
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";
 

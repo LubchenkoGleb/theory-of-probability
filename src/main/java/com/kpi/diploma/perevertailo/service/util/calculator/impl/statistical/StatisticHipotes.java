@@ -35,12 +35,12 @@ public class StatisticHipotes extends CalculatorImpl {
             "При рівні значущості а= 0.05, перевірити нульову гіпотезу H<sub>0</sub>: D(X)=D(Y); H<sub>1</sub>: D(X) не дорівнює D(Y). ";
 
     private static final String ANSWER_TEMPLATE = "Значення критерію Фішера : <br>" +
-            "F<sub>набл.</sub> = {{" + PARAM_F + "}}; <br>" +
+            "F<sub>експ.</sub> = {{" + PARAM_F + "}}; <br>" +
             "Числа ступенів свободи: <br>" +
             "f<sub>1</sub> = {{" + PARAM_F1 + "}}; <br> " +
             "f<sub>2</sub> = {{" + PARAM_F2 + "}}; <br> " +
             "F<sub>крит.</sub> = {{" + PARAM_FKR + "}} <br> " +
-            "Нульова гіпотеза приймається, якщо  Fексп. < Fкр.";
+            "Нульова гіпотеза приймається,  Fексп. < Fкр.";
 
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";
