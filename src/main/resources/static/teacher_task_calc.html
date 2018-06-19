@@ -100,7 +100,7 @@
             const questionsExists = `${questions.map(({name, question}) => (
                 `<div id="${name}">
                     ${matchStringToQuestion(question)}
-                    <button id="submit" type="submit" style="width: 40px; height: 20px; ">Зберегти</button>
+                    <button id="submit" type="submit" style="height: 20px;" class="rec_button">Зберегти</button>
                     <p></p><hr><br><br>
                 </div>`)).join("")}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
