@@ -63,7 +63,7 @@ public class Pirson extends CalculatorImpl {
     private static final String PARAM_H_NABL = "hnabl";
     private static final String PARAM_H_CR = "hcr";
 
-    private static final String QUESTION_TEMPLATE = "Використовуючи критерій Пірсона при рівні значущості 0,05 перевірити чи узгоджується гіпотеза про нормальний розподіл" +
+    private static final String QUESTION_TEMPLATE = "Використовуючи критерій Пірсона при рівні значущості 0,05 перевірити чи узгоджується гіпотеза про нормальний розподіл <br>" +
             "генеральної сукупності Х з емпіричним розподілом вибірки :  <br>" +
             "<table>" +
             "<tr><th>X<sub>i</sub></th>" +

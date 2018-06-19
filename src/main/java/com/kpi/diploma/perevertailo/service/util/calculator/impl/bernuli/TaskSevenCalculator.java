@@ -22,8 +22,8 @@ public class TaskSevenCalculator  extends CalculatorImpl {
     private static final String PARAM_K = "k";
     private static final String PARAM_PA = "pa";
     private static final String PARAM_C = "c";
-    private static final String QUESTION_TEMPLATE = "В сім'ї n =  {{" + PARAM_N + "}} дітей." +
-            "Ймовірність народження хлопчика p = {{" + PARAM_P + "}}. Знайти ймовірність, що в сім'ї буде рівно " +
+    private static final String QUESTION_TEMPLATE = "В сім'ї n =  {{" + PARAM_N + "}} дітей.<br>" +
+            "Ймовірність народження хлопчика p = {{" + PARAM_P + "}}. <br> Знайти ймовірність, що в сім'ї буде рівно " +
             "k = {{" + PARAM_K +"}} хлопчиків.";
     private static final String ANSWER_TEMPLATE = "P = {{" + PARAM_PA +"}}.";
     private static final String QUESTION_TO_STUDENT = "В сім'ї n =  {{" + PARAM_N + "}} дітей. Ймовірність народження хлопчика p = {{" + PARAM_P + "}}. Знайти ймовірність, що в сім'ї буде рівно k = {{" + PARAM_K +"}} хлопчиків. (округлити максимум до другого знаку)";

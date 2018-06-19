@@ -51,7 +51,7 @@ public class Kolmagorov extends CalculatorImpl {
             "<tr><td>{{" + PARAM_F15 + "}}</td><td>{{" + PARAM_F25 + "}}</td><td>{{" + PARAM_F15_1 + "}}</td><td>{{" + PARAM_F25_1 + "}}</td><td>{{" + PARAM_F15_SUM + "}}</td><td>{{" + PARAM_F25_SUM + "}}</td><td>{{" + PARAM_F5 + "}}</td></tr>" +
             "</table> <br>" +
             "λ<sub>эмп.</sub> = {{" + PARAM_L + "}} <br>" +
-            "λ<sub>крит.</sub> = 1.36" +
+            "λ<sub>крит.</sub> = 1.36 <br>" +
             "λ<sub>эмп.</sub> < λ<sub>крит.</sub>, нульова гіпотеза відкидається.  ";
 
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE + "(округлити максимум до другого знаку)";

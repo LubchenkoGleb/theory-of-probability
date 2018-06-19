@@ -40,7 +40,7 @@ public class PuassonFormula extends CalculatorImpl {
     private static final String PARAM_NOT_LESS_AND_NOT_MORE = "notLessAndNotMore";
 
 
-    private static final String QUESTION_TEMPLATE = "Число випробувань: n = {{" + PARAM_N + "}}, ймовірність p = {{" + PARAM_P + "}}." +
+    private static final String QUESTION_TEMPLATE = "Число випробувань: n = {{" + PARAM_N + "}}, ймовірність p = {{" + PARAM_P + "}}. <br>" +
             "Використовуючи формулу Пуассона знайти йомвірність того що подія настане:<br>" +
             "1) настане рівно {{" + PARAM_EQ + "}} разів<br>" +
             "2) менше {{" + PARAM_LESS + "}} разів<br>" +

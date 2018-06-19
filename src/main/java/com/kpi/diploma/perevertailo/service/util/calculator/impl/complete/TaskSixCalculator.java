@@ -25,7 +25,7 @@ public class TaskSixCalculator extends CalculatorImpl {
     private static final String PARAM_PHAONE = "pao";
     private static final String PARAM_PHATWO = "pat";
     private static final String QUESTION_TEMPLATE = "На заводі випускають деталі двох типів, {{" + PARAM_PHONE + "}}" +
-            " - кількість деталей першого типу, {{" + PARAM_PHTWO + "}} - кількість деталей другого типу. Ймовірність, що навмання" +
+            " - кількість деталей першого типу, <br> {{" + PARAM_PHTWO + "}} - кількість деталей другого типу. Ймовірність, що навмання" +
             "взята деталь першого типу буде стандартна P(A|H<sub>1</sub>) = {{" + PARAM_PAHONE + "}}, другого типу буде стандартна P(A|H<sub>2</sub>) = {{" + PARAM_PAHTWO + "}} <br>." +
             "Знайти ймовірність, що: <br> 1)взята навмання деталь буде стандартною першого типу; <br>" +
             "2)взята навмання деталь буде стандартною другого типу. ";

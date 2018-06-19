@@ -31,7 +31,8 @@ public class TaskEightCalculator extends CalculatorImpl {
     private static final String QUESTION_TEMPLATE = "Два рівносильних шахматиста грають в шахи. Що більш ймовірно:" +
             "виграти k<sub>1</sub> ={{" + PARAM_K1 + "}} партій з  n<sub>1</sub>={{" + PARAM_N1 + "}} або " +
             "k<sub>2</sub> = {{" + PARAM_K2 + "}} партій з  n<sub>2</sub> = {{" + PARAM_N2 + "}} ?";
-    private static final String ANSWER_TEMPLATE = "P<sub>1</sub> = {{" + PARAM_P1 +"}}, P<sub>2</sub> = {{" + PARAM_P2 + "}}";
+    private static final String ANSWER_TEMPLATE = "P<sub>1</sub> = {{" + PARAM_P1 +"}}, P<sub>2</sub> = {{" + PARAM_P2 + "}} <br>" +
+            " P<sub>2</sub> > P<sub>1</sub>, більш ймовірно виграти 3 партії з 4. ";
     private static final String QUESTION_TO_STUDENT = QUESTION_TEMPLATE;
 
 

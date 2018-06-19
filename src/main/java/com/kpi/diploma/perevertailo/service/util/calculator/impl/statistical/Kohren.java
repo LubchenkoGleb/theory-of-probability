@@ -35,7 +35,7 @@ public class Kohren extends CalculatorImpl {
 
     private static final String ANSWER_TEMPLATE = "  Число ступенів свободи: <br>" +
             "k = {{" + PARAM_K + "}}; <br> " +
-            "G<sub>крит.</sub>(0.05, {{" + PARAM_K + "}}) = {{" + PARAM_GKR + "}}  <br> : <br>" +
+            "G<sub>крит.</sub>(0.05, {{" + PARAM_K + "}}) = {{" + PARAM_GKR + "}}  <br> " +
             "G<sub>експ.</sub> = {{" + PARAM_G_NABL + "}} <br>" +
             " Gексп. < Gкр. - не маємо підстав відкидати нульову гіпотезу.";
 
