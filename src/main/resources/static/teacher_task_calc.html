@@ -123,7 +123,8 @@
             },
             async: false,
             success: function ({answer}) {
-                $(`#${parentNode.id} > button`).replaceWith(`<h4>Відповідь: <br> ${answer}</h4>`);
+                $(`#${parentNode.id} > button`).replaceWith(`<div style ="background-color: #ededed; padding: 5px;"><h4>Відповідь: <br> ${answer}</h4></div>
+`);
             },
             error: function (data) {
                 console.log('error=' + JSON.stringify(data));
