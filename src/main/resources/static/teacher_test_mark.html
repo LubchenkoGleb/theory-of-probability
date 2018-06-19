@@ -71,7 +71,7 @@
 </div>
 <div class="rightpane1">
     <div id="task-form">
-        <li id="tasks" style="margin: 15px;">
+        <li id="tasks" style="margin: 15px; padding: 15px;">
 
         </li>
         <div>
@@ -90,6 +90,7 @@
     }
 
     .leftpane1 {
+        font-size: medium;
         margin: 1%;
         padding: 3%;
         width: 48%;
@@ -101,6 +102,7 @@
 
     .rightpane1 {
         margin: 1%;
+        font-size: medium;
         padding: 3%;
         width: 48%;
         height: 100%;
@@ -132,7 +134,7 @@
         if (!reservedTests.length || !reservedTests.every(value => value)) {
             reservedTests = [];
         } else {
-            reservedTests.forEach(({test: {id, name}}) => $('li[id="tasks"]').append(`<ul id="${id}">${name} <button id="${id}">Delete</button></ul>`))
+            reservedTests.forEach(({test: {id, name}}) => $('li[id="tasks"]').append(`<ul id="${id}">${name} <button id="${id}" class="rec_button">Видалити</button></ul>`))
         }
     };
 

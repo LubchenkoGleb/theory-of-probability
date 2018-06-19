@@ -70,7 +70,7 @@
     </div>
 </div>
 <div class="right" style="position: absolute; margin-left: 500px; width: 300px;">
-    <div id="task-form" style="background: #c5c5c5; padding: 30px; width: 950px; border: 1px solid black;">
+    <div id="task-form" style="background: #d4d3ff; padding: 30px; width: 950px; border: 1px solid black;">
         <div id="questions"></div>
     </div>
 </div>
@@ -102,7 +102,7 @@
             let questionsExists = `${questions.map(({test}) => (
                 `<div id="${test.id}">
                     <p><b>Назва:</b> ${test.name}</p>
-                    <button type="delete">Видалити тест</button>
+                    <button type="delete" class="rec_buttonl;">Видалити тест</button>
                     <p></p><hr><br>
                 </div>`)).join("")}`;
             const nextTemplate = !questions.length ? `<div id="questions">${noQuestions}</div>` : `<div id="questions">${questionsExists}</div>`;
